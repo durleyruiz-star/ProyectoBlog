@@ -1112,6 +1112,72 @@
                 width: 100% !important;
             }
         }
+
+        /* Botón de cierre para el modo pantalla completa */
+        .game-close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--color-cyan, #00f5d4);
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: none; /* Oculto en modo embebido */
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 100000;
+            line-height: 1;
+            padding: 0;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        }
+        
+        .game-close-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+            color: #ffffff;
+            box-shadow: 0 0 15px rgba(0, 245, 212, 0.4);
+        }
+
+        /* Estilos del modo Pantalla Completa Immersivo */
+        .game-embed-container.fullscreen-active {
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100vw !important;
+            height: 100vh !important;
+            max-width: 100vw !important;
+            max-height: 100vh !important;
+            margin: 0 !important;
+            border-radius: 0 !important;
+            z-index: 99999 !important;
+            background: radial-gradient(circle at center, #0f1335 0%, #060814 100%) !important;
+            padding: 40px !important;
+            box-sizing: border-box !important;
+            display: flex !important;
+            flex-direction: column !important;
+            align-items: center !important;
+            justify-content: center !important;
+            overflow-y: auto !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+        }
+
+        .game-embed-container.fullscreen-active .game-close-btn {
+            display: flex;
+            position: fixed;
+        }
+
+        .game-embed-container.fullscreen-active .screen {
+            width: 100% !important;
+            max-width: 1200px !important;
+            height: auto !important;
+            margin: 0 auto !important;
+        }
     </style>
 </head>
 <body>
@@ -1152,6 +1218,8 @@
                 </div>
                 <span>•</span>
                 <span>Modelos E-Learning</span>
+                <span>•</span>
+                <a href="#" id="open-references-btn" style="color: var(--neon-cyan); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">📚 Referencias</a>
             </div>
         </article>
 
@@ -1176,7 +1244,8 @@
             <p>Cuentas con 3 comodines (50:50, Llamada al Amigo, Consulta al Público), seguros de avance y un tiempo límite por pregunta. ¿Serás capaz de alcanzar la cima teórica y ganar el millón virtual?</p>
 
             <!-- WIDGET ARCADE DEL JUEGO -->
-            <div class="game-embed-container">
+            <div class="game-embed-container" id="game-container">
+                <button class="game-close-btn" id="game-close-btn" aria-label="Salir de pantalla completa" onclick="exitFullscreenGame()">&times;</button>
                 <main id="start-screen" class="screen active">
         <div class="logo-container">
             <div class="logo-ring">
@@ -1307,9 +1376,10 @@
         <div class="glass-card modal-content">
             <button class="modal-close-btn" onclick="closeModal()">✕</button>
             <h2 id="modal-title" class="modal-title">
-                <svg viewBox="0 0 24 24">
-                    <path
-                        d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2-2 0-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z" />
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
                 </svg>
                 Título del Comodín
             </h2>
@@ -1365,6 +1435,24 @@
     <div class="lightbox-modal" id="lightbox-modal">
         <button class="lightbox-modal-close" id="lightbox-close" aria-label="Cerrar visualizador">&times;</button>
         <img class="lightbox-modal-content" id="lightbox-modal-img" src="" alt="Cuadro Comparativo en Pantalla Completa">
+    </div>
+
+    <!-- MODAL DE REFERENCIAS BIBLIOGRÁFICAS -->
+    <div class="ref-modal" id="ref-modal">
+        <div class="ref-modal-content">
+            <button class="ref-modal-close" id="ref-close" aria-label="Cerrar referencias">&times;</button>
+            <h3 class="ref-modal-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                Referencias Bibliográficas
+            </h3>
+            <ul class="ref-modal-list">
+                <li><strong>Area Moreira, M., & Adell Segura, J. (2009).</strong> e-Learning: Enseñar y aprender en espacios virtuales. En J. De Pablos (Coord.), <em>Tecnología Educativa. La formación del profesorado en la era de Internet</em> (pp. 391-424). Aljibe.</li>
+                <li><strong>Calle Álvarez, G. Y. (2014).</strong> Las habilidades del pensamiento crítico durante la escritura digital en un ambiente de aprendizaje apoyado por herramientas de la web 2.0. <em>Revista Encuentros</em>, 12(1), 27-45.</li>
+                <li><strong>Rodríguez-Gómez, D., & Gairín Sallán, J. (2015).</strong> Innovación, aprendizaje organizativo y gestión del conocimiento en las instituciones educativas. <em>Educación</em>, 24(46), 73-90.</li>
+                <li><strong>Salinas Ibáñez, J. (Coord.). (2008).</strong> <em>Innovación educativa y uso de las TIC</em>. Universidad Internacional de Andalucía.</li>
+                <li><strong>Velazco-González, J. G., & Méndez-Hernández, A. Z. (2019).</strong> Innovación educativa. <em>Revista Mexicana de Anestesiología</em>, 42(Supl. 1), S213-S215.</li>
+            </ul>
+        </div>
     </div>
 
     <!-- PIE DE PÁGINA -->
@@ -1442,6 +1530,60 @@
                 navbar.classList.remove('scrolled');
             }
         });
+
+        // Funciones para el modo pantalla completa del juego
+        function enterFullscreenGame() {
+            const container = document.getElementById('game-container');
+            if (container) {
+                container.classList.add('fullscreen-active');
+                document.body.style.overflow = 'hidden'; // Bloquear scroll de fondo
+            }
+        }
+
+        function exitFullscreenGame() {
+            const container = document.getElementById('game-container');
+            if (container) {
+                container.classList.remove('fullscreen-active');
+                document.body.style.overflow = ''; // Restaurar scroll
+            }
+        }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                exitFullscreenGame();
+            }
+        });
+
+        // Lógica del modal de referencias
+        const refBtn = document.getElementById('open-references-btn');
+        const refModal = document.getElementById('ref-modal');
+        const refClose = document.getElementById('ref-close');
+
+        if (refBtn && refModal && refClose) {
+            refBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                refModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            const closeRef = () => {
+                refModal.classList.remove('active');
+                document.body.style.overflow = '';
+            };
+
+            refClose.addEventListener('click', closeRef);
+            refModal.addEventListener('click', (e) => {
+                if (e.target === refModal) {
+                    closeRef();
+                }
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && refModal.classList.contains('active')) {
+                    closeRef();
+                }
+            });
+        }
     </script>
 
     <!-- MOTOR LÓGICO DEL JUEGO -->
@@ -1901,6 +2043,9 @@
         }
 
         function startGame() {
+            if (typeof enterFullscreenGame === 'function') {
+                enterFullscreenGame();
+            }
             sounds.init();
             currentQuestionIdx = 0;
             lifelines = { "5050": true, "llamada": true, "publico": true };

@@ -47,6 +47,8 @@
                 </div>
                 <span>•</span>
                 <span>Dimensión de Interacción</span>
+                <span>•</span>
+                <a href="#" id="open-references-btn" style="color: var(--neon-cyan); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">📚 Referencias</a>
             </div>
         </article>
 
@@ -100,6 +102,25 @@
         </section>
     </main>
 
+    <!-- MODAL DE REFERENCIAS BIBLIOGRÁFICAS -->
+    <div class="ref-modal" id="ref-modal">
+        <div class="ref-modal-content">
+            <button class="ref-modal-close" id="ref-close" aria-label="Cerrar referencias">&times;</button>
+            <h3 class="ref-modal-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                Referencias Bibliográficas
+            </h3>
+            <ul class="ref-modal-list">
+                <li><strong>CBeebies. (s.f.).</strong> <em>Hey Duggee: Jam Badge</em> [Juego interactivo]. BBC. <a href="https://www.cbeebies.com/play/hey-duggee-jam-badge/" target="_blank">https://www.cbeebies.com/play/hey-duggee-jam-badge/</a></li>
+                <li><strong>Educaplay. (s.f.).</strong> <em>Frutas y colores en inglés</em> [Actividad interactiva]. <a href="https://es.educaplay.com/recursos-educativos/28838663-frutas_y_colores_en_ingles.html" target="_blank">https://es.educaplay.com/recursos-educativos/28838663-frutas_y_colores_en_ingles.html</a></li>
+                <li><strong>Google Workspace. (s.f.).</strong> <em>Recursos didácticos interactivos: Google Drive y Google Forms</em> [Formularios y documentos de soporte didáctico].</li>
+                <li><strong>Kahoot!. (s.f.).</strong> <em>The Fruits</em> [Cuestionario interactivo]. <a href="https://create.kahoot.it/share/the-fruits/66e722dc-5875-4891-b515-fd46aaf802ee" target="_blank">https://create.kahoot.it/share/the-fruits/66e722dc-5875-4891-b515-fd46aaf802ee</a></li>
+                <li><strong>Wordwall. (s.f.).</strong> <em>Fruits: This/That</em> [Actividades interactivas de vocabulario]. <a href="https://wordwall.net/resource/112844230/fruits" target="_blank">https://wordwall.net/resource/112844230/fruits</a></li>
+                <li><strong>YouTube. (s.f.).</strong> <em>Material audiovisual de soporte didáctico</em>. <a href="https://www.youtube.com/watch?v=SLZcWGQQsmg" target="_blank">https://www.youtube.com/watch?v=SLZcWGQQsmg</a></li>
+            </ul>
+        </div>
+    </div>
+
     <!-- PIE DE PÁGINA -->
     <footer class="footer">
         <div class="footer-content">
@@ -142,6 +163,37 @@
                 navbar.classList.remove('scrolled');
             }
         });
+
+        // Lógica del modal de referencias
+        const refBtn = document.getElementById('open-references-btn');
+        const refModal = document.getElementById('ref-modal');
+        const refClose = document.getElementById('ref-close');
+
+        if (refBtn && refModal && refClose) {
+            refBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                refModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            const closeRef = () => {
+                refModal.classList.remove('active');
+                document.body.style.overflow = '';
+            };
+
+            refClose.addEventListener('click', closeRef);
+            refModal.addEventListener('click', (e) => {
+                if (e.target === refModal) {
+                    closeRef();
+                }
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && refModal.classList.contains('active')) {
+                    closeRef();
+                }
+            });
+        }
     </script>
 </body>
 

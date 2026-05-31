@@ -47,6 +47,8 @@
                 </div>
                 <span>•</span>
                 <span>Dimensión de Interacción</span>
+                <span>•</span>
+                <a href="#" id="open-references-btn" style="color: var(--neon-cyan); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">📚 Referencias</a>
             </div>
         </article>
 
@@ -88,16 +90,7 @@
 
             <p>Por lo tanto, la tan ansiada transformación pedagógica o el lema de <em>"romper las paredes de la escuela"</em> (Paredes & Sanabria, 2015) no es un mero discurso de innovación abstracta, sino un reto real y logístico que exige cerrar las persistentes brechas de conectividad del país y capacitar sistemáticamente a la comunidad docente en nuevas competencias y saberes digitales prácticos.</p>
 
-            <!-- TABLA/REFERENCIAS BIBLIOGRÁFICAS -->
-            <div class="references-box">
-                <h3>Referencias Bibliográficas</h3>
-                <ul class="references-list">
-                    <li><strong>Area, M. & Adell, J. (2009).</strong> <em>e-Learning: Enseñar y Aprender en Espacios Virtuales.</em> Tecnología Educativa: La formación del profesorado en la era de Internet. Aljibe, Málaga, págs. 391-424.</li>
-                    <li><strong>Charry, A. & Galeano, G. (s.f.).</strong> <em>Ambientes de Aprendizaje para el desarrollo humano.</em> Alcaldía Mayor de Bogotá, Secretaría de Educación del Distrito.</li>
-                    <li><strong>Ospina, H. F. (1999).</strong> <em>Educar, el desafío de hoy: construyendo posibilidades y alternativas.</em> Santa Fe de Bogotá: Cooperativa Editorial Magisterio.</li>
-                    <li><strong>Paredes, J. D. & Sanabria, W. M. (2015).</strong> <em>Ambientes de aprendizaje o ambientes educativos: Una reflexión ineludible.</em> Revista de Investigaciones UCM, 15(25), 144-158.</li>
-                </ul>
-            </div>
+
         </section>
 
         <!-- SECCIÓN DE COMENTARIOS DE CUSDIS -->
@@ -116,6 +109,23 @@
             <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
         </section>
     </main>
+
+    <!-- MODAL DE REFERENCIAS BIBLIOGRÁFICAS -->
+    <div class="ref-modal" id="ref-modal">
+        <div class="ref-modal-content">
+            <button class="ref-modal-close" id="ref-close" aria-label="Cerrar referencias">&times;</button>
+            <h3 class="ref-modal-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                Referencias Bibliográficas
+            </h3>
+            <ul class="ref-modal-list">
+                <li><strong>Area, M., & Adell, J. (2009).</strong> e-Learning: Enseñar y aprender en espacios virtuales. En J. De Pablos (Coord.), <em>Tecnología Educativa. La formación del profesorado en la era de Internet</em> (pp. 391-424). Aljibe.</li>
+                <li><strong>Charry, A., & Galeano, G. (s.f.).</strong> <em>Ambientes de Aprendizaje para el desarrollo humano</em>. Alcaldía Mayor, Secretaría de Educación del Distrito de Bogotá.</li>
+                <li><strong>Ospina, H. F. (1999).</strong> <em>Educar, el desafío de hoy: construyendo posibilidades y alternativas</em>. Cooperativa Editorial Magisterio.</li>
+                <li><strong>Paredes Daza, J. D., & Sanabria Landazábal, W. M. (2015).</strong> Ambientes de aprendizaje o ambientes educativos: Una reflexión ineludible. <em>Revista de Investigaciones UCM</em>, 15(25), 144-158. https://doi.org/10.22383/ri.v15i1.39</li>
+            </ul>
+        </div>
+    </div>
 
     <!-- PIE DE PÁGINA -->
     <footer class="footer">
@@ -159,6 +169,37 @@
                 navbar.classList.remove('scrolled');
             }
         });
+
+        // Lógica del modal de referencias
+        const refBtn = document.getElementById('open-references-btn');
+        const refModal = document.getElementById('ref-modal');
+        const refClose = document.getElementById('ref-close');
+
+        if (refBtn && refModal && refClose) {
+            refBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                refModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            const closeRef = () => {
+                refModal.classList.remove('active');
+                document.body.style.overflow = '';
+            };
+
+            refClose.addEventListener('click', closeRef);
+            refModal.addEventListener('click', (e) => {
+                if (e.target === refModal) {
+                    closeRef();
+                }
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && refModal.classList.contains('active')) {
+                    closeRef();
+                }
+            });
+        }
     </script>
 </body>
 

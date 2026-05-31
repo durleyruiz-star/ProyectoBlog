@@ -47,6 +47,8 @@
                 </div>
                 <span>•</span>
                 <span>Gestión del Conocimiento</span>
+                <span>•</span>
+                <a href="#" id="open-references-btn" style="color: var(--neon-cyan); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">📚 Referencias</a>
             </div>
         </article>
 
@@ -94,6 +96,24 @@
             <script async defer src="https://cusdis.com/js/cusdis.es.js"></script>
         </section>
     </main>
+
+    <!-- MODAL DE REFERENCIAS BIBLIOGRÁFICAS -->
+    <div class="ref-modal" id="ref-modal">
+        <div class="ref-modal-content">
+            <button class="ref-modal-close" id="ref-close" aria-label="Cerrar referencias">&times;</button>
+            <h3 class="ref-modal-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                Referencias Bibliográficas
+            </h3>
+            <ul class="ref-modal-list">
+                <li><strong>Area Moreira, M., & Adell Segura, J. (2009).</strong> e-Learning: Enseñar y aprender en espacios virtuales. En J. De Pablos (Coord.), <em>Tecnología Educativa. La formación del profesorado en la era de Internet</em> (pp. 391-424). Aljibe.</li>
+                <li><strong>Calle Álvarez, G. Y. (2014).</strong> Las habilidades del pensamiento crítico durante la escritura digital en un ambiente de aprendizaje apoyado por herramientas de la web 2.0. <em>Revista Encuentros</em>, 12(1), 27-45.</li>
+                <li><strong>Rodríguez-Gómez, D., & Gairín Sallán, J. (2015).</strong> Innovación, aprendizaje organizativo y gestión del conocimiento en las instituciones educativas. <em>Educación</em>, 24(46), 73-90.</li>
+                <li><strong>Salinas Ibáñez, J. (Coord.). (2008).</strong> <em>Innovación educativa y uso de las TIC</em>. Universidad Internacional de Andalucía.</li>
+                <li><strong>Velazco-González, J. G., & Méndez-Hernández, A. Z. (2019).</strong> Innovación educativa. <em>Revista Mexicana de Anestesiología</em>, 42(Supl. 1), S213-S215.</li>
+            </ul>
+        </div>
+    </div>
 
     <!-- VISUALIZADOR MODAL DE LIGHTBOX -->
     <div class="lightbox-modal" id="lightbox-modal">
@@ -176,6 +196,37 @@
                 navbar.classList.remove('scrolled');
             }
         });
+
+        // Lógica del modal de referencias
+        const refBtn = document.getElementById('open-references-btn');
+        const refModal = document.getElementById('ref-modal');
+        const refClose = document.getElementById('ref-close');
+
+        if (refBtn && refModal && refClose) {
+            refBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                refModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            const closeRef = () => {
+                refModal.classList.remove('active');
+                document.body.style.overflow = '';
+            };
+
+            refClose.addEventListener('click', closeRef);
+            refModal.addEventListener('click', (e) => {
+                if (e.target === refModal) {
+                    closeRef();
+                }
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && refModal.classList.contains('active')) {
+                    closeRef();
+                }
+            });
+        }
     </script>
 </body>
 

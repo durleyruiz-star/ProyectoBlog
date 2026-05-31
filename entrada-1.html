@@ -36,8 +36,7 @@
             <a href="index.html" class="back-link">
                 <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                 <span>Volver al Inicio</span>
-            </a>
-            <h2 class="article-title">Ambiente de aprendizaje y rol docente – Conceptualizando</h2>
+                <h2 class="article-title">Ambiente de aprendizaje y rol docente – Conceptualizando</h2>
             <div class="article-meta">
                 <div class="author-info">
                     <div class="author-avatar" style="background: var(--neon-cyan);"></div>
@@ -45,6 +44,8 @@
                 </div>
                 <span>•</span>
                 <span>Dimensión Física y Virtual</span>
+                <span>•</span>
+                <a href="#" id="open-references-btn" style="color: var(--neon-cyan); text-decoration: none; font-weight: 700; display: inline-flex; align-items: center; gap: 4px;">📚 Referencias</a>
             </div>
         </article>
 
@@ -2211,6 +2212,23 @@
         </section>
     </main>
 
+    <!-- MODAL DE REFERENCIAS BIBLIOGRÁFICAS -->
+    <div class="ref-modal" id="ref-modal">
+        <div class="ref-modal-content">
+            <button class="ref-modal-close" id="ref-close" aria-label="Cerrar referencias">&times;</button>
+            <h3 class="ref-modal-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                Referencias Bibliográficas
+            </h3>
+            <ul class="ref-modal-list">
+                <li><strong>Ceballos Rincón, O. M. C. (2019).</strong> Importancia de la medición y evaluación de la usabilidad de un objeto virtual de aprendizaje. <em>Revista Panorama</em>, 13(24), 24-27.</li>
+                <li><strong>Espinosa Núñez, L. R. Z. (2011).</strong> La generación de ambientes de aprendizaje: un análisis de la percepción juvenil. <em>Revista Iberoamericana para la Investigación y el Desarrollo Educativo</em>, 2(3).</li>
+                <li><strong>Ospina Pineda, D. P. (s.f.).</strong> <em>¿Qué es un Ambiente virtual de Aprendizaje?</em> Universidad Iberoamericana. Recuperado de <a href="https://campusvirtual.ibero.edu.co/recursosel/Documentos_cursos/Lic%20Pedagogia%20Infantil/Segundo%20semestre/TICII/Ospina%20Pineda,%20%20D.%20P.%20(s.f.).%20%C2%BFQu%C3%A9%20es%20un%20Ambiente%20virtual%20de%20Aprendizaje-.pdf" target="_blank">Campus Virtual Ibero</a>.</li>
+                <li><strong>Paredes Daza, J. D., & Sanabria Landazábal, W. M. (2015).</strong> Ambientes de aprendizaje o ambientes educativos: Una reflexión ineludible. <em>Revista de Investigaciones UCM</em>, 15(25), 144-158.</li>
+            </ul>
+        </div>
+    </div>
+
     <!-- PIE DE PÁGINA -->
     <footer class="footer">
         <div class="footer-content">
@@ -2254,6 +2272,37 @@
                 navbar.classList.remove('scrolled');
             }
         });
+
+        // Lógica del modal de referencias
+        const refBtn = document.getElementById('open-references-btn');
+        const refModal = document.getElementById('ref-modal');
+        const refClose = document.getElementById('ref-close');
+
+        if (refBtn && refModal && refClose) {
+            refBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                refModal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+
+            const closeRef = () => {
+                refModal.classList.remove('active');
+                document.body.style.overflow = '';
+            };
+
+            refClose.addEventListener('click', closeRef);
+            refModal.addEventListener('click', (e) => {
+                if (e.target === refModal) {
+                    closeRef();
+                }
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && refModal.classList.contains('active')) {
+                    closeRef();
+                }
+            });
+        }
     </script>
 </body>
 </html>
