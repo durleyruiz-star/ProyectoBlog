@@ -1,0 +1,15 @@
+# Archivos de recursos originales y de trabajo (ya migrados a assets/)
+recursos/
+
+# Documentos PDF de consulta académica (opcional, si no deseas subirlos a la web)
+*.pdf
+!assets/entrada_2_powerpoint.pdf
+
+# Archivos de respaldo y temporales de Word
+~$*.docx
+.docx
+
+# Archivos temporales del sistema operativo
+Thumbs.db
+ehthumbs.db
+Desktop.ini
