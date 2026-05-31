@@ -13,3 +13,6 @@ recursos/
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+# Scripts de automatización y migración locales
+*.ps1
