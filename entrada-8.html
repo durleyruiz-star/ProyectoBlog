@@ -116,10 +116,18 @@
         </div>
     </div>
 
-    <!-- VISUALIZADOR MODAL DE LIGHTBOX -->
+        <!-- VISUALIZADOR MODAL DE LIGHTBOX -->
     <div class="lightbox-modal" id="lightbox-modal">
         <button class="lightbox-modal-close" id="lightbox-close" aria-label="Cerrar visualizador">&times;</button>
-        <img class="lightbox-modal-content" id="lightbox-modal-img" src="" alt="Infografía 2 Ampliada">
+        <img class="lightbox-modal-content" id="lightbox-modal-img" src="" alt="Vista Ampliada">
+        
+        <!-- Controles de Zoom Flotantes -->
+        <div class="lightbox-zoom-controls" id="zoom-controls">
+            <button class="zoom-btn" id="zoom-out" title="Alejar (Rueda hacia abajo)">−</button>
+            <span class="zoom-indicator" id="zoom-val">100%</span>
+            <button class="zoom-btn" id="zoom-in" title="Acercar (Rueda hacia arriba)">+</button>
+            <button class="zoom-btn" id="zoom-reset" title="Restablecer escala (1:1)" style="font-size: 0.9rem;">⟲</button>
+        </div>
     </div>
 
     <!-- PIE DE PÁGINA -->
@@ -137,40 +145,175 @@
         </div>
     </footer>
 
-    <!-- INTERACTIVE LIGHTBOX SCRIPT -->
+        <!-- INTERACTIVE LIGHTBOX SCRIPT -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const trigger = document.getElementById('infografia-trigger-2');
+            const trigger = document.getElementById('infografia-trigger') || 
+                            document.getElementById('infografia-trigger-2') || 
+                            document.getElementById('cuadro-trigger');
             const modal = document.getElementById('lightbox-modal');
             const modalImg = document.getElementById('lightbox-modal-img');
             const closeBtn = document.getElementById('lightbox-close');
+            
+            // Controles de zoom
+            const zoomInBtn = document.getElementById('zoom-in');
+            const zoomOutBtn = document.getElementById('zoom-out');
+            const zoomResetBtn = document.getElementById('zoom-reset');
+            const zoomIndicator = document.getElementById('zoom-val');
 
-            trigger.addEventListener('click', () => {
-                const img = trigger.querySelector('.lightbox-trigger-img');
-                modalImg.src = img.src;
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden';
+            let scale = 1.0;
+            let translateX = 0;
+            let translateY = 0;
+            let isDragging = false;
+            let startX = 0;
+            let startY = 0;
+
+            const updateTransform = (smooth = true) => {
+                if (smooth) {
+                    modalImg.classList.remove('dragging');
+                } else {
+                    modalImg.classList.add('dragging');
+                }
+                
+                if (scale > 1.0) {
+                    modalImg.classList.add('zoomed');
+                } else {
+                    modalImg.classList.remove('zoomed');
+                }
+
+                modalImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
+                if (zoomIndicator) {
+                    zoomIndicator.innerText = `${Math.round(scale * 100)}%`;
+                }
+            };
+
+            const resetZoom = () => {
+                scale = 1.0;
+                translateX = 0;
+                translateY = 0;
+                updateTransform(true);
+            };
+
+            const zoom = (amount) => {
+                scale = Math.min(Math.max(scale + amount, 1.0), 2.0); // max 200% (2.0x), min 100% (1.0x)
+                
+                if (scale === 1.0) {
+                    translateX = 0;
+                    translateY = 0;
+                }
+                updateTransform(true);
+            };
+
+            // Eventos de botones
+            if (zoomInBtn) zoomInBtn.addEventListener('click', (e) => { e.stopPropagation(); zoom(0.25); });
+            if (zoomOutBtn) zoomOutBtn.addEventListener('click', (e) => { e.stopPropagation(); zoom(-0.25); });
+            if (zoomResetBtn) zoomResetBtn.addEventListener('click', (e) => { e.stopPropagation(); resetZoom(); });
+
+            // Evento de rueda de ratón (zoom con scroll)
+            modal.addEventListener('wheel', (e) => {
+                e.preventDefault();
+                const delta = e.deltaY < 0 ? 0.25 : -0.25;
+                zoom(delta);
+            }, { passive: false });
+
+            // Evento drag para pan (desplazamiento)
+            modalImg.addEventListener('mousedown', (e) => {
+                if (scale > 1.0) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    isDragging = true;
+                    startX = e.clientX - translateX;
+                    startY = e.clientY - translateY;
+                    modalImg.classList.add('dragging');
+                }
             });
 
+            document.addEventListener('mousemove', (e) => {
+                if (isDragging) {
+                    e.preventDefault();
+                    translateX = e.clientX - startX;
+                    translateY = e.clientY - startY;
+                    
+                    // Limitar el arrastre para que la imagen no se pierda
+                    const boundaryX = window.innerWidth * 0.8;
+                    const boundaryY = window.innerHeight * 0.8;
+                    translateX = Math.min(Math.max(translateX, -boundaryX), boundaryX);
+                    translateY = Math.min(Math.max(translateY, -boundaryY), boundaryY);
+
+                    updateTransform(false);
+                }
+            });
+
+            const stopDragging = () => {
+                if (isDragging) {
+                    isDragging = false;
+                    modalImg.classList.remove('dragging');
+                }
+            };
+
+            document.addEventListener('mouseup', stopDragging);
+            modal.addEventListener('mouseleave', stopDragging);
+
+            // Soporte táctil básico (móvil)
+            let touchStartX = 0;
+            let touchStartY = 0;
+
+            modalImg.addEventListener('touchstart', (e) => {
+                if (scale > 1.0 && e.touches.length === 1) {
+                    isDragging = true;
+                    touchStartX = e.touches[0].clientX - translateX;
+                    touchStartY = e.touches[0].clientY - translateY;
+                    modalImg.classList.add('dragging');
+                }
+            }, { passive: true });
+
+            modalImg.addEventListener('touchmove', (e) => {
+                if (isDragging && e.touches.length === 1) {
+                    e.preventDefault();
+                    translateX = e.touches[0].clientX - touchStartX;
+                    translateY = e.touches[0].clientY - touchStartY;
+                    updateTransform(false);
+                }
+            }, { passive: false });
+
+            modalImg.addEventListener('touchend', stopDragging);
+
+            // Abrir lightbox
+            if (trigger) {
+                trigger.addEventListener('click', () => {
+                    const img = trigger.querySelector('.lightbox-trigger-img');
+                    modalImg.src = img.src;
+                    modal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
+                    resetZoom();
+                });
+            }
+
+            // Cerrar lightbox
             const closeModal = () => {
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
+                resetZoom();
             };
 
             closeBtn.addEventListener('click', closeModal);
             modal.addEventListener('click', (e) => {
-                if (e.target !== modalImg && e.target !== closeBtn) {
+                // Solo cerrar si hace clic en el fondo oscuro, el botón cerrar
+                if (e.target === modal || e.target === closeBtn) {
                     closeModal();
                 }
             });
-            
+
             document.addEventListener('keydown', (e) => {
                 if (e.key === 'Escape' && modal.classList.contains('active')) {
                     closeModal();
                 }
             });
         });
+    </script>
 
+    <!-- SCRIPTS DE NAVEGACIÓN Y UTILERÍA GENERAL -->
+    <script>
         // Mobile Nav Toggle
         const menuToggle = document.getElementById('menu-toggle');
         const navLinks = document.getElementById('nav-links');

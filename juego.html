@@ -1,0 +1,2083 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Juego interactivo de preguntas y respuestas ¿Quién Quiere Ser Gurú de la Cultura E-Learning?.">
+    <title>Juego: ¿Quién Quiere Ser Gurú de la Cultura E-Learning? - Ambientes Digitales</title>
+    
+    <!-- Google Fonts: Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- Estilos del juego -->
+    <style>
+        /* ==========================================
+           1. SISTEMA DE DISEÑO Y VARIABLES CSS
+           ========================================== */
+        :root {
+            --bg-primary: #060814;
+            --bg-secondary: #0b0e24;
+            --bg-surface: rgba(13, 17, 43, 0.65);
+            --bg-card: rgba(22, 28, 66, 0.5);
+
+            --border-color: rgba(255, 255, 255, 0.06);
+            --border-active: rgba(0, 245, 212, 0.4);
+
+            --color-text: #f1f5f9;
+            --color-text-muted: #94a3b8;
+
+            --color-cyan: #00f5d4;
+            --color-gold: #ffb703;
+            --color-blue: #3b82f6;
+            --color-purple: #7c3aed;
+            --color-success: #10b981;
+            --color-error: #ef4444;
+
+            --shadow-neon: 0 0 15px rgba(0, 245, 212, 0.25);
+            --shadow-gold: 0 0 15px rgba(255, 183, 3, 0.25);
+            --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* ==========================================
+           2. ESTILOS BASE Y CENTRADO DE LA VENTANA
+           ========================================== */
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at center, #0f1335 0%, #060814 100%);
+            color: var(--color-text);
+            font-family: 'Outfit', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            overflow-y: auto;
+            box-sizing: border-box;
+        }
+
+        .glass-card {
+            background: var(--bg-surface);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            box-shadow: var(--shadow-card);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-button {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            color: var(--color-text);
+            font-family: 'Outfit', sans-serif;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            outline: none;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .glass-button:hover:not(:disabled) {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--color-cyan);
+            box-shadow: 0 0 10px rgba(0, 245, 212, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .glass-button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .glass-button:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* ==========================================
+           3. DISEÑO DE PANTALLAS (PANTALLA DE INICIO)
+           ========================================== */
+        .screen {
+            display: none;
+            flex-direction: column;
+            width: 100%;
+            max-width: 1200px;
+            height: calc(100vh - 100px);
+            min-height: 550px;
+            margin: 0 auto;
+            padding: 24px;
+            box-sizing: border-box;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .screen.active {
+            display: flex;
+        }
+
+        #start-screen {
+            flex-direction: column;
+            text-align: center;
+            padding: 40px 24px;
+        }
+
+        .logo-container {
+            position: relative;
+            margin-bottom: 30px;
+            animation: float 4s ease-in-out infinite;
+        }
+
+        .logo-ring {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 4px dashed var(--color-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            box-shadow: var(--shadow-neon);
+        }
+
+        .logo-ring::before {
+            content: '';
+            position: absolute;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 2px solid var(--color-gold);
+            box-shadow: var(--shadow-gold);
+            animation: spin 20s linear infinite;
+        }
+
+        .logo-icon {
+            font-size: 4rem;
+            z-index: 2;
+        }
+
+        .main-title {
+            font-size: 2.8rem;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, #fff 30%, var(--color-cyan) 70%, var(--color-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--color-text-muted);
+            max-width: 600px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .info-badge-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: center;
+            margin-bottom: 40px;
+            max-width: 800px;
+        }
+
+        .info-badge {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-badge svg {
+            width: 14px;
+            height: 14px;
+            fill: var(--color-cyan);
+        }
+
+        .start-btn {
+            font-size: 1.2rem;
+            font-weight: 700;
+            padding: 16px 40px;
+            border-radius: 50px;
+            background: linear-gradient(90deg, var(--color-purple), var(--color-blue));
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 20px rgba(124, 58, 237, 0.3);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .start-btn:hover {
+            background: linear-gradient(90deg, #8b5cf6, #3b82f6);
+            border-color: var(--color-cyan);
+            box-shadow: 0 0 25px rgba(0, 245, 212, 0.4);
+            transform: scale(1.05) translateY(-2px) !important;
+        }
+
+        /* ==========================================
+           4. PANTALLA PRINCIPAL DEL JUEGO (GAMEPLAY)
+           ========================================== */
+        #game-screen {
+            display: none;
+            flex-direction: row;
+            gap: 24px;
+            align-items: stretch;
+            height: calc(100vh - 120px);
+            width: 100%;
+        }
+
+        #game-screen.active {
+            display: flex;
+        }
+
+        .game-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            gap: 20px;
+        }
+
+        /* Barra Superior */
+        .game-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+        }
+
+        .lifelines-container {
+            display: flex;
+            gap: 12px;
+        }
+
+        .lifeline-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            font-weight: 700;
+            padding: 0;
+            position: relative;
+        }
+
+        .lifeline-btn svg {
+            width: 22px;
+            height: 22px;
+            stroke: currentColor;
+            fill: none;
+            stroke-width: 2;
+        }
+
+        .lifeline-btn.used {
+            opacity: 0.25;
+            text-decoration: line-through;
+            border-color: rgba(255, 255, 255, 0.05);
+            box-shadow: none;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        .lifeline-btn.used::after {
+            content: '✕';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: var(--color-error);
+            font-size: 1.8rem;
+            font-weight: 300;
+        }
+
+        .current-pool-card {
+            padding: 8px 20px;
+            text-align: right;
+            border-radius: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .pool-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--color-text-muted);
+            font-weight: 600;
+        }
+
+        .pool-amount {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--color-gold);
+            text-shadow: 0 0 10px rgba(255, 183, 3, 0.2);
+        }
+
+        .walkaway-btn {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-radius: 30px;
+            padding: 10px 18px;
+            border-color: rgba(239, 68, 68, 0.2);
+        }
+
+        .walkaway-btn:hover {
+            border-color: var(--color-error);
+            box-shadow: 0 0 10px rgba(239, 68, 68, 0.2);
+            color: var(--color-error);
+        }
+
+        /* Temporizador */
+        .timer-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            padding: 8px 16px;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 10px rgba(0, 245, 212, 0.05);
+        }
+
+        .timer-container.warning {
+            border-color: var(--color-error);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.3);
+            animation: pulse-red 1s infinite;
+        }
+
+        .timer-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--color-cyan);
+            min-width: 32px;
+            text-align: center;
+        }
+
+        .timer-container.warning .timer-text {
+            color: var(--color-error);
+        }
+
+        .timer-icon {
+            font-size: 1.2rem;
+            display: inline-block;
+            transition: transform 0.2s ease;
+        }
+
+        .timer-container.warning .timer-icon {
+            animation: rotate-tick 1s linear infinite;
+        }
+
+        /* Pregunta */
+        .question-box {
+            padding: 30px 40px;
+            text-align: center;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .question-box::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--color-cyan), transparent);
+        }
+
+        .question-meta {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--color-cyan);
+            margin-bottom: 12px;
+        }
+
+        .question-text {
+            font-size: 1.45rem;
+            font-weight: 600;
+            line-height: 1.5;
+            color: var(--color-text);
+        }
+
+        /* Opciones de respuesta */
+        .options-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 16px;
+            margin-bottom: 10px;
+        }
+
+        .option-btn {
+            padding: 22px 28px;
+            border-radius: 14px;
+            text-align: left;
+            font-size: 1.05rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            position: relative;
+            overflow: hidden;
+            border-color: rgba(255, 255, 255, 0.05);
+            color: var(--color-text);
+            font-family: 'Outfit', sans-serif;
+            cursor: pointer;
+        }
+
+        .option-letter {
+            font-weight: 800;
+            color: var(--color-cyan);
+            font-size: 1.15rem;
+            background: rgba(0, 245, 212, 0.08);
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(0, 245, 212, 0.15);
+            flex-shrink: 0;
+        }
+
+        .option-btn:hover:not(.disabled-option):not(.selected):not(.correct):not(.wrong) {
+            border-color: var(--border-active);
+            background: rgba(255, 255, 255, 0.05);
+            transform: scale(1.01);
+        }
+
+        .option-btn.selected {
+            background: rgba(255, 183, 3, 0.08);
+            border-color: var(--color-gold);
+            animation: pulse-yellow 1.2s infinite;
+        }
+
+        .option-btn.selected .option-letter {
+            color: var(--color-gold);
+            background: rgba(255, 183, 3, 0.1);
+            border-color: var(--color-gold);
+        }
+
+        .option-btn.correct {
+            background: rgba(16, 185, 129, 0.1);
+            border-color: var(--color-success);
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.2);
+        }
+
+        .option-btn.correct .option-letter {
+            color: var(--color-success);
+            background: rgba(16, 185, 129, 0.15);
+            border-color: var(--color-success);
+        }
+
+        .option-btn.wrong {
+            background: rgba(239, 68, 68, 0.1);
+            border-color: var(--color-error);
+            box-shadow: 0 0 15px rgba(239, 68, 68, 0.2);
+        }
+
+        .option-btn.wrong .option-letter {
+            color: var(--color-error);
+            background: rgba(239, 68, 68, 0.15);
+            border-color: var(--color-error);
+        }
+
+        .option-btn.disabled-option {
+            opacity: 0.05;
+            cursor: not-allowed;
+            pointer-events: none;
+        }
+
+        /* Panel Lateral (Avance de Premios) */
+        .game-sidebar {
+            width: 280px;
+            display: flex;
+            flex-direction: column;
+            padding: 20px;
+            justify-content: center;
+        }
+
+        .ladder-title {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--color-text-muted);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .money-ladder {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .ladder-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            border: 1px solid transparent;
+            transition: all 0.2s ease;
+        }
+
+        .ladder-item.active {
+            background: rgba(0, 245, 212, 0.08);
+            border-color: var(--color-cyan);
+            color: var(--color-text);
+            font-weight: 700;
+            box-shadow: var(--shadow-neon);
+        }
+
+        .ladder-item.safe {
+            color: var(--color-cyan);
+            font-weight: 600;
+        }
+
+        .ladder-item.completed {
+            color: rgba(255, 255, 255, 0.4);
+            text-decoration: line-through;
+        }
+
+        .ladder-item.safe-marker {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px dashed rgba(0, 245, 212, 0.2);
+        }
+
+        .ladder-item-num {
+            font-size: 0.75rem;
+            font-weight: 800;
+            opacity: 0.7;
+        }
+
+        .ladder-item.active .ladder-item-num {
+            opacity: 1;
+            color: var(--color-cyan);
+        }
+
+        /* ==========================================
+           5. COMPONENTES EXTRA: MODALES E INTERFAZ
+           ========================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(3, 4, 10, 0.85);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 24px;
+            animation: fadeIn 0.25s ease forwards;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-content {
+            width: 100%;
+            max-width: 500px;
+            padding: 30px;
+            border-radius: 20px;
+            position: relative;
+            animation: scaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+        }
+
+        .modal-close-btn {
+            position: absolute;
+            top: 18px;
+            right: 18px;
+            background: transparent;
+            border: none;
+            color: var(--color-text-muted);
+            cursor: pointer;
+            font-size: 1.5rem;
+            line-height: 1;
+            transition: color 0.2s ease;
+        }
+
+        .modal-close-btn:hover {
+            color: var(--color-text);
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .modal-title svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--color-cyan);
+        }
+
+        /* Gráfico del Público */
+        .audience-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            margin-top: 10px;
+        }
+
+        .audience-bar-container {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .audience-label {
+            font-weight: 800;
+            color: var(--color-cyan);
+            width: 20px;
+            text-align: center;
+        }
+
+        .audience-track {
+            flex: 1;
+            height: 24px;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .audience-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, var(--color-purple), var(--color-blue));
+            border-radius: 12px;
+            transition: width 1.2s cubic-bezier(0.1, 1, 0.1, 1);
+            box-shadow: 0 0 10px rgba(59, 130, 246, 0.3);
+        }
+
+        .audience-pct {
+            font-weight: 700;
+            width: 45px;
+            text-align: right;
+            font-size: 0.95rem;
+        }
+
+        .audience-track.winner .audience-bar {
+            background: linear-gradient(90deg, var(--color-purple), var(--color-cyan));
+            box-shadow: 0 0 15px rgba(0, 245, 212, 0.3);
+        }
+
+        /* Chat del Amigo */
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 16px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .chat-msg {
+            max-width: 85%;
+            padding: 12px 16px;
+            border-radius: 16px;
+            font-size: 0.95rem;
+            line-height: 1.4;
+        }
+
+        .chat-msg.friend {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-bottom-left-radius: 4px;
+            align-self: flex-start;
+        }
+
+        .chat-msg.user {
+            background: linear-gradient(135deg, var(--color-purple), var(--color-blue));
+            color: #fff;
+            border-bottom-right-radius: 4px;
+            align-self: flex-end;
+        }
+
+        .chat-sender-name {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--color-cyan);
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .chat-msg.user .chat-sender-name {
+            color: var(--color-gold);
+        }
+
+        .typing-indicator {
+            display: flex;
+            gap: 4px;
+            padding: 4px 8px;
+            align-self: flex-start;
+        }
+
+        .typing-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--color-text-muted);
+            border-radius: 50%;
+            animation: bounce 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(2) {
+            animation-delay: 0.2s;
+        }
+
+        .typing-dot:nth-child(3) {
+            animation-delay: 0.4s;
+        }
+
+        /* Explicación Pedagógica */
+        .explanation-box {
+            background: rgba(16, 185, 129, 0.04);
+            border: 1px dashed var(--color-success);
+            padding: 16px 20px;
+            border-radius: 12px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            display: none;
+            animation: fadeIn 0.4s ease forwards;
+        }
+
+        .explanation-title {
+            font-weight: 700;
+            color: var(--color-success);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .explanation-source {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            margin-top: 8px;
+            font-style: italic;
+            display: block;
+        }
+
+        .next-question-btn {
+            margin-top: 16px;
+            width: 100%;
+            padding: 14px;
+            font-weight: 700;
+            background: linear-gradient(90deg, var(--color-success), #10b981);
+            border-color: rgba(255, 255, 255, 0.15);
+        }
+
+        .next-question-btn:hover {
+            box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+            border-color: var(--color-success);
+        }
+
+        /* ==========================================
+           6. PANTALLAS DE RESULTADOS (GAME OVER / SUCCESS)
+           ========================================== */
+        .result-screen-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            max-width: 600px;
+            padding: 40px;
+        }
+
+        .result-icon {
+            font-size: 5rem;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .result-icon.winner::after {
+            content: '';
+            position: absolute;
+            width: 120px;
+            height: 120px;
+            top: -20px;
+            left: -20px;
+            border-radius: 50%;
+            border: 2px solid var(--color-gold);
+            box-shadow: var(--shadow-gold);
+            animation: spin 15s linear infinite;
+            z-index: -1;
+        }
+
+        .result-title {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+        }
+
+        .result-subtitle {
+            font-size: 1.1rem;
+            color: var(--color-text-muted);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .reward-showcase {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 20px;
+            padding: 24px 50px;
+            margin-bottom: 35px;
+            text-align: center;
+        }
+
+        .reward-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--color-text-muted);
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+
+        .reward-val {
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: var(--color-gold);
+            text-shadow: 0 0 20px rgba(255, 183, 3, 0.3);
+        }
+
+        .rank-showcase {
+            background: rgba(0, 245, 212, 0.03);
+            border: 1px solid rgba(0, 245, 212, 0.1);
+            border-radius: 12px;
+            padding: 10px 24px;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+            font-weight: 600;
+        }
+
+        .rank-showcase span {
+            color: var(--color-cyan);
+            font-weight: 800;
+        }
+
+        /* ==========================================
+           7. ANIMACIONES CLAVE (KEYFRAMES)
+           ========================================== */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scaleUp {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(0px);
+            }
+        }
+
+        @keyframes spin {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes pulse-yellow {
+            0% {
+                box-shadow: 0 0 5px rgba(255, 183, 3, 0.2);
+            }
+            50% {
+                box-shadow: 0 0 15px rgba(255, 183, 3, 0.4);
+            }
+            100% {
+                box-shadow: 0 0 5px rgba(255, 183, 3, 0.2);
+            }
+        }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0);
+            }
+            40% {
+                transform: scale(1);
+            }
+        }
+
+        /* ==========================================
+           8. DISEÑO RESPONSIVO (MÓVILES / TABLETS)
+           ========================================== */
+        @media (max-width: 992px) {
+            .screen {
+                height: auto;
+                min-height: calc(100vh - 60px);
+            }
+            #game-screen {
+                flex-direction: column;
+                gap: 20px;
+                height: auto;
+            }
+            .game-sidebar {
+                width: 100%;
+                padding: 10px 0;
+            }
+            .money-ladder {
+                display: grid;
+                grid-template-columns: repeat(5, 1fr);
+                gap: 6px;
+            }
+            .ladder-item {
+                flex-direction: column;
+                padding: 6px;
+                font-size: 0.75rem;
+                text-align: center;
+                gap: 2px;
+            }
+            .ladder-item-num {
+                font-size: 0.65rem;
+            }
+            .ladder-item .val {
+                font-size: 0.75rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.2rem;
+            }
+            .options-grid {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+            .option-btn {
+                padding: 16px 20px;
+                font-size: 0.95rem;
+            }
+            .question-box {
+                padding: 20px;
+                min-height: 120px;
+            }
+            .question-text {
+                font-size: 1.15rem;
+            }
+            .money-ladder {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .reward-val {
+                font-size: 2.4rem;
+            }
+        }
+
+        /* Botón de volver al artículo */
+        .back-to-blog-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--color-text-muted);
+            border-radius: 30px;
+            padding: 8px 16px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            z-index: 10;
+        }
+
+        .back-to-blog-btn:hover {
+            color: var(--color-cyan);
+            border-color: var(--color-cyan);
+            background: rgba(0, 245, 212, 0.05);
+            box-shadow: 0 0 10px rgba(0, 245, 212, 0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Botón de Volver al Artículo -->
+    <a class="back-to-blog-btn" href="entrada-7.html" id="btn-back-to-blog">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+        <span>Volver al Artículo</span>
+    </a>
+
+    <!-- PANTALLA DE INICIO -->
+    <div id="start-screen" class="screen active">
+        <div class="logo-container">
+            <div class="logo-ring">
+                <span class="logo-icon">💡</span>
+            </div>
+        </div>
+
+        <h1 class="main-title">¿Quién Quiere Ser Gurú de la Cultura E-Learning?</h1>
+        <p class="subtitle">Demuestra tu conocimiento y criterio sobre aulas virtuales, metodologías constructivistas,
+            estándares interoperables y gestión de la innovación educativa.</p>
+
+        <div class="info-badge-container">
+            <div class="info-badge">
+                <svg viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H7c0-2.76 2.24-5 5-5s5 2.24 5 5c0 1.04-.42 1.99-1.07 2.75z" />
+                </svg>
+                15 Preguntas Académicas
+            </div>
+            <div class="info-badge">
+                <svg viewBox="0 0 24 24">
+                    <path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z" />
+                </svg>
+                Seguros en Pregunta 5 ($1,000) y Pregunta 10 ($32,000)
+            </div>
+        </div>
+
+        <button class="glass-button start-btn" onclick="startGame()">Comenzar el Reto</button>
+    </div>
+
+    <!-- PANTALLA DE JUEGO -->
+    <div id="game-screen" class="screen">
+        <!-- Cuerpo Principal del Reto -->
+        <section class="game-main">
+            <!-- Barra Superior (Comodines, Saldo, Retirada) -->
+            <div class="glass-card game-header">
+                <div class="lifelines-container">
+                    <button id="btn-5050" class="glass-button lifeline-btn" onclick="use5050()" title="Comodín 50:50">
+                        50:50
+                    </button>
+                    <button id="btn-llamada" class="glass-button lifeline-btn" onclick="useLlamada()"
+                        title="Llamar a un Gurú amigo">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
+                        </svg>
+                    </button>
+                    <button id="btn-publico" class="glass-button lifeline-btn" onclick="usePublico()"
+                        title="Preguntar al Público Académico">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H9v-5h3v5zm4 0h-3v-8h3v8zm4 0h-3v-3h3v3z" />
+                        </svg>
+                    </button>
+                </div>
+
+                <!-- Temporizador Central -->
+                <div class="timer-container" id="timer-container">
+                    <span id="timer-icon" class="timer-icon">⏱️</span>
+                    <span id="timer-text" class="timer-text">30</span>
+                </div>
+
+                <div style="display: flex; align-items: center; gap: 14px;">
+                    <div class="glass-card current-pool-card">
+                        <span class="pool-label">Acumulado</span>
+                        <span id="current-pool-text" class="pool-amount">$0</span>
+                    </div>
+                    <button class="glass-button walkaway-btn" onclick="walkAway()">Retirarse</button>
+                </div>
+            </div>
+
+            <!-- Caja de Pregunta -->
+            <div class="glass-card question-box">
+                <div id="question-meta" class="question-meta">Pregunta 1 de 15</div>
+                <div id="question-text" class="question-text">¿Cargando pregunta pedagógica...?</div>
+            </div>
+
+            <!-- Caja de Respuestas -->
+            <div class="options-container">
+                <div class="options-grid">
+                    <button id="opt-0" class="glass-card option-btn" onclick="selectOption(0)">
+                        <span class="option-letter">A</span>
+                        <span class="option-text" id="opt-text-0">Opción A</span>
+                    </button>
+                    <button id="opt-1" class="glass-card option-btn" onclick="selectOption(1)">
+                        <span class="option-letter">B</span>
+                        <span class="option-text" id="opt-text-1">Opción B</span>
+                    </button>
+                    <button id="opt-2" class="glass-card option-btn" onclick="selectOption(2)">
+                        <span class="option-letter">C</span>
+                        <span class="option-text" id="opt-text-2">Opción C</span>
+                    </button>
+                    <button id="opt-3" class="glass-card option-btn" onclick="selectOption(3)">
+                        <span class="option-letter">D</span>
+                        <span class="option-text" id="opt-text-3">Opción D</span>
+                    </button>
+                </div>
+
+                <!-- Caja de Explicación y Avanzar -->
+                <div id="explanation-box" class="explanation-box">
+                    <div class="explanation-title">
+                        <span>✓</span> ¡Respuesta Correcta! Justificación:
+                    </div>
+                    <p id="explanation-text">Explicación teórica de la respuesta...</p>
+                    <span id="explanation-source" class="explanation-source">Fuente: ...</span>
+                    <button class="glass-button next-question-btn" onclick="goToNextQuestion()">Avanzar a la Siguiente Pregunta</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sidebar / Escalera de Premios (Lateral) -->
+        <aside class="glass-card game-sidebar">
+            <div class="ladder-title">Escala de Premios</div>
+            <div id="money-ladder" class="money-ladder">
+                <!-- Se poblará dinámicamente con JS de mayor a menor saldo -->
+            </div>
+        </aside>
+    </div>
+
+    <!-- PANTALLA FINAL (RESULTADOS Y PREMIO) -->
+    <div id="result-screen" class="screen">
+        <div class="glass-card result-screen-content">
+            <div id="result-icon" class="result-icon">🏆</div>
+            <h2 class="result-title">¡Fin del Reto!</h2>
+            <p id="result-subtitle" class="result-subtitle">Texto de resultado...</p>
+            <div class="reward-showcase">
+                <div class="reward-label">Premio Obtenido</div>
+                <div id="reward-val" class="reward-val">$0</div>
+            </div>
+            <div class="rank-showcase">
+                Rango Académico: <span id="rank-name">Principiante en TICs</span>
+            </div>
+            <button class="glass-button start-btn" onclick="resetGame()">Jugar de Nuevo</button>
+        </div>
+    </div>
+
+    <!-- VENTANAS MODALES -->
+    <div id="modal-overlay" class="modal-overlay">
+        <div class="glass-card modal-content">
+            <button class="modal-close-btn" onclick="closeModal()">✕</button>
+            <h2 id="modal-title" class="modal-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                    <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                </svg>
+                Título del Comodín
+            </h2>
+            <div id="modal-body">
+                <!-- Render dinámico según comodín -->
+            </div>
+        </div>
+    </div>
+
+    <!-- MOTOR LÓGICO DEL JUEGO -->
+    <script>
+        /* ==========================================
+           A. SINTETIZADOR DE AUDIO (WEB AUDIO API)
+           ========================================== */
+        class SoundController {
+            constructor() {
+                this.ctx = null;
+                this.backgroundOsc = null;
+                this.backgroundGain = null;
+                this.tickInterval = null;
+            }
+
+            init() {
+                if (!this.ctx) {
+                    this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+                }
+                if (this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
+            }
+
+            playTone(freq, type, duration, volume = 0.1) {
+                try {
+                    this.init();
+                    if (!this.ctx) return;
+
+                    let osc = this.ctx.createOscillator();
+                    let gainNode = this.ctx.createGain();
+
+                    osc.type = type;
+                    osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+
+                    gainNode.gain.setValueAtTime(volume, this.ctx.currentTime);
+                    gainNode.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + duration);
+
+                    osc.connect(gainNode);
+                    gainNode.connect(this.ctx.destination);
+
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + duration);
+                } catch (e) {
+                    console.log("Audio not supported or blocked: ", e.message);
+                }
+            }
+
+            startSuspenseMusic() {
+                this.stopSuspenseMusic();
+                this.init();
+                if (!this.ctx) return;
+
+                try {
+                    this.backgroundOsc = this.ctx.createOscillator();
+                    this.backgroundGain = this.ctx.createGain();
+
+                    this.backgroundOsc.type = 'sine';
+                    this.backgroundOsc.frequency.setValueAtTime(110, this.ctx.currentTime); // La natural profunda
+
+                    this.backgroundGain.gain.setValueAtTime(0.03, this.ctx.currentTime);
+
+                    this.backgroundOsc.connect(this.backgroundGain);
+                    this.backgroundGain.connect(this.ctx.destination);
+                    this.backgroundOsc.start();
+
+                    this.tickInterval = setInterval(() => {
+                        this.init();
+                        this.playTone(70, 'sine', 0.12, 0.08);
+                        setTimeout(() => {
+                            this.playTone(55, 'sine', 0.12, 0.06);
+                        }, 250);
+                    }, 1000);
+                } catch (e) {
+                    console.log("Error starting suspense music: ", e);
+                }
+            }
+
+            stopSuspenseMusic() {
+                if (this.tickInterval) {
+                    clearInterval(this.tickInterval);
+                    this.tickInterval = null;
+                }
+                if (this.backgroundOsc) {
+                    try {
+                        this.backgroundOsc.stop();
+                        this.backgroundOsc.disconnect();
+                    } catch (e) {}
+                    this.backgroundOsc = null;
+                }
+                if (this.backgroundGain) {
+                    try {
+                        this.backgroundGain.disconnect();
+                    } catch (e) {}
+                    this.backgroundGain = null;
+                }
+            }
+
+            playSuspense() {
+                this.stopSuspenseMusic();
+                this.init();
+                try {
+                    let osc1 = this.ctx.createOscillator();
+                    let osc2 = this.ctx.createOscillator();
+                    let gain = this.ctx.createGain();
+
+                    osc1.type = 'sawtooth';
+                    osc2.type = 'sine';
+
+                    osc1.frequency.setValueAtTime(150, this.ctx.currentTime);
+                    osc1.frequency.linearRampToValueAtTime(300, this.ctx.currentTime + 1.5);
+
+                    osc2.frequency.setValueAtTime(155, this.ctx.currentTime);
+                    osc2.frequency.linearRampToValueAtTime(305, this.ctx.currentTime + 1.5);
+
+                    gain.gain.setValueAtTime(0.015, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 1.5);
+
+                    osc1.connect(gain);
+                    osc2.connect(gain);
+                    gain.connect(this.ctx.destination);
+
+                    osc1.start();
+                    osc2.start();
+                    osc1.stop(this.ctx.currentTime + 1.5);
+                    osc2.stop(this.ctx.currentTime + 1.5);
+                } catch (e) {}
+            }
+
+            playSuccess() {
+                this.stopSuspenseMusic();
+                this.init();
+                const notes = [261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((f, i) => {
+                    setTimeout(() => {
+                        this.playTone(f, 'sine', 0.5, 0.08);
+                    }, i * 80);
+                });
+            }
+
+            playFailure() {
+                this.stopSuspenseMusic();
+                this.init();
+                try {
+                    let osc = this.ctx.createOscillator();
+                    let gain = this.ctx.createGain();
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(220, this.ctx.currentTime);
+                    osc.frequency.linearRampToValueAtTime(80, this.ctx.currentTime + 1.2);
+                    gain.gain.setValueAtTime(0.12, this.ctx.currentTime);
+                    gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + 1.2);
+                    osc.connect(gain);
+                    gain.connect(this.ctx.destination);
+                    osc.start();
+                    osc.stop(this.ctx.currentTime + 1.2);
+                } catch (e) {}
+            }
+
+            playSparkle() {
+                this.init();
+                const notes = [523.25, 659.25, 783.99, 1046.50];
+                notes.forEach((f, i) => {
+                    setTimeout(() => {
+                        this.playTone(f, 'sine', 0.25, 0.08);
+                    }, i * 80);
+                });
+            }
+        }
+
+        const sounds = new SoundController();
+
+        /* ==========================================
+           B. BANCO DE PREGUNTAS (EXTRACTO DE LOS PDF)
+           ========================================== */
+        const QUESTIONS = [
+            {
+                question: "¿Qué término define la modalidad educativa que combina la enseñanza presencial con el aprendizaje en línea a través de Internet?",
+                options: [
+                    "E-learning a distancia",
+                    "Blended learning (o b-learning)",
+                    "Mobile learning (o m-learning)",
+                    "Microlearning"
+                ],
+                correct: 1,
+                explanation: "El blended learning (aprendizaje mixto o b-learning) es la combinación articulada de la enseñanza presencial con actividades formativas online en espacios virtuales.",
+                source: "e-Learning: Enseñar y Aprender en Espacios Virtuales (Area & Adell, 2009, pág. 5)"
+            },
+            {
+                question: "De acuerdo con Area y Adell (2009), ¿cómo se define la 'Dimensión Informativa' en un aula virtual?",
+                options: [
+                    "Es el espacio de interacción social mediante foros, chats y correos",
+                    "Es el conjunto de recursos y materiales de estudio (textos, PDF, vídeos, presentaciones) para el estudio autónomo",
+                    "Es el proceso de evaluación continua y entrega de calificaciones del profesor",
+                    "Es el conjunto de actividades de resolución de problemas individuales o grupales"
+                ],
+                correct: 1,
+                explanation: "La dimensión informativa abarca todo el conjunto de materiales y recursos teóricos (textos, diapositivas, animaciones, enlaces) que presentan los contenidos del curso.",
+                source: "e-Learning: Enseñar y Aprender en Espacios Virtuales (Area & Adell, 2009, pág. 9)"
+            },
+            {
+                question: "Según el decálogo constructivista para docentes en aulas virtuales, ¿qué tareas se recomienda plantear en el entorno virtual?",
+                options: [
+                    "Ejercicios mecánicos repetitivos basados exclusivamente en la memorización",
+                    "Actividades individuales y colectivas que exijan la actividad intelectual del alumno (leer, analizar, reflexionar, wikis)",
+                    "Exclusivamente exámenes tipo test al final del año escolar sin tutorías previas",
+                    "Ninguna actividad planificada, dejando que el estudiante navegue sin orientación"
+                ],
+                correct: 1,
+                explanation: "El decálogo constructivista promueve el planteamiento de tareas activas e intelectuales combinando el trabajo autónomo (ensayos, blogs) con el colectivo (wikis, glosarios).",
+                source: "e-Learning: Enseñar y Aprender en Espacios Virtuales (Area & Adell, 2009, pág. 13)"
+            },
+            {
+                question: "¿Qué siglas representan el estándar para objetos de aprendizaje interoperables más conocido, desarrollado por el proyecto ADL del Departamento de Defensa de EE.UU.?",
+                options: [
+                    "IMS Common Cartridge",
+                    "LOM Metadata Standard",
+                    "SCORM",
+                    "HTML5 Standards"
+                ],
+                correct: 2,
+                explanation: "SCORM (Sharable Content Object Reference Model) es el estándar más extendido para empaquetar contenidos de aprendizaje independientes de la plataforma (LMS).",
+                source: "e-Learning: Enseñar y Aprender en Espacios Virtuales (Area & Adell, 2009, pág. 14)"
+            },
+            {
+                question: "De acuerdo con Salinas (2008), ¿cuál es la diferencia clave entre 'Innovación' y una simple 'Novedad' o 'Cambio' en educación?",
+                options: [
+                    "Cualquier cambio tecnológico de última generación se considera innovación",
+                    "La innovación implica cambios deliberados, planificados, sistematizados e intencionales que producen una mejora",
+                    "La innovación ocurre de forma accidental sin planificación didáctica",
+                    "La novedad y la innovación son sinónimos absolutos en educación"
+                ],
+                correct: 1,
+                explanation: "Jesús Salinas define la innovación educativa como una introducción de cambios planeados, deliberados, sistematizados e intencionales dirigidos a la mejora del proceso de enseñanza-aprendizaje.",
+                source: "Innovación educativa y uso de las TIC (Salinas, 2008, pág. 11)"
+            },
+            {
+                question: "En las dimensiones pedagógicas de las aulas virtuales de Area y Adell, ¿cuál de ellas describe el seguimiento, tutorización y valoración del aprendizaje por parte del profesor?",
+                options: [
+                    "Dimensión Informativa",
+                    "Dimensión Práxica",
+                    "Dimensión Tutorial y Evaluativa",
+                    "Dimensión Comunicativa"
+                ],
+                correct: 2,
+                explanation: "La dimensión tutorial y evaluativa hace referencia directa al seguimiento continuo del estudiante y la valoración o feedback del aprendizaje a cargo del docente.",
+                source: "e-Learning: Enseñar y Aprender en Espacios Virtuales (Area & Adell, 2009, pág. 9)"
+            },
+            {
+                question: "¿Qué son los PLEs por sus siglas en inglés, según se describe en la literatura clásica de e-learning?",
+                options: [
+                    "Programas de Lenguaje Educativo",
+                    "Plataformas Libres de Enseñanza",
+                    "Entornos Personales de Aprendizaje (Personal Learning Environments)",
+                    "Proyectos de Lectura Escrita con Dispositivos"
+                ],
+                correct: 2,
+                explanation: "PLE significa Entorno Personal de Aprendizaje. Es el conjunto de herramientas, fuentes de información, conexiones y actividades que cada persona utiliza de forma asíncrona para aprender.",
+                source: "Manual RUTE (Area & Adell, 2009) e Innovación Educativa (Salinas, 2008)"
+            },
+            {
+                question: "Según David Rodríguez-Gómez y Joaquín Gairín (2015), ¿cuál es el objetivo central del aprendizaje organizativo en las instituciones educativas?",
+                options: [
+                    "Adquirir el software de gestión académica más costoso",
+                    "Generar nuevo conocimiento y rentabilizar el existente, capacitando a la organización para anticiparse y adaptarse a las demandas del entorno",
+                    "Suprimir el trabajo de los docentes para automatizar todas las clases",
+                    "Evitar cualquier interacción con el entorno externo de la escuela"
+                ],
+                correct: 1,
+                explanation: "El desarrollo de estrategias de aprendizaje organizativo y gestión del conocimiento permite dotar a los centros educativos de procesos para generar, compartir y rentabilizar el conocimiento mejorando su rendimiento.",
+                source: "Innovación, aprendizaje organizativo y gestión del conocimiento (Rodríguez-Gómez & Gairín, 2015, pág. 1)"
+            },
+            {
+                question: "En la investigación de Gerzon Calle (2016) sobre la escritura digital, ¿cuál es el rol de las herramientas de la Web 2.0?",
+                options: [
+                    "Facilitar la copia automática de textos de Internet",
+                    "Reemplazar por completo el esfuerzo del estudiante por sistemas generativos",
+                    "Servir de ambientes de apoyo para el desarrollo de las habilidades del pensamiento crítico durante la redacción textual",
+                    "Evitar que el profesor intervenga en los procesos de escritura"
+                ],
+                correct: 2,
+                explanation: "El estudio demostró que la producción de textos digitales apoyada por herramientas de la Web 2.0 contribuye al fortalecimiento y análisis del pensamiento crítico de los estudiantes de educación media.",
+                source: "Habilidades del pensamiento crítico durante la escritura digital (Gerzon Calle, 2016, pág. 27)"
+            },
+            {
+                question: "De acuerdo con Salinas (2008), ¿qué actividades clave abarca el 'Diagnóstico Institucional' en el marco interno para una estrategia TIC?",
+                options: [
+                    "Analizar la velocidad global del cableado transoceánico",
+                    "Identificar las fortalezas, debilidades, factores críticos de éxito y elementos de conflicto de la propia institución",
+                    "Comprobar el número total de computadores vendidos en el país",
+                    "Contratar exclusivamente auditorías externas de empresas multinacionales"
+                ],
+                correct: 1,
+                explanation: "El análisis interno o diagnóstico institucional identifica las fortalezas y debilidades institucionales, así como factores críticos de éxito y conflictos que condicionarán el proyecto TIC.",
+                source: "Innovación educativa y uso de las TIC (Salinas, 2008, pág. 138)"
+            },
+            {
+                question: "Salinas (2008) distingue tres niveles de gestión de entornos virtuales. ¿En cuál sitúa 'el proceso de convertir el e-learning en parte de la cultura de la institución'?",
+                options: [
+                    "Procesos de introducción y/o implementación",
+                    "Procesos de implantación y diseminación en la institución",
+                    "Procesos de práctica y experiencia diaria del profesor",
+                    "Procesos de reestructuración tecnológica global"
+                ],
+                correct: 1,
+                explanation: "El segundo nivel, implantación y diseminación en la institución, tiene como objetivo estratégico convertir el uso de entornos virtuales en parte integrada de la cultura organizativa del centro.",
+                source: "Innovación educativa y uso de las TIC (Salinas, 2008, pág. 135)"
+            },
+            {
+                question: "En la formulación de una estrategia TIC institucional descrita por Salinas (2008), ¿cuál es el propósito de la fase de 'Antecedentes o marco conceptual'?",
+                options: [
+                    "Analizar la oferta del mercado externo para comprar servidores",
+                    "Diseñar de forma definitiva la rúbrica de evaluación didáctica",
+                    "Determinar las condiciones iniciales del proceso, estimar la envergadura y asentar los marcos teóricos y experiencias previas de la institución",
+                    "Comenzar la capacitación técnica directa de los estudiantes en programación"
+                ],
+                correct: 2,
+                explanation: "La fase 1 (Antecedentes) analiza el marco inicial, el mandato conceptual, el anclaje pedagógico-teórico y las experiencias previas (éxitos y fracasos acumulados).",
+                source: "Innovación educativa y uso de las TIC (Salinas, 2008, pág. 136)"
+            },
+            {
+                question: "Según el RUTE manual (2009), ¿cuál es la principal crítica que han concitado especificaciones de empaquetado de contenido educativo como SCORM?",
+                options: [
+                    "Que no permiten utilizar tipografías modernas",
+                    "Que están excesivamente orientadas a intereses de grandes proveedores comerciales del e-learning y no se adaptan al contexto metodológico universitario presencial",
+                    "Que causan fallos irreparables de hardware en los ordenadores locales",
+                    "Que limitan la velocidad del ancho de banda de la red del campus"
+                ],
+                correct: 1,
+                explanation: "Area y Adell explican que SCORM ha recibido críticas debido a que responde más a intereses comerciales corporativos que a las prácticas de docentes presenciales universitarios.",
+                source: "e-Learning: Enseñar y Aprender en Espacios Virtuales (Area & Adell, 2009, pág. 14)"
+            },
+            {
+                question: "En el decálogo constructivista del RUTE manual, ¿qué dimensión pedagógica promueve directamente el diálogo continuo, debates abiertos y la interacción entre compañeros de aula?",
+                options: [
+                    "Dimensión Informativa",
+                    "Dimensión Tutorial y Evaluativa",
+                    "Dimensión Práxica",
+                    "Dimensión Comunicativa"
+                ],
+                correct: 3,
+                explanation: "La dimensión comunicativa abarca los espacios diseñados para la interacción social, el intercambio de ideas y el trabajo grupal y tutorías horizontales.",
+                source: "e-Learning: Enseñar y Aprender en Espacios Virtuales (Area & Adell, 2009, pág. 9)"
+            },
+            {
+                question: "Según Rodríguez-Gómez y Gairín (2015), ¿cuáles son los componentes clave para un aprendizaje organizativo provechoso en los centros educativos?",
+                options: [
+                    "Sistemas automáticos de control de asistencia biométrica",
+                    "Herramientas y procesos que permitan generar nuevo conocimiento y rentabilizar el existente, optimizando el desempeño humano y organizativo",
+                    "Contratos de adquisición de licencias propietarias cerradas sin formación pedagógica",
+                    "Externalizar la docencia a entidades educativas privadas"
+                ],
+                correct: 1,
+                explanation: "El aprendizaje organizativo y la gestión del conocimiento buscan dar herramientas a los trabajadores educativos para capitalizar la experiencia escolar colectiva y responder a la sociedad.",
+                source: "Innovación, aprendizaje organizativo y gestión del conocimiento (Rodríguez-Gómez & Gairín, 2015, pág. 1)"
+            }
+        ];
+
+        /* ==========================================
+           C. LADDER DE DINERO (RECOMPENSAS Y SEGUROS)
+           ========================================== */
+        const REWARDS = [
+            100, 200, 300, 500, 1000,
+            2000, 4000, 8000, 16000, 32000,
+            64000, 125000, 250000, 500000, 1000000
+        ];
+
+        const SAFE_INDICES = [4, 9, 14]; // Índices correspondientes a Preguntas 5 ($1,000), 10 ($32,000) y 15 ($1,000,000)
+
+        /* ==========================================
+           D. VARIABLES DE ESTADO DEL MOTOR DE JUEGO
+           ========================================== */
+        let currentQuestionIdx = 0;
+        let lifelines = {
+            "5050": true,
+            "llamada": true,
+            "publico": true
+        };
+        let activeQuestionOptions = [0, 1, 2, 3]; // Lleva cuenta de qué opciones siguen visibles (para 50:50)
+        let activeOptionsMapping = [0, 1, 2, 3]; // Mapeo de botones barajados a la opción original
+        let isAnswering = false;
+        let timerInterval = null;
+        let timeLeft = 0;
+        let isTimerPaused = false;
+
+        function startTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+            }
+
+            if (currentQuestionIdx < 5) {
+                timeLeft = 30;
+            } else if (currentQuestionIdx < 10) {
+                timeLeft = 45;
+            } else {
+                timeLeft = 60;
+            }
+
+            isTimerPaused = false;
+
+            const timerContainer = document.getElementById('timer-container');
+            const timerText = document.getElementById('timer-text');
+
+            timerContainer.classList.remove('warning');
+            timerText.innerText = timeLeft;
+
+            sounds.startSuspenseMusic();
+
+            timerInterval = setInterval(() => {
+                if (isTimerPaused) return;
+
+                timeLeft--;
+                timerText.innerText = timeLeft;
+
+                if (timeLeft <= 10) {
+                    timerContainer.classList.add('warning');
+                    sounds.playTone(440, 'sine', 0.08, 0.05);
+                }
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    timerInterval = null;
+                    sounds.stopSuspenseMusic();
+                    endGame(false, true);
+                }
+            }, 1000);
+        }
+
+        function stopTimer() {
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            sounds.stopSuspenseMusic();
+        }
+
+        /* ==========================================
+           E. INICIO Y CONTROL DE PANTALLAS
+           ========================================== */
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            
+            // Ocultar botón Volver si el juego está activo
+            const btnBack = document.getElementById('btn-back-to-blog');
+            if (screenId === 'game-screen') {
+                btnBack.style.display = 'none';
+            } else {
+                btnBack.style.display = 'inline-flex';
+            }
+        }
+
+        function startGame() {
+            sounds.init();
+            currentQuestionIdx = 0;
+            lifelines = { "5050": true, "llamada": true, "publico": true };
+
+            resetLifelineButtonUI("btn-5050", "50:50");
+            resetLifelineButtonUI("btn-llamada", `<svg viewBox="0 0 24 24"><path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z"/></svg>`);
+            resetLifelineButtonUI("btn-publico", `<svg viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14H9v-5h3v5zm4 0h-3v-8h3v8zm4 0h-3v-3h3v3z"/></svg>`);
+
+            buildLadderUI();
+            renderQuestion();
+            showScreen('game-screen');
+            sounds.playSparkle();
+        }
+
+        function resetLifelineButtonUI(btnId, innerHTML) {
+            const btn = document.getElementById(btnId);
+            btn.classList.remove('used');
+            btn.disabled = false;
+            btn.innerHTML = innerHTML;
+        }
+
+        /* ==========================================
+           F. RENDER DE PREGUNTAS Y ESCALERA
+           ========================================== */
+        function buildLadderUI() {
+            const container = document.getElementById('money-ladder');
+            container.innerHTML = '';
+
+            for (let i = REWARDS.length - 1; i >= 0; i--) {
+                const isSafe = SAFE_INDICES.includes(i);
+                const isCurrent = i === currentQuestionIdx;
+                const isCompleted = i < currentQuestionIdx;
+
+                let itemClass = 'ladder-item glass-card';
+                if (isCurrent) itemClass += ' active';
+                if (isSafe) itemClass += ' safe';
+                if (isCompleted) itemClass += ' completed';
+                if (isSafe && !isCurrent && !isCompleted) itemClass += ' safe-marker';
+
+                const itemHtml = `
+                    <div class="${itemClass}">
+                        <span class="ladder-item-num">${i + 1}</span>
+                        <span class="val">$${REWARDS[i].toLocaleString()}</span>
+                    </div>
+                `;
+                container.innerHTML += itemHtml;
+            }
+        }
+
+        function renderQuestion() {
+            isAnswering = false;
+            activeQuestionOptions = [0, 1, 2, 3];
+            document.getElementById('explanation-box').style.display = 'none';
+
+            const currentQ = QUESTIONS[currentQuestionIdx];
+
+            document.getElementById('question-meta').innerText = `Pregunta ${currentQuestionIdx + 1} de 15`;
+            document.getElementById('question-text').innerText = currentQ.question;
+
+            const poolText = currentQuestionIdx > 0 ? `$${REWARDS[currentQuestionIdx - 1].toLocaleString()}` : '$0';
+            document.getElementById('current-pool-text').innerText = poolText;
+
+            activeOptionsMapping = [0, 1, 2, 3];
+            activeOptionsMapping.sort(() => Math.random() - 0.5);
+
+            for (let i = 0; i < 4; i++) {
+                const btn = document.getElementById(`opt-${i}`);
+                const textSpan = document.getElementById(`opt-text-${i}`);
+
+                btn.className = 'glass-card option-btn';
+                btn.style.pointerEvents = 'auto';
+                textSpan.innerText = currentQ.options[activeOptionsMapping[i]];
+            }
+
+            buildLadderUI();
+            startTimer();
+        }
+
+        /* ==========================================
+           G. SELECCIÓN DE RESPUESTA Y COMPROBACIÓN
+           ========================================== */
+        function selectOption(optIdx) {
+            if (isAnswering) return;
+            isAnswering = true;
+            stopTimer();
+
+            sounds.playSuspense();
+
+            for (let i = 0; i < 4; i++) {
+                const btn = document.getElementById(`opt-${i}`);
+                btn.style.pointerEvents = 'none';
+                if (i === optIdx) {
+                    btn.classList.add('selected');
+                }
+            }
+
+            setTimeout(() => {
+                checkAnswer(optIdx);
+            }, 1500);
+        }
+
+        function checkAnswer(selectedIdx) {
+            const currentQ = QUESTIONS[currentQuestionIdx];
+            const correctIdx = currentQ.correct;
+            const correctButtonIdx = activeOptionsMapping.indexOf(correctIdx);
+
+            const selectedBtn = document.getElementById(`opt-${selectedIdx}`);
+            const correctBtn = document.getElementById(`opt-${correctButtonIdx}`);
+
+            selectedBtn.classList.remove('selected');
+
+            if (selectedIdx === correctButtonIdx) {
+                selectedBtn.classList.add('correct');
+                sounds.playSuccess();
+
+                document.getElementById('explanation-text').innerText = currentQ.explanation;
+                document.getElementById('explanation-source').innerText = currentQ.source;
+                document.getElementById('explanation-box').style.display = 'block';
+
+                document.getElementById('explanation-box').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            } else {
+                selectedBtn.classList.add('wrong');
+                correctBtn.classList.add('correct');
+                sounds.playFailure();
+
+                setTimeout(() => {
+                    endGame(false);
+                }, 2200);
+            }
+        }
+
+        function goToNextQuestion() {
+            if (currentQuestionIdx === 14) {
+                endGame(true);
+            } else {
+                currentQuestionIdx++;
+                renderQuestion();
+            }
+        }
+
+        /* ==========================================
+           H. COMODINES (LÓGICA E INTERFACES)
+           ========================================== */
+        function openModal(title, bodyHtml) {
+            isTimerPaused = true;
+            document.getElementById('modal-title').innerHTML = title;
+            document.getElementById('modal-body').innerHTML = bodyHtml;
+            document.getElementById('modal-overlay').classList.add('active');
+        }
+
+        function closeModal() {
+            document.getElementById('modal-overlay').classList.remove('active');
+            isTimerPaused = false;
+        }
+
+        function use5050() {
+            if (!lifelines["5050"] || isAnswering) return;
+            lifelines["5050"] = false;
+            sounds.playSparkle();
+
+            const correctIdx = QUESTIONS[currentQuestionIdx].correct;
+            const correctButtonIdx = activeOptionsMapping.indexOf(correctIdx);
+
+            let incorrectButtonIndices = [0, 1, 2, 3].filter(idx => idx !== correctButtonIdx);
+
+            incorrectButtonIndices.sort(() => Math.random() - 0.5);
+            const toDisable = [incorrectButtonIndices[0], incorrectButtonIndices[1]];
+
+            toDisable.forEach(idx => {
+                const btn = document.getElementById(`opt-${idx}`);
+                btn.classList.add('disabled-option');
+                btn.style.pointerEvents = 'none';
+                activeQuestionOptions = activeQuestionOptions.filter(o => o !== idx);
+            });
+
+            document.getElementById('btn-5050').classList.add('used');
+        }
+
+        function useLlamada() {
+            if (!lifelines["llamada"] || isAnswering) return;
+            lifelines["llamada"] = false;
+            sounds.playSparkle();
+
+            const correctIdx = QUESTIONS[currentQuestionIdx].correct;
+            const correctButtonIdx = activeOptionsMapping.indexOf(correctIdx);
+            const letter = String.fromCharCode(65 + correctButtonIdx);
+
+            const friends = ["Dr. Manuel Area (U. de La Laguna)", "Dra. Gairín (UAB)", "Prof. Salinas (U. de Islas Baleares)", "Dr. Adell (U. Jaume I)"];
+            const friendName = friends[Math.floor(Math.random() * friends.length)];
+
+            let probability = 90;
+            if (currentQuestionIdx >= 5) probability = 75;
+            if (currentQuestionIdx >= 10) probability = 55;
+
+            const isCorrectSuggestion = (Math.random() * 100) <= probability;
+            let suggestedLetter = letter;
+
+            if (!isCorrectSuggestion) {
+                const wrongActiveOptions = activeQuestionOptions.filter(o => o !== correctButtonIdx);
+                if (wrongActiveOptions.length > 0) {
+                    const randomWrong = wrongActiveOptions[Math.floor(Math.random() * wrongActiveOptions.length)];
+                    suggestedLetter = String.fromCharCode(65 + randomWrong);
+                }
+            }
+
+            const modalTitle = `<span style="font-size:1.8rem">📞</span> Llamar a un Gurú Académico`;
+            const chatBody = `
+                <div class="chat-container">
+                    <div class="chat-msg user">
+                        <span class="chat-sender-name">Tú</span>
+                        ¡Hola! Estoy atascado en un desafío sobre cultura e-learning. ¿Puedes ayudarme con esta pregunta?
+                    </div>
+                    <div id="chat-typing" class="typing-indicator">
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                        <div class="typing-dot"></div>
+                    </div>
+                </div>
+            `;
+
+            openModal(modalTitle, chatBody);
+
+            setTimeout(() => {
+                const typing = document.getElementById('chat-typing');
+                if (typing) typing.remove();
+
+                const container = document.querySelector('.chat-container');
+                const responseHtml = `
+                    <div class="chat-msg friend" style="animation: fadeIn 0.3s ease forwards;">
+                        <span class="chat-sender-name">${friendName}</span>
+                        ¡Qué tal! Claro. Analizando el marco didáctico, me parece que la respuesta se fundamenta directamente en las lecturas. 
+                        Estoy un <strong>${probability}% seguro</strong> de que la respuesta correcta es la <strong>${suggestedLetter}</strong>. 
+                        ${isCorrectSuggestion ? "Encaja perfectamente con la teoría del aprendizaje y la innovación didáctica asíncrona." : "Creo que va en esa línea organizativa."}
+                    </div>
+                `;
+                if (container) {
+                    container.innerHTML += responseHtml;
+                    container.scrollTop = container.scrollHeight;
+                }
+            }, 1600);
+
+            document.getElementById('btn-llamada').classList.add('used');
+        }
+
+        function usePublico() {
+            if (!lifelines["publico"] || isAnswering) return;
+            lifelines["publico"] = false;
+            sounds.playSparkle();
+
+            const correctIdx = QUESTIONS[currentQuestionIdx].correct;
+            const correctButtonIdx = activeOptionsMapping.indexOf(correctIdx);
+
+            let pcts = [0, 0, 0, 0];
+
+            let correctPctWeight = 70;
+            if (currentQuestionIdx >= 5) correctPctWeight = 50;
+            if (currentQuestionIdx >= 10) correctPctWeight = 32;
+
+            if (activeQuestionOptions.includes(correctButtonIdx)) {
+                pcts[correctButtonIdx] = correctPctWeight;
+            } else {
+                correctPctWeight = 0;
+            }
+
+            const activeIncorrects = activeQuestionOptions.filter(o => o !== correctButtonIdx);
+            let remaining = 100 - correctPctWeight;
+
+            if (activeIncorrects.length > 0) {
+                activeIncorrects.forEach((opt, i) => {
+                    if (i === activeIncorrects.length - 1) {
+                        pcts[opt] = remaining;
+                    } else {
+                        const val = Math.floor(Math.random() * (remaining - 5)) + 5;
+                        pcts[opt] = val;
+                        remaining -= val;
+                    }
+                });
+            }
+
+            const modalTitle = `<span style="font-size:1.8rem">📊</span> Opinión del Público Docente`;
+            let chartHtml = `<div class="audience-chart">`;
+
+            for (let i = 0; i < 4; i++) {
+                const letter = String.fromCharCode(65 + i);
+                const isActive = activeQuestionOptions.includes(i);
+                const pct = isActive ? pcts[i] : 0;
+                const isWinner = i === correctButtonIdx && isActive;
+
+                chartHtml += `
+                    <div class="audience-bar-container">
+                        <span class="audience-label">${letter}</span>
+                        <div class="audience-track ${isWinner ? 'winner' : ''}">
+                            <div id="bar-${i}" class="audience-bar" style="width: 0%"></div>
+                        </div>
+                        <span class="audience-pct">${pct}%</span>
+                    </div>
+                `;
+            }
+            chartHtml += `</div>`;
+
+            openModal(modalTitle, chartHtml);
+
+            setTimeout(() => {
+                for (let i = 0; i < 4; i++) {
+                    const bar = document.getElementById(`bar-${i}`);
+                    if (bar) {
+                        const pct = activeQuestionOptions.includes(i) ? pcts[i] : 0;
+                        bar.style.width = `${pct}%`;
+                    }
+                }
+            }, 100);
+
+            document.getElementById('btn-publico').classList.add('used');
+        }
+
+        /* ==========================================
+           I. FIN DE JUEGO, SEGUROS Y RETIRADA
+           ========================================== */
+        function walkAway() {
+            if (isAnswering) return;
+            stopTimer();
+
+            const accumulatedMoney = currentQuestionIdx > 0 ? REWARDS[currentQuestionIdx - 1] : 0;
+
+            sounds.playSuccess();
+            showResultScreen(accumulatedMoney, "Te has retirado de forma inteligente del tablero pedagógico.");
+        }
+
+        function endGame(isJackpot, isTimeout = false) {
+            stopTimer();
+            let finalAmount = 0;
+
+            if (isJackpot) {
+                finalAmount = 1000000;
+                sounds.playSuccess();
+                showResultScreen(finalAmount, "¡Impresionante! Has alcanzado la cima del conocimiento digital y eres oficialmente Gurú de la Cultura E-Learning.");
+            } else {
+                if (currentQuestionIdx < 5) {
+                    finalAmount = 0;
+                } else if (currentQuestionIdx >= 5 && currentQuestionIdx < 10) {
+                    finalAmount = 1000;
+                } else {
+                    finalAmount = 32000;
+                }
+
+                sounds.playFailure();
+                
+                let message = "La pregunta era sumamente retadora. Sigue investigando las teorías pedagógicas.";
+                if (isTimeout) {
+                    message = "¡Se agotó el tiempo límite para responder! Debes ser más rápido analizando el marco didáctico.";
+                }
+                showResultScreen(finalAmount, message);
+            }
+        }
+
+        function showResultScreen(amount, message) {
+            showScreen('result-screen');
+
+            document.getElementById('result-subtitle').innerText = message;
+            document.getElementById('reward-val').innerText = `$${amount.toLocaleString()}`;
+
+            let rank = "Principiante en TICs";
+            let icon = "🌱";
+
+            if (amount === 1000000) {
+                rank = "Gurú Supremo del E-Learning";
+                icon = "👑";
+            } else if (amount >= 250000) {
+                rank = "Especialista y Líder de Innovación";
+                icon = "🏆";
+            } else if (amount >= 32000) {
+                rank = "Diseñador Instruccional Senior";
+                icon = "🏅";
+            } else if (amount >= 1000) {
+                rank = "Docente Digital Competente";
+                icon = "📚";
+            }
+
+            const resultIcon = document.getElementById('result-icon');
+            resultIcon.innerText = icon;
+            resultIcon.className = `result-icon ${amount === 1000000 ? 'winner' : ''}`;
+
+            document.getElementById('rank-name').innerText = rank;
+        }
+
+        function resetGame() {
+            stopTimer();
+            showScreen('start-screen');
+        }
+
+        // Lógica de salida
+        document.getElementById('btn-back-to-blog').addEventListener('click', (e) => {
+            if (window.opener) {
+                e.preventDefault();
+                window.close();
+            }
+        });
+    </script>
+</body>
+</html>
