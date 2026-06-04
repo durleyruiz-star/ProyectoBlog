@@ -54,1759 +54,1982 @@
             <p>Para desglosar y entender mejor esta realidad, hemos preparado el siguiente mapa conceptual interactivo, el cual estructura de manera visual los componentes esenciales que dan vida a los Ambientes de Aprendizaje. Te invitamos a explorar sus nodos haciendo clic en ellos para revelar análisis, impactos y conexiones en la parte inferior.</p>
             
             <!-- MAPA CONCEPTUAL INTERACTIVO -->
-            <!-- Google Font: Outfit -->
+<!-- Google Font: Outfit -->
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&display=swap');
+
     /* ==========================================================================
        1. ENCAPSULACIÓN Y SISTEMA DE DISEÑO (EVITA CONFLICTOS EN BLOGGER)
        ========================================================================== */
-        #learning-map-app {
-            all: initial; /* Resetea estilos globales heredados de Blogger */
-            font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            height: 780px;
-            background-color: #060814 !important;
-            background-image:
-                radial-gradient(at 10% 20%, rgba(0, 245, 212, 0.08) 0px, transparent 50%),
-                radial-gradient(at 90% 80%, rgba(255, 183, 3, 0.06) 0px, transparent 50%),
-                radial-gradient(circle at center, #0c0f2a 0%, #050612 100%) !important;
-            color: #f1f5f9 !important;
-            box-sizing: border-box !important;
-            position: relative !important;
-            border-radius: 20px !important;
-            border: 1px solid rgba(255, 255, 255, 0.06) !important;
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
-            overflow: hidden !important;
-            margin: 20px 0 !important;
-        }
+    #learning-map-app {
+        all: initial;
+        /* Resetea estilos globales heredados de Blogger */
+        font-family: 'Outfit', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        height: 780px;
+        background-color: #060814 !important;
+        background-image:
+            radial-gradient(at 10% 20%, rgba(0, 245, 212, 0.08) 0px, transparent 50%),
+            radial-gradient(at 90% 80%, rgba(255, 183, 3, 0.06) 0px, transparent 50%),
+            radial-gradient(circle at center, #0c0f2a 0%, #050612 100%) !important;
+        color: #f1f5f9 !important;
+        box-sizing: border-box !important;
+        position: relative !important;
+        border-radius: 20px !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5) !important;
+        overflow: hidden !important;
+        margin: 20px 0 !important;
+    }
 
-        #learning-map-app * {
-            box-sizing: border-box !important;
-            font-family: 'Outfit', sans-serif !important;
-            transition: background-color 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.25s;
-        }
+    #learning-map-app * {
+        box-sizing: border-box !important;
+        font-family: 'Outfit', sans-serif !important;
+        transition: background-color 0.25s, border-color 0.25s, box-shadow 0.25s, transform 0.25s;
+    }
 
-        /* 3 Paletas de Colores de Neón */
-        :root {
-            --map-cyan: #00f5d4;
-            --map-green: #10b981;
-            --map-yellow: #ffb703;
-            --map-purple: #7c3aed;
-            --map-bg-surface: rgba(13, 17, 43, 0.6);
-            --map-border: rgba(255, 255, 255, 0.08);
-            --map-text: #f1f5f9;
-            --map-text-muted: #94a3b8;
-        }
+    /* 3 Paletas de Colores de Neón */
+    :root {
+        --map-cyan: #00f5d4;
+        --map-green: #10b981;
+        --map-yellow: #ffb703;
+        --map-purple: #7c3aed;
+        --map-bg-surface: rgba(13, 17, 43, 0.6);
+        --map-border: rgba(255, 255, 255, 0.08);
+        --map-text: #f1f5f9;
+        --map-text-muted: #94a3b8;
+    }
 
-        /* Ocultar barra de scroll por defecto */
-        #learning-map-app ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        #learning-map-app ::-webkit-scrollbar-track {
-            background: rgba(255, 255, 255, 0.02);
-            border-radius: 4px;
-        }
-        #learning-map-app ::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 4px;
-        }
-        #learning-map-app ::-webkit-scrollbar-thumb:hover {
-            background: rgba(0, 245, 212, 0.4);
-        }
+    /* Ocultar barra de scroll por defecto */
+    #learning-map-app ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+    }
 
-        /* ==========================================================================
+    #learning-map-app ::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.02);
+        border-radius: 4px;
+    }
+
+    #learning-map-app ::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.15);
+        border-radius: 4px;
+    }
+
+    #learning-map-app ::-webkit-scrollbar-thumb:hover {
+        background: rgba(0, 245, 212, 0.4);
+    }
+
+    /* ==========================================================================
            2. CABECERA DE CONTROL (BARRA SUPERIOR)
            ========================================================================== */
-        .map-header {
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            padding: 16px 24px !important;
-            background: rgba(6, 8, 20, 0.75) !important;
-            backdrop-filter: blur(12px) !important;
-            -webkit-backdrop-filter: blur(12px) !important;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
-            z-index: 10 !important;
-        }
+    .map-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 16px 24px !important;
+        background: rgba(6, 8, 20, 0.75) !important;
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06) !important;
+        z-index: 10 !important;
+    }
 
-        .map-title-area h2 {
-            font-size: 1.25rem !important;
-            font-weight: 800 !important;
-            margin: 0 0 2px 0 !important;
-            background: linear-gradient(135deg, #ffffff 30%, #00f5d4 70%, #ffb703 100%) !important;
-            -webkit-background-clip: text !important;
-            -webkit-text-fill-color: transparent !important;
-            display: flex !important;
-            align-items: center !important;
-            gap: 8px !important;
-        }
+    .map-title-area h2 {
+        font-size: 1.25rem !important;
+        font-weight: 800 !important;
+        margin: 0 0 2px 0 !important;
+        background: linear-gradient(135deg, #ffffff 30%, #00f5d4 70%, #ffb703 100%) !important;
+        -webkit-background-clip: text !important;
+        -webkit-text-fill-color: transparent !important;
+        display: flex !important;
+        align-items: center !important;
+        gap: 8px !important;
+    }
 
-        .map-title-area p {
-            font-size: 0.8rem !important;
-            color: #94a3b8 !important;
-            margin: 0 !important;
-            font-weight: 400 !important;
-        }
+    .map-title-area p {
+        font-size: 0.8rem !important;
+        color: #94a3b8 !important;
+        margin: 0 !important;
+        font-weight: 400 !important;
+    }
 
-        /* Controles de barra superior */
-        .map-controls {
-            display: flex !important;
-            align-items: center !important;
-            gap: 12px !important;
-        }
+    /* Controles de barra superior */
+    .map-controls {
+        display: flex !important;
+        align-items: center !important;
+        gap: 12px !important;
+    }
 
-        /* Buscador */
-        .search-container {
-            position: relative !important;
-            display: flex !important;
-            align-items: center !important;
-        }
+    /* Buscador */
+    .search-container {
+        position: relative !important;
+        display: flex !important;
+        align-items: center !important;
+    }
 
-        .search-input {
-            background: rgba(255, 255, 255, 0.04) !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
-            border-radius: 30px !important;
-            padding: 8px 16px 8px 36px !important;
-            color: #f1f5f9 !important;
-            font-size: 0.85rem !important;
-            width: 190px !important;
-            outline: none !important;
-            transition: all 0.3s ease !important;
-        }
+    .search-input {
+        background: rgba(255, 255, 255, 0.04) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 30px !important;
+        padding: 8px 16px 8px 36px !important;
+        color: #f1f5f9 !important;
+        font-size: 0.85rem !important;
+        width: 190px !important;
+        outline: none !important;
+        transition: all 0.3s ease !important;
+    }
 
-        .search-input:focus {
-            border-color: #00f5d4 !important;
-            background: rgba(255, 255, 255, 0.08) !important;
-            box-shadow: 0 0 12px rgba(0, 245, 212, 0.2) !important;
-            width: 240px !important;
-        }
+    .search-input:focus {
+        border-color: #00f5d4 !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        box-shadow: 0 0 12px rgba(0, 245, 212, 0.2) !important;
+        width: 240px !important;
+    }
 
-        .search-icon {
-            position: absolute !important;
-            left: 12px !important;
-            width: 14px !important;
-            height: 14px !important;
-            stroke: #94a3b8 !important;
-            stroke-width: 2.5 !important;
-            fill: none !important;
-        }
+    .search-icon {
+        position: absolute !important;
+        left: 12px !important;
+        width: 14px !important;
+        height: 14px !important;
+        stroke: #94a3b8 !important;
+        stroke-width: 2.5 !important;
+        fill: none !important;
+    }
 
-        /* Botones de control Premium */
-        .map-btn {
-            background: rgba(255, 255, 255, 0.03) !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
-            color: #f1f5f9 !important;
-            border-radius: 30px !important;
-            padding: 8px 16px !important;
-            font-size: 0.85rem !important;
-            font-weight: 600 !important;
-            cursor: pointer !important;
-            display: inline-flex !important;
-            align-items: center !important;
-            gap: 6px !important;
-            outline: none !important;
-        }
+    /* Botones de control Premium */
+    .map-btn {
+        background: rgba(255, 255, 255, 0.03) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        color: #f1f5f9 !important;
+        border-radius: 30px !important;
+        padding: 8px 16px !important;
+        font-size: 0.85rem !important;
+        font-weight: 600 !important;
+        cursor: pointer !important;
+        display: inline-flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        outline: none !important;
+    }
 
-        .map-btn:hover {
-            background: rgba(255, 255, 255, 0.08) !important;
-            border-color: #00f5d4 !important;
-            box-shadow: 0 0 10px rgba(0, 245, 212, 0.25) !important;
-            transform: translateY(-1px) !important;
-        }
+    .map-btn:hover {
+        background: rgba(255, 255, 255, 0.08) !important;
+        border-color: #00f5d4 !important;
+        box-shadow: 0 0 10px rgba(0, 245, 212, 0.25) !important;
+        transform: translateY(-1px) !important;
+    }
 
-        .map-btn:active {
-            transform: translateY(0) !important;
-        }
+    .map-btn:active {
+        transform: translateY(0) !important;
+    }
 
-        .map-btn.accent-btn {
-            background: linear-gradient(90deg, #7c3aed, #00f5d4) !important;
-            border: 1px solid rgba(255, 255, 255, 0.15) !important;
-            box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2) !important;
-        }
+    .map-btn.accent-btn {
+        background: linear-gradient(90deg, #7c3aed, #00f5d4) !important;
+        border: 1px solid rgba(255, 255, 255, 0.15) !important;
+        box-shadow: 0 4px 12px rgba(124, 58, 237, 0.2) !important;
+    }
 
-        .map-btn.accent-btn:hover {
-            background: linear-gradient(90deg, #8b5cf6, #00f5d4) !important;
-            box-shadow: 0 0 15px rgba(0, 245, 212, 0.4) !important;
-            border-color: #ffffff !important;
-        }
+    .map-btn.accent-btn:hover {
+        background: linear-gradient(90deg, #8b5cf6, #00f5d4) !important;
+        box-shadow: 0 0 15px rgba(0, 245, 212, 0.4) !important;
+        border-color: #ffffff !important;
+    }
 
-        /* ==========================================================================
+    /* ==========================================================================
            3. AREA PRINCIPAL DE TRABAJO (GRID)
            ========================================================================== */
-        .map-main-area {
-            display: flex !important;
-            flex-direction: column !important;
-            flex: 1 !important;
-            position: relative !important;
-            height: calc(100% - 65px) !important;
-            overflow: hidden !important;
-        }
+    .map-main-area {
+        display: flex !important;
+        flex-direction: column !important;
+        flex: 1 !important;
+        position: relative !important;
+        height: calc(100% - 65px) !important;
+        overflow: hidden !important;
+    }
 
-        /* Contenedor del Lienzo SVG (Lado Izquierdo) */
-        .canvas-container {
-            flex: 1 !important;
-            position: relative !important;
-            overflow: hidden !important;
-            cursor: grab !important;
-        }
+    /* Contenedor del Lienzo SVG (Lado Izquierdo) */
+    .canvas-container {
+        flex: 1 !important;
+        position: relative !important;
+        overflow: hidden !important;
+        cursor: grab !important;
+    }
 
-        .canvas-container:active {
-            cursor: grabbing !important;
-        }
+    .canvas-container:active {
+        cursor: grabbing !important;
+    }
 
-        /* El SVG real y su capa de transformaciones */
-        #interactive-svg {
-            width: 100% !important;
-            height: 100% !important;
-            display: block !important;
-            transform-origin: 0 0 !important;
-        }
+    /* El SVG real y su capa de transformaciones */
+    #interactive-svg {
+        width: 100% !important;
+        height: 100% !important;
+        display: block !important;
+        transform-origin: 0 0 !important;
+    }
 
-        /* Controles de Zoom Flotantes en el Lienzo */
-        .canvas-zoom-controls {
-            position: absolute !important;
-            bottom: 20px !important;
-            left: 20px !important;
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 6px !important;
-            background: rgba(6, 8, 20, 0.7) !important;
-            backdrop-filter: blur(8px) !important;
-            -webkit-backdrop-filter: blur(8px) !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
-            border-radius: 12px !important;
-            padding: 6px !important;
-            z-index: 5 !important;
-        }
+    /* Controles de Zoom Flotantes en el Lienzo */
+    .canvas-zoom-controls {
+        position: absolute !important;
+        bottom: 20px !important;
+        left: 20px !important;
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 6px !important;
+        background: rgba(6, 8, 20, 0.7) !important;
+        backdrop-filter: blur(8px) !important;
+        -webkit-backdrop-filter: blur(8px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 12px !important;
+        padding: 6px !important;
+        z-index: 5 !important;
+    }
 
-        .zoom-btn {
-            background: rgba(255, 255, 255, 0.04) !important;
-            border: 1px solid rgba(255, 255, 255, 0.06) !important;
-            color: #f1f5f9 !important;
-            width: 32px !important;
-            height: 32px !important;
-            border-radius: 8px !important;
-            cursor: pointer !important;
-            display: flex !important;
-            align-items: center !important;
-            justify-content: center !important;
-            font-size: 1.1rem !important;
-            font-weight: 700 !important;
-            outline: none !important;
-        }
+    .zoom-btn {
+        background: rgba(255, 255, 255, 0.04) !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+        color: #f1f5f9 !important;
+        width: 32px !important;
+        height: 32px !important;
+        border-radius: 8px !important;
+        cursor: pointer !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        font-size: 1.1rem !important;
+        font-weight: 700 !important;
+        outline: none !important;
+    }
 
-        .zoom-btn:hover {
-            background: rgba(255, 255, 255, 0.1) !important;
-            border-color: #00f5d4 !important;
-            color: #00f5d4 !important;
-        }
+    .zoom-btn:hover {
+        background: rgba(255, 255, 255, 0.1) !important;
+        border-color: #00f5d4 !important;
+        color: #00f5d4 !important;
+    }
 
-        /* Leyendas */
-        .map-legend {
-            position: absolute !important;
-            bottom: 20px !important;
-            right: 20px !important;
-            display: flex !important;
-            gap: 16px !important;
-            background: rgba(6, 8, 20, 0.7) !important;
-            backdrop-filter: blur(8px) !important;
-            border: 1px solid rgba(255, 255, 255, 0.08) !important;
-            border-radius: 20px !important;
-            padding: 8px 16px !important;
-            z-index: 5 !important;
-            font-size: 0.75rem !important;
-            font-weight: 600 !important;
-        }
+    /* Leyendas */
+    .map-legend {
+        position: absolute !important;
+        bottom: 20px !important;
+        right: 20px !important;
+        display: flex !important;
+        gap: 16px !important;
+        background: rgba(6, 8, 20, 0.7) !important;
+        backdrop-filter: blur(8px) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 20px !important;
+        padding: 8px 16px !important;
+        z-index: 5 !important;
+        font-size: 0.75rem !important;
+        font-weight: 600 !important;
+    }
 
-        .legend-item {
-            display: flex !important;
-            align-items: center !important;
-            gap: 6px !important;
-            color: #94a3b8 !important;
-        }
+    .legend-item {
+        display: flex !important;
+        align-items: center !important;
+        gap: 6px !important;
+        color: #94a3b8 !important;
+    }
 
-        .legend-dot {
-            width: 8px !important;
-            height: 8px !important;
-            border-radius: 50% !important;
-        }
-        .legend-dot.cyan { background-color: #00f5d4; box-shadow: 0 0 6px #00f5d4; }
-        .legend-dot.green { background-color: #10b981; box-shadow: 0 0 6px #10b981; }
-        .legend-dot.yellow { background-color: #ffb703; box-shadow: 0 0 6px #ffb703; }
+    .legend-dot {
+        width: 8px !important;
+        height: 8px !important;
+        border-radius: 50% !important;
+    }
 
-        /* ==========================================================================
+    .legend-dot.cyan {
+        background-color: #00f5d4;
+        box-shadow: 0 0 6px #00f5d4;
+    }
+
+    .legend-dot.green {
+        background-color: #10b981;
+        box-shadow: 0 0 6px #10b981;
+    }
+
+    .legend-dot.yellow {
+        background-color: #ffb703;
+        box-shadow: 0 0 6px #ffb703;
+    }
+
+    /* ==========================================================================
            4. DISEÑO DE NODOS Y CONECTORES SVG
            ========================================================================== */
-        /* Estilos del Canvas SVG */
-        .svg-bg {
-            fill: transparent !important;
-        }
+    /* Estilos del Canvas SVG */
+    .svg-bg {
+        fill: transparent !important;
+    }
 
-        /* Líneas conectoras */
-        .connector-path {
-            stroke: rgba(255, 255, 255, 0.12) !important;
-            stroke-width: 2px !important;
-            fill: none !important;
-            transition: stroke 0.3s, stroke-width 0.3s !important;
-        }
+    /* Líneas conectoras */
+    .connector-path {
+        stroke: rgba(255, 255, 255, 0.12) !important;
+        stroke-width: 2px !important;
+        fill: none !important;
+        transition: stroke 0.3s, stroke-width 0.3s !important;
+    }
 
-        /* Conectores con flujo de neón */
-        .connector-glow {
-            stroke: transparent !important;
-            stroke-width: 6px !important;
-            fill: none !important;
-            opacity: 0.15 !important;
-            transition: stroke 0.3s !important;
-        }
+    /* Conectores con flujo de neón */
+    .connector-glow {
+        stroke: transparent !important;
+        stroke-width: 6px !important;
+        fill: none !important;
+        opacity: 0.15 !important;
+        transition: stroke 0.3s !important;
+    }
 
-        /* Animación de flujo neón activa */
-        .connector-flow {
-            stroke: transparent !important;
-            stroke-dasharray: 6 15 !important;
-            stroke-linecap: round !important;
-            fill: none !important;
-            animation: dashFlow 20s linear infinite !important;
-        }
+    /* Animación de flujo neón activa */
+    .connector-flow {
+        stroke: transparent !important;
+        stroke-dasharray: 6 15 !important;
+        stroke-linecap: round !important;
+        fill: none !important;
+        animation: dashFlow 20s linear infinite !important;
+    }
 
-        @keyframes dashFlow {
-            to {
-                stroke-dashoffset: -1000;
-            }
+    @keyframes dashFlow {
+        to {
+            stroke-dashoffset: -1000;
         }
+    }
 
-        /* Hover de conexiones */
-        .link-group.active .connector-path {
-            stroke-width: 3px !important;
-        }
-        .link-group.active.physical .connector-path { stroke: #00f5d4 !important; }
-        .link-group.active.interaction .connector-path { stroke: #10b981 !important; }
-        .link-group.active.virtual .connector-path { stroke: #ffb703 !important; }
+    /* Hover de conexiones */
+    .link-group.active .connector-path {
+        stroke-width: 3px !important;
+    }
 
-        .link-group.active.physical .connector-flow { stroke: #00f5d4 !important; }
-        .link-group.active.interaction .connector-flow { stroke: #10b981 !important; }
-        .link-group.active.virtual .connector-flow { stroke: #ffb703 !important; }
+    .link-group.active.physical .connector-path {
+        stroke: #00f5d4 !important;
+    }
 
-        /* Etiquetas de texto en conectores */
-        .link-label-box {
-            fill: #060814 !important;
-            stroke: rgba(255, 255, 255, 0.08) !important;
-            stroke-width: 1px !important;
-            rx: 6px !important;
-        }
+    .link-group.active.interaction .connector-path {
+        stroke: #10b981 !important;
+    }
 
-        .link-label-text {
-            fill: #94a3b8 !important;
-            font-size: 10px !important;
-            font-weight: 600 !important;
-            text-anchor: middle !important;
-            dominant-baseline: central !important;
-            letter-spacing: 0.5px !important;
-        }
+    .link-group.active.virtual .connector-path {
+        stroke: #ffb703 !important;
+    }
 
-        /* Nodos individuales */
-        .node-g {
-            cursor: pointer !important;
-        }
+    .link-group.active.physical .connector-flow {
+        stroke: #00f5d4 !important;
+    }
 
-        .node-g rect {
-            fill: #0d122b !important;
-            stroke: rgba(255, 255, 255, 0.15) !important;
-            stroke-width: 1.5px !important;
-            filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-        }
+    .link-group.active.interaction .connector-flow {
+        stroke: #10b981 !important;
+    }
 
-        .node-g text {
-            fill: #f1f5f9 !important;
-            font-size: 11.5px !important;
-            font-weight: 500 !important;
-            text-anchor: middle !important;
-            dominant-baseline: middle !important;
-            pointer-events: none !important;
-            letter-spacing: 0.2px !important;
-        }
+    .link-group.active.virtual .connector-flow {
+        stroke: #ffb703 !important;
+    }
 
-        /* Estilos diferenciados por tipo */
-        /* Nodo Raíz */
-        .node-g.root rect {
-            fill: rgba(0, 245, 212, 0.06) !important;
-            stroke: #00f5d4 !important;
-            stroke-width: 3px !important;
-            box-shadow: 0 0 15px rgba(0, 245, 212, 0.25) !important;
-        }
-        .node-g.root text {
-            font-weight: 800 !important;
-            font-size: 12.5px !important;
-            letter-spacing: 0.8px !important;
-        }
+    /* Etiquetas de texto en conectores */
+    .link-label-box {
+        fill: #060814 !important;
+        stroke: rgba(255, 255, 255, 0.08) !important;
+        stroke-width: 1px !important;
+        rx: 6px !important;
+    }
 
-        /* Rama Físicos (Cian) */
-        .node-g.physical rect {
-            stroke: rgba(0, 245, 212, 0.4) !important;
-        }
-        .node-g.physical:hover rect {
-            stroke: #00f5d4 !important;
-            fill: rgba(0, 245, 212, 0.08) !important;
-            filter: drop-shadow(0 0 12px rgba(0, 245, 212, 0.35)) !important;
-        }
+    .link-label-text {
+        fill: #94a3b8 !important;
+        font-size: 10px !important;
+        font-weight: 600 !important;
+        text-anchor: middle !important;
+        dominant-baseline: central !important;
+        letter-spacing: 0.5px !important;
+    }
 
-        /* Rama Interacciones (Verde) */
-        .node-g.interaction rect {
-            stroke: rgba(16, 185, 129, 0.4) !important;
-        }
-        .node-g.interaction:hover rect {
-            stroke: #10b981 !important;
-            fill: rgba(16, 185, 129, 0.08) !important;
-            filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.35)) !important;
-        }
+    /* Nodos individuales */
+    .node-g {
+        cursor: pointer !important;
+    }
 
-        /* Rama Virtuales (Amarillo) */
-        .node-g.virtual rect {
-            stroke: rgba(255, 183, 3, 0.4) !important;
-        }
-        .node-g.virtual:hover rect {
-            stroke: #ffb703 !important;
-            fill: rgba(255, 183, 3, 0.08) !important;
-            filter: drop-shadow(0 0 12px rgba(255, 183, 3, 0.35)) !important;
-        }
+    .node-g rect {
+        fill: #0d122b !important;
+        stroke: rgba(255, 255, 255, 0.15) !important;
+        stroke-width: 1.5px !important;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)) !important;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+    }
 
-        /* Estados de Búsqueda y Selección */
-        /* Estado atenuado por no coincidir con búsqueda o estar inactivo en Tour */
-        .node-g.dimmed {
-            opacity: 0.15 !important;
-        }
-        .link-group.dimmed {
-            opacity: 0.05 !important;
-        }
+    .node-g text {
+        fill: #f1f5f9 !important;
+        font-size: 11.5px !important;
+        font-weight: 500 !important;
+        text-anchor: middle !important;
+        dominant-baseline: middle !important;
+        pointer-events: none !important;
+        letter-spacing: 0.2px !important;
+    }
 
-        /* Destacado absoluto (Resultado de búsqueda o Tour) */
-        .node-g.highlighted rect {
-            stroke-width: 3.5px !important;
-            transform: scale(1.08) !important;
-        }
-        .node-g.highlighted.physical rect {
-            stroke: #00f5d4 !important;
-            fill: rgba(0, 245, 212, 0.15) !important;
-            filter: drop-shadow(0 0 18px rgba(0, 245, 212, 0.6)) !important;
-        }
-        .node-g.highlighted.interaction rect {
-            stroke: #10b981 !important;
-            fill: rgba(16, 185, 129, 0.15) !important;
-            filter: drop-shadow(0 0 18px rgba(16, 185, 129, 0.6)) !important;
-        }
-        .node-g.highlighted.virtual rect {
-            stroke: #ffb703 !important;
-            fill: rgba(255, 183, 3, 0.15) !important;
-            filter: drop-shadow(0 0 18px rgba(255, 183, 3, 0.6)) !important;
-        }
-        .node-g.highlighted text {
-            font-weight: 700 !important;
-        }
+    /* Estilos diferenciados por tipo */
+    /* Nodo Raíz */
+    .node-g.root rect {
+        fill: rgba(0, 245, 212, 0.06) !important;
+        stroke: #00f5d4 !important;
+        stroke-width: 3px !important;
+        box-shadow: 0 0 15px rgba(0, 245, 212, 0.25) !important;
+    }
 
-        /* ==========================================================================
+    .node-g.root text {
+        font-weight: 800 !important;
+        font-size: 12.5px !important;
+        letter-spacing: 0.8px !important;
+    }
+
+    /* Rama Físicos (Cian) */
+    .node-g.physical rect {
+        stroke: rgba(0, 245, 212, 0.4) !important;
+    }
+
+    .node-g.physical:hover rect {
+        stroke: #00f5d4 !important;
+        fill: rgba(0, 245, 212, 0.08) !important;
+        filter: drop-shadow(0 0 12px rgba(0, 245, 212, 0.35)) !important;
+    }
+
+    /* Rama Interacciones (Verde) */
+    .node-g.interaction rect {
+        stroke: rgba(16, 185, 129, 0.4) !important;
+    }
+
+    .node-g.interaction:hover rect {
+        stroke: #10b981 !important;
+        fill: rgba(16, 185, 129, 0.08) !important;
+        filter: drop-shadow(0 0 12px rgba(16, 185, 129, 0.35)) !important;
+    }
+
+    /* Rama Virtuales (Amarillo) */
+    .node-g.virtual rect {
+        stroke: rgba(255, 183, 3, 0.4) !important;
+    }
+
+    .node-g.virtual:hover rect {
+        stroke: #ffb703 !important;
+        fill: rgba(255, 183, 3, 0.08) !important;
+        filter: drop-shadow(0 0 12px rgba(255, 183, 3, 0.35)) !important;
+    }
+
+    /* Estados de Búsqueda y Selección */
+    /* Estado atenuado por no coincidir con búsqueda o estar inactivo en Tour */
+    .node-g.dimmed {
+        opacity: 0.15 !important;
+    }
+
+    .link-group.dimmed {
+        opacity: 0.05 !important;
+    }
+
+    /* Destacado absoluto (Resultado de búsqueda o Tour) */
+    .node-g.highlighted rect {
+        stroke-width: 3.5px !important;
+        transform: scale(1.08) !important;
+    }
+
+    .node-g.highlighted.physical rect {
+        stroke: #00f5d4 !important;
+        fill: rgba(0, 245, 212, 0.15) !important;
+        filter: drop-shadow(0 0 18px rgba(0, 245, 212, 0.6)) !important;
+    }
+
+    .node-g.highlighted.interaction rect {
+        stroke: #10b981 !important;
+        fill: rgba(16, 185, 129, 0.15) !important;
+        filter: drop-shadow(0 0 18px rgba(16, 185, 129, 0.6)) !important;
+    }
+
+    .node-g.highlighted.virtual rect {
+        stroke: #ffb703 !important;
+        fill: rgba(255, 183, 3, 0.15) !important;
+        filter: drop-shadow(0 0 18px rgba(255, 183, 3, 0.6)) !important;
+    }
+
+    .node-g.highlighted text {
+        font-weight: 700 !important;
+    }
+
+    /* Estilos para nodos de tipo conector */
+    .node-g[class*="connector-"] {
+        pointer-events: none !important;
+        cursor: default !important;
+    }
+
+    .node-g[class*="connector-"] rect {
+        fill: #0c112b !important;
+        stroke: rgba(255, 255, 255, 0.15) !important;
+        stroke-width: 1.5px !important;
+        filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)) !important;
+    }
+
+    .node-g[class*="connector-"] text {
+        fill: #94a3b8 !important;
+        font-size: 10px !important;
+        font-weight: 600 !important;
+        letter-spacing: 0.5px !important;
+    }
+
+    /* ==========================================================================
            5. PANEL DE DETALLES INFORMATIVO (DERECHA)
            ========================================================================== */
-        .details-panel {
-            width: 100% !important;
-            height: 235px !important;
-            flex-shrink: 0 !important;
-            background: rgba(11, 15, 38, 0.85) !important;
-            backdrop-filter: blur(16px) !important;
-            -webkit-backdrop-filter: blur(16px) !important;
-            border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
-            border-left: none !important;
-            display: flex !important;
-            flex-direction: row !important;
-            padding: 16px 24px !important;
-            z-index: 8 !important;
-            overflow: hidden !important;
-            box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4) !important;
-            position: relative !important;
-            gap: 24px !important;
+    .details-panel {
+        width: 100% !important;
+        height: 235px !important;
+        flex-shrink: 0 !important;
+        background: rgba(11, 15, 38, 0.85) !important;
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+        border-left: none !important;
+        display: flex !important;
+        flex-direction: row !important;
+        padding: 16px 24px !important;
+        z-index: 8 !important;
+        overflow: hidden !important;
+        box-shadow: 0 -8px 32px rgba(0, 0, 0, 0.4) !important;
+        position: relative !important;
+        gap: 24px !important;
+    }
+
+    .panel-close {
+        position: absolute !important;
+        top: 12px !important;
+        right: 12px !important;
+        background: transparent !important;
+        border: none !important;
+        color: #94a3b8 !important;
+        font-size: 1.1rem !important;
+        cursor: pointer !important;
+        outline: none !important;
+        display: none !important;
+        /* Sólo visible en móviles */
+        z-index: 10 !important;
+    }
+
+    /* Contenido por defecto (vacío) */
+    .details-placeholder {
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: center !important;
+        justify-content: center !important;
+        width: 100% !important;
+        height: 100% !important;
+        text-align: center !important;
+        color: #94a3b8 !important;
+    }
+
+    .placeholder-icon {
+        width: 48px !important;
+        height: 48px !important;
+        stroke: rgba(255, 255, 255, 0.1) !important;
+        stroke-width: 1.5 !important;
+        fill: none !important;
+        margin-bottom: 16px !important;
+        animation: pulsePlaceholder 3s infinite ease-in-out !important;
+    }
+
+    @keyframes pulsePlaceholder {
+
+        0%,
+        100% {
+            transform: scale(1);
+            opacity: 0.6;
         }
 
-        .panel-close {
-            position: absolute !important;
-            top: 12px !important;
-            right: 12px !important;
-            background: transparent !important;
-            border: none !important;
-            color: #94a3b8 !important;
-            font-size: 1.1rem !important;
-            cursor: pointer !important;
-            outline: none !important;
-            display: none !important; /* Sólo visible en móviles */
-            z-index: 10 !important;
+        50% {
+            transform: scale(1.05);
+            opacity: 1;
+        }
+    }
+
+    .details-placeholder p {
+        font-size: 0.85rem !important;
+        margin: 0 !important;
+        line-height: 1.5 !important;
+    }
+
+    /* Contenido activo del Panel */
+    .details-content {
+        display: none !important;
+        flex-direction: row !important;
+        width: 100% !important;
+        height: 100% !important;
+        gap: 24px !important;
+    }
+
+    .details-content.active {
+        display: flex !important;
+        animation: panelFadeIn 0.3s ease forwards !important;
+    }
+
+    @keyframes panelFadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(10px);
         }
 
-        /* Contenido por defecto (vacío) */
-        .details-placeholder {
-            display: flex !important;
-            flex-direction: column !important;
-            align-items: center !important;
-            justify-content: center !important;
-            width: 100% !important;
-            height: 100% !important;
-            text-align: center !important;
-            color: #94a3b8 !important;
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
+    }
 
-        .placeholder-icon {
-            width: 48px !important;
-            height: 48px !important;
-            stroke: rgba(255, 255, 255, 0.1) !important;
-            stroke-width: 1.5 !important;
-            fill: none !important;
-            margin-bottom: 16px !important;
-            animation: pulsePlaceholder 3s infinite ease-in-out !important;
-        }
+    /* Columnas del Panel de Detalles */
+    .details-col-left {
+        width: 25% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+        padding-right: 20px !important;
+        flex-shrink: 0 !important;
+    }
 
-        @keyframes pulsePlaceholder {
-            0%, 100% { transform: scale(1); opacity: 0.6; }
-            50% { transform: scale(1.05); opacity: 1; }
-        }
+    .details-col-mid {
+        width: 35% !important;
+        display: flex !important;
+        flex-direction: column !important;
+        border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
+        padding-right: 20px !important;
+        overflow-y: auto !important;
+        flex-shrink: 0 !important;
+    }
 
-        .details-placeholder p {
-            font-size: 0.85rem !important;
-            margin: 0 !important;
-            line-height: 1.5 !important;
-        }
+    .details-col-right {
+        flex: 1 !important;
+        display: flex !important;
+        flex-direction: column !important;
+        overflow-y: auto !important;
+        padding-right: 4px !important;
+    }
 
-        /* Contenido activo del Panel */
-        .details-content {
-            display: none !important;
-            flex-direction: row !important;
-            width: 100% !important;
-            height: 100% !important;
-            gap: 24px !important;
-        }
+    .details-col-right .details-section-title:first-of-type {
+        margin-top: 0 !important;
+    }
 
-        .details-content.active {
-            display: flex !important;
-            animation: panelFadeIn 0.3s ease forwards !important;
-        }
+    .details-col-right .details-section-title {
+        margin-top: 12px !important;
+    }
 
-        @keyframes panelFadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .details-badge {
+        align-self: flex-start !important;
+        font-size: 0.7rem !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1.5px !important;
+        padding: 4px 10px !important;
+        border-radius: 20px !important;
+        margin-bottom: 12px !important;
+    }
 
-        /* Columnas del Panel de Detalles */
-        .details-col-left {
-            width: 25% !important;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: center !important;
-            border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
-            padding-right: 20px !important;
-            flex-shrink: 0 !important;
-        }
-        
-        .details-col-mid {
-            width: 35% !important;
-            display: flex !important;
-            flex-direction: column !important;
-            border-right: 1px solid rgba(255, 255, 255, 0.08) !important;
-            padding-right: 20px !important;
-            overflow-y: auto !important;
-            flex-shrink: 0 !important;
-        }
-        
-        .details-col-right {
-            flex: 1 !important;
-            display: flex !important;
-            flex-direction: column !important;
-            overflow-y: auto !important;
-            padding-right: 4px !important;
-        }
+    .details-badge.root {
+        background: rgba(0, 245, 212, 0.08) !important;
+        color: #00f5d4 !important;
+        border: 1px solid rgba(0, 245, 212, 0.15) !important;
+    }
 
-        .details-col-right .details-section-title:first-of-type {
-            margin-top: 0 !important;
-        }
-        .details-col-right .details-section-title {
-            margin-top: 12px !important;
-        }
+    .details-badge.physical {
+        background: rgba(0, 245, 212, 0.08) !important;
+        color: #00f5d4 !important;
+        border: 1px solid rgba(0, 245, 212, 0.15) !important;
+    }
 
-        .details-badge {
-            align-self: flex-start !important;
-            font-size: 0.7rem !important;
-            font-weight: 800 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 1.5px !important;
-            padding: 4px 10px !important;
-            border-radius: 20px !important;
-            margin-bottom: 12px !important;
-        }
-        .details-badge.root { background: rgba(0, 245, 212, 0.08) !important; color: #00f5d4 !important; border: 1px solid rgba(0, 245, 212, 0.15) !important; }
-        .details-badge.physical { background: rgba(0, 245, 212, 0.08) !important; color: #00f5d4 !important; border: 1px solid rgba(0, 245, 212, 0.15) !important; }
-        .details-badge.interaction { background: rgba(16, 185, 129, 0.08) !important; color: #10b981 !important; border: 1px solid rgba(16, 185, 129, 0.15) !important; }
-        .details-badge.virtual { background: rgba(255, 183, 3, 0.08) !important; color: #ffb703 !important; border: 1px solid rgba(255, 183, 3, 0.15) !important; }
+    .details-badge.interaction {
+        background: rgba(16, 185, 129, 0.08) !important;
+        color: #10b981 !important;
+        border: 1px solid rgba(16, 185, 129, 0.15) !important;
+    }
 
-        .details-title {
-            font-size: 1.35rem !important;
-            font-weight: 800 !important;
-            color: #ffffff !important;
-            margin: 0 !important;
-            line-height: 1.2 !important;
-        }
+    .details-badge.virtual {
+        background: rgba(255, 183, 3, 0.08) !important;
+        color: #ffb703 !important;
+        border: 1px solid rgba(255, 183, 3, 0.15) !important;
+    }
 
-        .details-divider {
-            display: none !important;
-        }
+    .details-title {
+        font-size: 1.35rem !important;
+        font-weight: 800 !important;
+        color: #ffffff !important;
+        margin: 0 !important;
+        line-height: 1.2 !important;
+    }
 
-        .details-section-title {
-            font-size: 0.75rem !important;
-            text-transform: uppercase !important;
-            font-weight: 700 !important;
-            letter-spacing: 1px !important;
-            color: #94a3b8 !important;
-            margin-bottom: 6px !important;
-        }
+    .details-divider {
+        display: none !important;
+    }
 
-        .details-desc {
-            font-size: 0.85rem !important;
-            color: #cbd5e1 !important;
-            line-height: 1.5 !important;
-            margin-bottom: 0 !important;
-        }
+    .details-section-title {
+        font-size: 0.75rem !important;
+        text-transform: uppercase !important;
+        font-weight: 700 !important;
+        letter-spacing: 1px !important;
+        color: #94a3b8 !important;
+        margin-bottom: 6px !important;
+    }
 
-        .details-impact-box {
-            background: rgba(255, 255, 255, 0.02) !important;
-            border: 1px solid rgba(255, 255, 255, 0.04) !important;
-            border-radius: 12px !important;
-            padding: 10px 12px !important;
-            margin-bottom: 12px !important;
-        }
+    .details-desc {
+        font-size: 0.85rem !important;
+        color: #cbd5e1 !important;
+        line-height: 1.5 !important;
+        margin-bottom: 0 !important;
+    }
 
-        .details-impact-box.physical { border-left: 3px solid #00f5d4 !important; }
-        .details-impact-box.interaction { border-left: 3px solid #10b981 !important; }
-        .details-impact-box.virtual { border-left: 3px solid #ffb703 !important; }
+    .details-impact-box {
+        background: rgba(255, 255, 255, 0.02) !important;
+        border: 1px solid rgba(255, 255, 255, 0.04) !important;
+        border-radius: 12px !important;
+        padding: 10px 12px !important;
+        margin-bottom: 12px !important;
+    }
 
-        .details-impact-text {
-            font-size: 0.82rem !important;
-            color: #cbd5e1 !important;
-            line-height: 1.5 !important;
-            margin: 0 !important;
-        }
+    .details-impact-box.physical {
+        border-left: 3px solid #00f5d4 !important;
+    }
 
-        .details-connections-list {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 8px !important;
-        }
+    .details-impact-box.interaction {
+        border-left: 3px solid #10b981 !important;
+    }
 
-        .connection-chip {
-            display: flex !important;
-            align-items: center !important;
-            justify-content: space-between !important;
-            background: rgba(255, 255, 255, 0.02) !important;
-            border: 1px solid rgba(255, 255, 255, 0.04) !important;
-            border-radius: 8px !important;
-            padding: 8px 12px !important;
-            font-size: 0.8rem !important;
-            cursor: pointer !important;
-        }
+    .details-impact-box.virtual {
+        border-left: 3px solid #ffb703 !important;
+    }
 
-        .connection-chip:hover {
-            background: rgba(255, 255, 255, 0.06) !important;
-            border-color: rgba(255, 255, 255, 0.15) !important;
-        }
+    .details-impact-text {
+        font-size: 0.82rem !important;
+        color: #cbd5e1 !important;
+        line-height: 1.5 !important;
+        margin: 0 !important;
+    }
 
-        .chip-relation {
-            font-size: 0.68rem !important;
-            font-weight: 700 !important;
-            text-transform: uppercase !important;
-            color: #94a3b8 !important;
-        }
+    .details-connections-list {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 8px !important;
+    }
 
-        .chip-name {
-            font-weight: 600 !important;
-            color: #ffffff !important;
-        }
+    .connection-chip {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: space-between !important;
+        background: rgba(255, 255, 255, 0.02) !important;
+        border: 1px solid rgba(255, 255, 255, 0.04) !important;
+        border-radius: 8px !important;
+        padding: 8px 12px !important;
+        font-size: 0.8rem !important;
+        cursor: pointer !important;
+    }
 
-        /* ==========================================================================
+    .connection-chip:hover {
+        background: rgba(255, 255, 255, 0.06) !important;
+        border-color: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    .chip-relation {
+        font-size: 0.68rem !important;
+        font-weight: 700 !important;
+        text-transform: uppercase !important;
+        color: #94a3b8 !important;
+    }
+
+    .chip-name {
+        font-weight: 600 !important;
+        color: #ffffff !important;
+    }
+
+    /* ==========================================================================
            7. MÓVILES - VISTA DE EXPLORADOR ESTRUCTURADO (TRANSICIÓN AUTOMÁTICA)
            ========================================================================== */
-        .mobile-explorer-view {
-            display: none !important;
-            flex-direction: column !important;
-            width: 100% !important;
-            height: 100% !important;
-            overflow-y: auto !important;
-            padding: 16px !important;
-        }
+    .mobile-explorer-view {
+        display: none !important;
+        flex-direction: column !important;
+        width: 100% !important;
+        height: 100% !important;
+        overflow-y: auto !important;
+        padding: 16px !important;
+    }
 
-        .mobile-root-card {
-            background: rgba(0, 245, 212, 0.05) !important;
-            border: 1.5px solid #00f5d4 !important;
-            box-shadow: 0 0 15px rgba(0, 245, 212, 0.1) !important;
-            border-radius: 14px !important;
-            padding: 16px !important;
-            margin-bottom: 20px !important;
-            text-align: center !important;
-        }
+    .mobile-root-card {
+        background: rgba(0, 245, 212, 0.05) !important;
+        border: 1.5px solid #00f5d4 !important;
+        box-shadow: 0 0 15px rgba(0, 245, 212, 0.1) !important;
+        border-radius: 14px !important;
+        padding: 16px !important;
+        margin-bottom: 20px !important;
+        text-align: center !important;
+    }
 
-        .mobile-root-card h3 {
-            font-size: 1.15rem !important;
-            font-weight: 800 !important;
-            color: #ffffff !important;
-            margin: 0 0 8px 0 !important;
-            letter-spacing: 0.5px !important;
-        }
+    .mobile-root-card h3 {
+        font-size: 1.15rem !important;
+        font-weight: 800 !important;
+        color: #ffffff !important;
+        margin: 0 0 8px 0 !important;
+        letter-spacing: 0.5px !important;
+    }
 
-        .mobile-root-card p {
-            font-size: 0.82rem !important;
-            color: #cbd5e1 !important;
-            margin: 0 !important;
-            line-height: 1.4 !important;
-        }
+    .mobile-root-card p {
+        font-size: 0.82rem !important;
+        color: #cbd5e1 !important;
+        margin: 0 !important;
+        line-height: 1.4 !important;
+    }
 
-        .mobile-section-divider {
-            font-size: 0.72rem !important;
-            font-weight: 800 !important;
-            text-transform: uppercase !important;
-            letter-spacing: 1.5px !important;
-            color: #94a3b8 !important;
-            margin: 16px 0 10px 4px !important;
-        }
+    .mobile-section-divider {
+        font-size: 0.72rem !important;
+        font-weight: 800 !important;
+        text-transform: uppercase !important;
+        letter-spacing: 1.5px !important;
+        color: #94a3b8 !important;
+        margin: 16px 0 10px 4px !important;
+    }
 
-        /* Acordeón de Ramas */
-        .branch-accordion {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 12px !important;
-            margin-bottom: 24px !important;
-        }
+    /* Acordeón de Ramas */
+    .branch-accordion {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+        margin-bottom: 24px !important;
+    }
 
-        .accordion-item {
-            background: rgba(13, 17, 43, 0.4) !important;
-            border: 1px solid rgba(255, 255, 255, 0.06) !important;
-            border-radius: 12px !important;
-            overflow: hidden !important;
-        }
+    .accordion-item {
+        background: rgba(13, 17, 43, 0.4) !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+        border-radius: 12px !important;
+        overflow: hidden !important;
+    }
 
-        .accordion-item.physical { border-left: 3px solid #00f5d4 !important; }
-        .accordion-item.interaction { border-left: 3px solid #10b981 !important; }
-        .accordion-item.virtual { border-left: 3px solid #ffb703 !important; }
+    .accordion-item.physical {
+        border-left: 3px solid #00f5d4 !important;
+    }
 
-        .accordion-header {
-            display: flex !important;
-            justify-content: space-between !important;
-            align-items: center !important;
-            padding: 14px 16px !important;
-            cursor: pointer !important;
-            font-weight: 700 !important;
-            font-size: 0.92rem !important;
-        }
-        .accordion-header.physical { color: #00f5d4 !important; }
-        .accordion-header.interaction { color: #10b981 !important; }
-        .accordion-header.virtual { color: #ffb703 !important; }
+    .accordion-item.interaction {
+        border-left: 3px solid #10b981 !important;
+    }
 
-        .accordion-icon {
-            width: 14px !important;
-            height: 14px !important;
-            stroke: currentColor !important;
-            stroke-width: 2.5 !important;
-            fill: none !important;
-            transition: transform 0.25s !important;
-        }
+    .accordion-item.virtual {
+        border-left: 3px solid #ffb703 !important;
+    }
 
-        .accordion-item.open .accordion-icon {
-            transform: rotate(180deg) !important;
-        }
+    .accordion-header {
+        display: flex !important;
+        justify-content: space-between !important;
+        align-items: center !important;
+        padding: 14px 16px !important;
+        cursor: pointer !important;
+        font-weight: 700 !important;
+        font-size: 0.92rem !important;
+    }
 
-        .accordion-body {
-            max-height: 0 !important;
-            overflow: hidden !important;
-            transition: max-height 0.3s cubic-bezier(0, 1, 0, 1) !important;
-            background: rgba(0, 0, 0, 0.15) !important;
-        }
+    .accordion-header.physical {
+        color: #00f5d4 !important;
+    }
 
-        .accordion-item.open .accordion-body {
-            max-height: 2000px !important; /* Altura máxima para permitir expandir */
-            transition: max-height 0.3s cubic-bezier(1, 0, 1, 0) !important;
-        }
+    .accordion-header.interaction {
+        color: #10b981 !important;
+    }
 
-        .accordion-inner-content {
-            padding: 16px !important;
-        }
+    .accordion-header.virtual {
+        color: #ffb703 !important;
+    }
 
-        .branch-intro-desc {
-            font-size: 0.82rem !important;
-            color: #cbd5e1 !important;
-            line-height: 1.5 !important;
-            margin: 0 0 16px 0 !important;
-            font-style: italic !important;
-        }
+    .accordion-icon {
+        width: 14px !important;
+        height: 14px !important;
+        stroke: currentColor !important;
+        stroke-width: 2.5 !important;
+        fill: none !important;
+        transition: transform 0.25s !important;
+    }
 
-        /* Lista de Tarjetas Internas */
-        .concept-cards-grid {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 10px !important;
-        }
+    .accordion-item.open .accordion-icon {
+        transform: rotate(180deg) !important;
+    }
 
-        .concept-mobile-card {
-            background: rgba(255, 255, 255, 0.02) !important;
-            border: 1px solid rgba(255, 255, 255, 0.05) !important;
-            border-radius: 8px !important;
-            padding: 12px 14px !important;
-        }
+    .accordion-body {
+        max-height: 0 !important;
+        overflow: hidden !important;
+        transition: max-height 0.3s cubic-bezier(0, 1, 0, 1) !important;
+        background: rgba(0, 0, 0, 0.15) !important;
+    }
 
-        .concept-mobile-card h4 {
-            font-size: 0.85rem !important;
-            font-weight: 700 !important;
-            color: #ffffff !important;
-            margin: 0 0 4px 0 !important;
-        }
+    .accordion-item.open .accordion-body {
+        max-height: 2000px !important;
+        /* Altura máxima para permitir expandir */
+        transition: max-height 0.3s cubic-bezier(1, 0, 1, 0) !important;
+    }
 
-        .concept-mobile-card p {
-            font-size: 0.78rem !important;
-            color: #cbd5e1 !important;
-            margin: 0 !important;
-            line-height: 1.4 !important;
-        }
+    .accordion-inner-content {
+        padding: 16px !important;
+    }
 
-        /* ==========================================================================
+    .branch-intro-desc {
+        font-size: 0.82rem !important;
+        color: #cbd5e1 !important;
+        line-height: 1.5 !important;
+        margin: 0 0 16px 0 !important;
+        font-style: italic !important;
+    }
+
+    /* Lista de Tarjetas Internas */
+    .concept-cards-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 10px !important;
+    }
+
+    .concept-mobile-card {
+        background: rgba(255, 255, 255, 0.02) !important;
+        border: 1px solid rgba(255, 255, 255, 0.05) !important;
+        border-radius: 8px !important;
+        padding: 12px 14px !important;
+    }
+
+    .concept-mobile-card h4 {
+        font-size: 0.85rem !important;
+        font-weight: 700 !important;
+        color: #ffffff !important;
+        margin: 0 0 4px 0 !important;
+    }
+
+    .concept-mobile-card p {
+        font-size: 0.78rem !important;
+        color: #cbd5e1 !important;
+        margin: 0 !important;
+        line-height: 1.4 !important;
+    }
+
+    /* ==========================================================================
            8. RESPONSIVE DESIGN (MEDIA QUERIES DE ADAPTACIÓN)
            ========================================================================== */
-        @media (max-width: 991px) {
-            #learning-map-app {
-                height: 800px !important; /* Altura ligeramente superior en tablet */
-            }
-
-            .details-panel {
-                height: 260px !important;
-                padding: 14px 20px !important;
-                gap: 16px !important;
-            }
-
-            .details-col-left {
-                padding-right: 12px !important;
-                width: 28% !important;
-            }
-
-            .details-col-mid {
-                padding-right: 12px !important;
-                width: 32% !important;
-            }
+    @media (max-width: 991px) {
+        #learning-map-app {
+            height: 800px !important;
+            /* Altura ligeramente superior en tablet */
         }
 
-        /* Cambio definitivo a la Vista Móvil Estructurada */
-        @media (max-width: 650px) {
-            #learning-map-app {
-                height: 680px !important;
-            }
-
-            .map-header {
-                padding: 12px 16px !important;
-            }
-
-            .search-container, .map-controls .map-btn:not(.accent-btn) {
-                display: none !important; /* Oculta buscador y tour no aptos en móviles */
-            }
-
-            .map-main-area {
-                height: calc(100% - 55px) !important;
-            }
-
-            .canvas-container, .details-panel {
-                display: none !important; /* Desactiva la vista SVG en pantallas súper pequeñas */
-            }
-
-            .mobile-explorer-view {
-                display: flex !important; /* Activa la vista de Acordeones */
-            }
+        .details-panel {
+            height: 260px !important;
+            padding: 14px 20px !important;
+            gap: 16px !important;
         }
-    </style>
 
-    <div id="learning-map-app">
-        <!-- ==========================================
+        .details-col-left {
+            padding-right: 12px !important;
+            width: 28% !important;
+        }
+
+        .details-col-mid {
+            padding-right: 12px !important;
+            width: 32% !important;
+        }
+    }
+
+    /* Cambio definitivo a la Vista Móvil Estructurada */
+    @media (max-width: 650px) {
+        #learning-map-app {
+            height: 680px !important;
+        }
+
+        .map-header {
+            padding: 12px 16px !important;
+        }
+
+        .search-container,
+        .map-controls .map-btn:not(.accent-btn) {
+            display: none !important;
+            /* Oculta buscador y tour no aptos en móviles */
+        }
+
+        .map-main-area {
+            height: calc(100% - 55px) !important;
+        }
+
+        .canvas-container,
+        .details-panel {
+            display: none !important;
+            /* Desactiva la vista SVG en pantallas súper pequeñas */
+        }
+
+        .mobile-explorer-view {
+            display: flex !important;
+            /* Activa la vista de Acordeones */
+        }
+    }
+</style>
+
+<div id="learning-map-app">
+    <!-- ==========================================
            CABECERA DE CONTROL (ESTILO PREMIUM)
            ========================================== -->
-        <header class="map-header">
-            <div class="map-title-area">
-                <h2>
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00f5d4" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <circle cx="12" cy="12" r="4"></circle>
-                    </svg>
-                    Ambientes de Aprendizaje
-                </h2>
-                <p>Mapa Conceptual Dinámico e Interactivo</p>
+    <header class="map-header">
+        <div class="map-title-area">
+            <h2>
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#00f5d4" stroke-width="2.5"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <circle cx="12" cy="12" r="4"></circle>
+                </svg>
+                Ambientes de Aprendizaje
+            </h2>
+            <p>Mapa Conceptual Dinámico e Interactivo</p>
+        </div>
+        <div class="map-controls">
+            <div class="search-container">
+                <svg class="search-icon" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+                <input type="text" class="search-input" id="node-search"
+                    placeholder="Buscar concepto (ej: Mobiliario)...">
             </div>
-            <div class="map-controls">
-                <div class="search-container">
-                    <svg class="search-icon" viewBox="0 0 24 24">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                    <input type="text" class="search-input" id="node-search" placeholder="Buscar concepto (ej: Mobiliario)...">
-                </div>
-                <button class="map-btn" id="reset-view-btn" title="Restablecer posición del mapa">
-                    Centrar
-                </button>
-            </div>
-        </header>
+            <button class="map-btn" id="reset-view-btn" title="Restablecer posición del mapa">
+                Centrar
+            </button>
+        </div>
+    </header>
 
 
 
-        <!-- ==========================================
+    <!-- ==========================================
            ÁREA PRINCIPAL DE TRABAJO (SVG + PANEL)
            ========================================== -->
-        <main class="map-main-area">
-            <!-- Capa del Lienzo SVG (Zoom y Pan) -->
-            <div class="canvas-container" id="canvas-container">
-                <svg id="interactive-svg" viewBox="0 0 1700 850">
-                    <!-- Patrones de Flechas en los conectores -->
-                    <defs>
-                        <marker id="arrow-cyan" viewBox="0 0 10 10" refX="22" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                            <path d="M 0 1 L 10 5 L 0 9 z" fill="#00f5d4" />
-                        </marker>
-                        <marker id="arrow-green" viewBox="0 0 10 10" refX="22" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                            <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
-                        </marker>
-                        <marker id="arrow-yellow" viewBox="0 0 10 10" refX="22" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                            <path d="M 0 1 L 10 5 L 0 9 z" fill="#ffb703" />
-                        </marker>
-                        <marker id="arrow-gray" viewBox="0 0 10 10" refX="22" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                            <path d="M 0 1 L 10 5 L 0 9 z" fill="rgba(255, 255, 255, 0.25)" />
-                        </marker>
-                    </defs>
+    <main class="map-main-area">
+        <!-- Capa del Lienzo SVG (Zoom y Pan) -->
+        <div class="canvas-container" id="canvas-container">
+            <svg id="interactive-svg" viewBox="0 0 1700 850">
+                <!-- Patrones de Flechas en los conectores -->
+                <defs>
+                    <marker id="arrow-cyan" viewBox="0 0 10 10" refX="22" refY="5" markerWidth="6" markerHeight="6"
+                        orient="auto-start-reverse">
+                        <path d="M 0 1 L 10 5 L 0 9 z" fill="#00f5d4" />
+                    </marker>
+                    <marker id="arrow-green" viewBox="0 0 10 10" refX="22" refY="5" markerWidth="6" markerHeight="6"
+                        orient="auto-start-reverse">
+                        <path d="M 0 1 L 10 5 L 0 9 z" fill="#10b981" />
+                    </marker>
+                    <marker id="arrow-yellow" viewBox="0 0 10 10" refX="22" refY="5" markerWidth="6" markerHeight="6"
+                        orient="auto-start-reverse">
+                        <path d="M 0 1 L 10 5 L 0 9 z" fill="#ffb703" />
+                    </marker>
+                    <marker id="arrow-gray" viewBox="0 0 10 10" refX="22" refY="5" markerWidth="6" markerHeight="6"
+                        orient="auto-start-reverse">
+                        <path d="M 0 1 L 10 5 L 0 9 z" fill="rgba(255, 255, 255, 0.25)" />
+                    </marker>
+                </defs>
 
-                    <!-- Fondo interactivo para capturar clics de reset -->
-                    <rect width="1700" height="850" class="svg-bg" id="svg-bg-click" />
+                <!-- Fondo interactivo para capturar clics de reset -->
+                <rect width="1700" height="850" class="svg-bg" id="svg-bg-click" />
 
-                    <!-- Grupo contenedor con transformaciones nativas SVG -->
-                    <g id="viewport-g">
-                        <!-- Grupo donde se inyectarán las líneas conectoras -->
-                        <g id="connectors-group"></g>
+                <!-- Grupo contenedor con transformaciones nativas SVG -->
+                <g id="viewport-g">
+                    <!-- Grupo donde se inyectarán las líneas conectoras -->
+                    <g id="connectors-group"></g>
 
-                        <!-- Grupo donde se inyectarán los nodos conceptuales -->
-                        <g id="nodes-group"></g>
-                    </g>
+                    <!-- Grupo donde se inyectarán los nodos conceptuales -->
+                    <g id="nodes-group"></g>
+                </g>
+            </svg>
+
+            <!-- Botones de Zoom Flotantes -->
+            <div class="canvas-zoom-controls">
+                <button class="zoom-btn" id="zoom-in" title="Acercar">+</button>
+                <button class="zoom-btn" id="zoom-out" title="Alejar">-</button>
+            </div>
+
+            <!-- Leyenda de colores -->
+            <div class="map-legend">
+                <div class="legend-item">
+                    <div class="legend-dot cyan"></div>
+                    <span>Físicos</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot green"></div>
+                    <span>Interacciones</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot yellow"></div>
+                    <span>Virtuales</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Panel de Detalles Lateral (Parte Inferior) -->
+        <aside class="details-panel" id="details-panel">
+            <button class="panel-close" id="panel-close">✕</button>
+
+            <!-- Marcador de posición por defecto -->
+            <div class="details-placeholder" id="panel-placeholder">
+                <svg class="placeholder-icon" viewBox="0 0 24 24">
+                    <path
+                        d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 14a1 1 0 1 1 1-1 1 1 0 0 1-1 1zm1-5a1 1 0 0 0-2 0v-3a1 1 0 0 0 2 0z" />
                 </svg>
+                <h4>Explora el Mapa</h4>
+                <p>Haz clic en cualquier nodo conceptual para ver su definición, importancia pedagógica y conexiones.
+                </p>
+            </div>
 
-                <!-- Botones de Zoom Flotantes -->
-                <div class="canvas-zoom-controls">
-                    <button class="zoom-btn" id="zoom-in" title="Acercar">+</button>
-                    <button class="zoom-btn" id="zoom-out" title="Alejar">-</button>
+            <!-- Contenedor de Información Activo (3 Columnas) -->
+            <div class="details-content" id="panel-details-content">
+                <!-- Columna Izquierda: Título y Categoría -->
+                <div class="details-col-left">
+                    <div class="details-badge" id="detail-node-type">Rama Físicos</div>
+                    <h3 class="details-title" id="detail-node-title">Espacios Físicos</h3>
                 </div>
 
-                <!-- Leyenda de colores -->
-                <div class="map-legend">
-                    <div class="legend-item">
-                        <div class="legend-dot cyan"></div>
-                        <span>Físicos</span>
+                <!-- Columna Central: Definición -->
+                <div class="details-col-mid">
+                    <div class="details-section-title">Definición</div>
+                    <p class="details-desc" id="detail-node-desc">Cargando...</p>
+                </div>
+
+                <!-- Columna Derecha: Importancia e Interacciones -->
+                <div class="details-col-right">
+                    <div class="details-section-title">Importancia Pedagógica</div>
+                    <div class="details-impact-box" id="detail-node-impact-box">
+                        <p class="details-impact-text" id="detail-node-impact">El ambiente físico actúa como un "tercer
+                            educador". Configurar adecuadamente sus elementos garantiza las condiciones básicas de
+                            habitabilidad indispensables para la estimulación cognitiva.</p>
                     </div>
-                    <div class="legend-item">
-                        <div class="legend-dot green"></div>
-                        <span>Interacciones</span>
-                    </div>
-                    <div class="legend-item">
-                        <div class="legend-dot yellow"></div>
-                        <span>Virtuales</span>
+
+                    <div class="details-section-title">Conexiones Relacionadas</div>
+                    <div class="details-connections-list" id="detail-node-connections">
+                        <!-- Se llena dinámicamente con chips de conexión -->
                     </div>
                 </div>
             </div>
+        </aside>
 
-            <!-- Panel de Detalles Lateral (Parte Inferior) -->
-            <aside class="details-panel" id="details-panel">
-                <button class="panel-close" id="panel-close">✕</button>
-
-                <!-- Marcador de posición por defecto -->
-                <div class="details-placeholder" id="panel-placeholder">
-                    <svg class="placeholder-icon" viewBox="0 0 24 24">
-                        <path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2zm0 14a1 1 0 1 1 1-1 1 1 0 0 1-1 1zm1-5a1 1 0 0 0-2 0v-3a1 1 0 0 0 2 0z" />
-                    </svg>
-                    <h4>Explora el Mapa</h4>
-                    <p>Haz clic en cualquier nodo conceptual para ver su definición, importancia pedagógica y conexiones.</p>
-                </div>
-
-                <!-- Contenedor de Información Activo (3 Columnas) -->
-                <div class="details-content" id="panel-details-content">
-                    <!-- Columna Izquierda: Título y Categoría -->
-                    <div class="details-col-left">
-                        <div class="details-badge" id="detail-node-type">Rama Físicos</div>
-                        <h3 class="details-title" id="detail-node-title">Espacios Físicos</h3>
-                    </div>
-
-                    <!-- Columna Central: Definición -->
-                    <div class="details-col-mid">
-                        <div class="details-section-title">Definición</div>
-                        <p class="details-desc" id="detail-node-desc">Cargando...</p>
-                    </div>
-
-                    <!-- Columna Derecha: Importancia e Interacciones -->
-                    <div class="details-col-right">
-                        <div class="details-section-title">Importancia Pedagógica</div>
-                        <div class="details-impact-box" id="detail-node-impact-box">
-                            <p class="details-impact-text" id="detail-node-impact">El ambiente físico actúa como un "tercer educador". Configurar adecuadamente sus elementos garantiza las condiciones básicas de habitabilidad indispensables para la estimulación cognitiva.</p>
-                        </div>
-
-                        <div class="details-section-title">Conexiones Relacionadas</div>
-                        <div class="details-connections-list" id="detail-node-connections">
-                            <!-- Se llena dinámicamente con chips de conexión -->
-                        </div>
-                    </div>
-                </div>
-            </aside>
-
-            <!-- ==========================================
+        <!-- ==========================================
                MÓVILES - VISTA DE EXPLORADOR ESTRUCTURADO (HTML5)
                ========================================== -->
-            <div class="mobile-explorer-view" id="mobile-explorer">
-                <!-- Tarjeta del Nodo Raíz -->
-                <div class="mobile-root-card">
-                    <h3>Ambientes de Aprendizaje</h3>
-                    <p>El núcleo formativo donde los sujetos interactúan de manera intencionada para asimilar conocimientos, experiencias y saberes de valor práctico.</p>
+        <div class="mobile-explorer-view" id="mobile-explorer">
+            <!-- Tarjeta del Nodo Raíz -->
+            <div class="mobile-root-card">
+                <h3>Ambientes de Aprendizaje</h3>
+                <p>El núcleo formativo donde los sujetos interactúan de manera intencionada para asimilar conocimientos,
+                    experiencias y saberes de valor práctico.</p>
+            </div>
+
+            <div class="mobile-section-divider">Ramas Formativas</div>
+
+            <!-- Contenedor del Acordeón -->
+            <div class="branch-accordion">
+                <!-- Rama de Espacios Físicos -->
+                <div class="accordion-item physical">
+                    <div class="accordion-header physical" onclick="toggleAccordion(this)">
+                        <span>1. Espacios Físicos (Entorno Presencial)</span>
+                        <svg class="accordion-icon" viewBox="0 0 24 24">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="accordion-inner-content">
+                            <p class="branch-intro-desc">Los escenarios presenciales e infraestructuras del proceso
+                                pedagógico.</p>
+                            <div class="concept-cards-grid" id="mobile-list-physical">
+                                <!-- Cargado por JS -->
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="mobile-section-divider">Ramas Formativas</div>
-
-                <!-- Contenedor del Acordeón -->
-                <div class="branch-accordion">
-                    <!-- Rama de Espacios Físicos -->
-                    <div class="accordion-item physical">
-                        <div class="accordion-header physical" onclick="toggleAccordion(this)">
-                            <span>1. Espacios Físicos (Entorno Presencial)</span>
-                            <svg class="accordion-icon" viewBox="0 0 24 24">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </div>
-                        <div class="accordion-body">
-                            <div class="accordion-inner-content">
-                                <p class="branch-intro-desc">Los escenarios presenciales e infraestructuras del proceso pedagógico.</p>
-                                <div class="concept-cards-grid" id="mobile-list-physical">
-                                    <!-- Cargado por JS -->
-                                </div>
+                <!-- Rama de Interacciones -->
+                <div class="accordion-item interaction">
+                    <div class="accordion-header interaction" onclick="toggleAccordion(this)">
+                        <span>2. Eje de Interacciones (Relaciones Activas)</span>
+                        <svg class="accordion-icon" viewBox="0 0 24 24">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </div>
+                    <div class="accordion-body">
+                        <div class="accordion-inner-content">
+                            <p class="branch-intro-desc">Las relaciones vivas y dinámicas que ocurren entre estudiantes,
+                                docentes, contenidos y compañeros.</p>
+                            <div class="concept-cards-grid" id="mobile-list-interaction">
+                                <!-- Cargado por JS -->
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Rama de Interacciones -->
-                    <div class="accordion-item interaction">
-                        <div class="accordion-header interaction" onclick="toggleAccordion(this)">
-                            <span>2. Eje de Interacciones (Relaciones Activas)</span>
-                            <svg class="accordion-icon" viewBox="0 0 24 24">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </div>
-                        <div class="accordion-body">
-                            <div class="accordion-inner-content">
-                                <p class="branch-intro-desc">Las relaciones vivas y dinámicas que ocurren entre estudiantes, docentes, contenidos y compañeros.</p>
-                                <div class="concept-cards-grid" id="mobile-list-interaction">
-                                    <!-- Cargado por JS -->
-                                </div>
-                            </div>
-                        </div>
+                <!-- Rama de Espacios Virtuales -->
+                <div class="accordion-item virtual">
+                    <div class="accordion-header virtual" onclick="toggleAccordion(this)">
+                        <span>3. Espacios Virtuales (Tecnología y Mediación)</span>
+                        <svg class="accordion-icon" viewBox="0 0 24 24">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
                     </div>
-
-                    <!-- Rama de Espacios Virtuales -->
-                    <div class="accordion-item virtual">
-                        <div class="accordion-header virtual" onclick="toggleAccordion(this)">
-                            <span>3. Espacios Virtuales (Tecnología y Mediación)</span>
-                            <svg class="accordion-icon" viewBox="0 0 24 24">
-                                <polyline points="6 9 12 15 18 9"></polyline>
-                            </svg>
-                        </div>
-                        <div class="accordion-body">
-                            <div class="accordion-inner-content">
-                                <p class="branch-intro-desc">Los entornos mediados por herramientas web e infovirtuales que permiten el aprendizaje ubicuo.</p>
-                                <div class="concept-cards-grid" id="mobile-list-virtual">
-                                    <!-- Cargado por JS -->
-                                </div>
+                    <div class="accordion-body">
+                        <div class="accordion-inner-content">
+                            <p class="branch-intro-desc">Los entornos mediados por herramientas web e infovirtuales que
+                                permiten el aprendizaje ubicuo.</p>
+                            <div class="concept-cards-grid" id="mobile-list-virtual">
+                                <!-- Cargado por JS -->
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </main>
-    </div>
+        </div>
+    </main>
+</div>
 
-    <!-- ==========================================================================
+<!-- ==========================================================================
        9. MOTOR DE LÓGICA Y RENDERIZADO INTERACTIVO (JAVASCRIPT)
        ========================================================================== -->
-    <script type="text/javascript">
-        /*<![CDATA[*/
-        // Encapsulamos todo el código en un objeto o alcance local para no colisionar con Blogger
-        (function() {
-            /* ==========================================
-               DATA: ESTRUCTURA COMPLETA DEL MAPA CONCEPTUAL
-               ========================================== */
-            const nodes = {
-                // ROOT
-                root: {
-                    id: 'root',
-                    text: ['AMBIENTES DE', 'APRENDIZAJE'],
-                    type: 'root',
-                    x: 800,
-                    y: 60,
-                    w: 220,
-                    h: 70,
-                    desc: 'El conjunto del espacio físico o virtual donde los sujetos interactúan de manera activa para adquirir conocimientos, habilidades, competencias y actitudes dentro del proceso pedagógico estructurado.',
-                    impact: 'Es el eje articulador fundamental del proceso formativo, ya que su diseño óptimo predispone el éxito de la asimilación del conocimiento.'
-                },
-                
-                // ESPACIOS FISICOS BRANCH
-                espacios_fisicos: {
-                    id: 'espacios_fisicos',
-                    text: ['Espacios Físicos'],
-                    type: 'physical',
-                    x: 350,
-                    y: 160,
-                    w: 160,
-                    h: 50,
-                    desc: 'Los entornos de carácter material, presencial e institucional que configuran el escenario clásico de aprendizaje, los cuales requieren condiciones de infraestructura para el bienestar de la comunidad.',
-                    impact: 'Afecta la comodidad y la disposición psicológica del alumno. Un espacio descuidado o incómodo limita gravemente los periodos de atención.'
-                },
-                elementos: {
-                    id: 'elementos',
-                    text: ['Elementos'],
-                    type: 'physical',
-                    x: 180,
-                    y: 270,
-                    w: 140,
-                    h: 50,
-                    desc: 'Componentes físicos y de infraestructura tangibles e intangibles que componen el aula física de aprendizaje e inciden de forma directa en el confort de los estudiantes.',
-                    impact: 'Constituyen el piso de habitabilidad. Sin elementos físicos regulados, se obstaculizan las capacidades cognitivas del cerebro del aprendiz.'
-                },
-                mobiliario: {
-                    id: 'mobiliario',
-                    text: ['Mobiliario'],
-                    type: 'physical',
-                    x: 60,
-                    y: 380,
-                    w: 110,
-                    h: 40,
-                    desc: 'El equipamiento ergonómico y físico (sillas, mesas ajustables, tableros) adaptado al desarrollo motriz y a las necesidades específicas de la sesión de clase.',
-                    impact: 'La ergonomía previene la fatiga postural y fomenta la disposición al trabajo en equipo en el aula física.'
-                },
-                ventilacion: {
-                    id: 'ventilacion',
-                    text: ['Ventilación'],
-                    type: 'physical',
-                    x: 160,
-                    y: 380,
-                    w: 110,
-                    h: 40,
-                    desc: 'Regulación del flujo de aire y temperatura idóneos dentro del aula, evitando el sobrecalentamiento y la saturación de dióxido de carbono.',
-                    impact: 'Una ventilación deficiente incrementa la somnolencia y reduce notablemente las habilidades de razonamiento lógico y concentración.'
-                },
-                iluminacion: {
-                    id: 'iluminacion',
-                    text: ['Iluminación'],
-                    type: 'physical',
-                    x: 260,
-                    y: 380,
-                    w: 110,
-                    h: 40,
-                    desc: 'Aseguramiento de luz visual idónea (priorizando la luz natural) para realizar lecturas y actividades sin provocar sobreesfuerzo visual.',
-                    impact: 'Evita la fatiga visual y promueve la vitalidad y el estado de alerta saludable en los alumnos.'
-                },
-                decoracion_adecuada: {
-                    id: 'decoracion_adecuada',
-                    text: ['Decoración', 'adecuada'],
-                    type: 'physical',
-                    x: 360,
-                    y: 380,
-                    w: 110,
-                    h: 46,
-                    desc: 'Diseño estético y balance cromático de las paredes y elementos visuales del aula que inspiren y aporten armonía sin saturar.',
-                    impact: 'Una decoración equilibrada canaliza el enfoque cognitivo del alumno hacia los objetivos de aprendizaje.'
-                },
-                docentes_f: {
-                    id: 'docentes_f',
-                    text: ['Docentes'],
-                    type: 'physical',
-                    x: 450,
-                    y: 270,
-                    w: 140,
-                    h: 50,
-                    desc: 'Los educadores que en el plano de la presencialidad configuran, ordenan y guían las experiencias didácticas directas en los espacios físicos.',
-                    impact: 'El docente físico actúa como el dinamizador social primario y organizador del contexto físico del aula.'
-                },
-                coherencia: {
-                    id: 'coherencia',
-                    text: ['Coherencia'],
-                    type: 'physical',
-                    x: 350,
-                    y: 500,
-                    w: 130,
-                    h: 50,
-                    desc: 'La correspondencia transparente y honesta que debe existir entre los principios verbalizados del docente y sus acciones prácticas en clase.',
-                    impact: 'Es el pilar fundamental que genera confianza y legitimidad pedagógica ante el grupo de estudiantes.'
-                },
-                capacidad: {
-                    id: 'capacidad',
-                    text: ['Capacidad'],
-                    type: 'physical',
-                    x: 530,
-                    y: 500,
-                    w: 130,
-                    h: 50,
-                    desc: 'La habilidad técnica y actitud reflexiva constante del profesorado para autoanalizar su práctica docente y renovarse didácticamente.',
-                    impact: 'Permite salir de la rutina transmisiva tradicional para adoptar enfoques acordes con las necesidades formativas reales.'
-                },
-                discurso: {
-                    id: 'discurso',
-                    text: ['Discurso'],
-                    type: 'physical',
-                    x: 250,
-                    y: 630,
-                    w: 120,
-                    h: 40,
-                    desc: 'El andamiaje conceptual teórico, explicaciones y valores educativos verbalizados por el educador en su sesión pedagógica.',
-                    impact: 'Estructura conceptualmente los marcos de pensamiento lógico de los alumnos en la etapa informativa.'
-                },
-                actuaciones: {
-                    id: 'actuaciones',
-                    text: ['Actuaciones'],
-                    type: 'physical',
-                    x: 390,
-                    y: 630,
-                    w: 130,
-                    h: 40,
-                    desc: 'Las conductas reales, métodos instruccionales aplicados y dinámicas directas del docente durante el ejercicio de la clase.',
-                    impact: 'Modelan mediante el ejemplo real el rigor del proceso educativo y construyen un precedente práctico.'
-                },
-                practicas_pedagogicas: {
-                    id: 'practicas_pedagogicas',
-                    text: ['Prácticas', 'Pedagógicas'],
-                    type: 'physical',
-                    x: 320,
-                    y: 760,
-                    w: 150,
-                    h: 50,
-                    desc: 'El conjunto articulado de actividades de enseñanza, interacción áulica y dinámicas formativas que dan vida real al currículum.',
-                    impact: 'Es la instancia definitiva donde convergen la teoría y la acción para consolidar aprendizajes significativos.'
-                },
-                reflexionar: {
-                    id: 'reflexionar',
-                    text: ['Reflexionar'],
-                    type: 'physical',
-                    x: 530,
-                    y: 630,
-                    w: 130,
-                    h: 40,
-                    desc: 'El ejercicio metacognitivo continuo mediante el cual el profesorado examina críticamente el éxito o fracaso de sus sesiones didácticas.',
-                    impact: 'Es la herramienta transformadora esencial que evita el estancamiento profesional del docente.'
-                },
+<script type="text/javascript">
+    /*<![CDATA[*/
+    // Encapsulamos todo el código en un objeto o alcance local para no colisionar con Blogger
+    (function () {
+        /* ==========================================
+           DATA: ESTRUCTURA COMPLETA DEL MAPA CONCEPTUAL
+           ========================================== */
+        const nodes = {
+            // ROOT
+            root: {
+                id: 'root',
+                text: ['AMBIENTES DE', 'APRENDIZAJE'],
+                type: 'root',
+                x: 800,
+                y: 60,
+                w: 220,
+                h: 70,
+                desc: 'El conjunto del espacio físico o virtual donde los sujetos interactúan de manera activa para adquirir conocimientos, habilidades, competencias y actitudes dentro del proceso pedagógico estructurado.',
+                impact: 'Es el eje articulador fundamental del proceso formativo, ya que su diseño óptimo predispone el éxito de la asimilación del conocimiento.'
+            },
 
-                // INTERACTIONS BRANCH (GREEN)
-                interacciones: {
-                    id: 'interacciones',
-                    text: ['Interacciones'],
-                    type: 'interaction',
-                    x: 800,
-                    y: 270,
-                    w: 160,
-                    h: 50,
-                    desc: 'Las redes recíprocas de comunicación, intercambio social y relaciones dinámicas de diálogo que se establecen en el entorno de aprendizaje.',
-                    impact: 'Son el verdadero motor constructivista del aprendizaje; sin interacción profunda no se genera un proceso cognitivo duradero.'
-                },
-                acciones: {
-                    id: 'acciones',
-                    text: ['Acciones'],
-                    type: 'physical', // styled physical in pdf
-                    x: 650,
-                    y: 380,
-                    w: 130,
-                    h: 50,
-                    desc: 'Las actividades prácticas, ejercicios, dinámicas y tareas movilizadas de manera activa por el estudiante en su proceso de asimilación.',
-                    impact: 'Traducen la teoría abstracta en comportamientos concretos y comprobables de aprendizaje activo.'
-                },
-                experiencias: {
-                    id: 'experiencias',
-                    text: ['Experiencias'],
-                    type: 'physical', // styled physical in pdf
-                    x: 620,
-                    y: 500,
-                    w: 130,
-                    h: 50,
-                    desc: 'Sucesos planificados sistemáticamente en el entorno educativo diseñados para provocar descubrimientos de gran valor cognitivo.',
-                    impact: 'Permiten interiorizar de forma activa y coherente los conocimientos complejos a través de la vivencia directa.'
-                },
-                vivencias: {
-                    id: 'vivencias',
-                    text: ['Vivencias'],
-                    type: 'physical', // styled physical in pdf
-                    x: 720,
-                    y: 500,
-                    w: 130,
-                    h: 50,
-                    desc: 'La dimensión subjetiva, emocional e íntima que asume el alumno respecto a lo que experimenta y aprende en el espacio de clase.',
-                    impact: 'Dotan al aprendizaje de sentido vital y trascendencia personal, garantizando que el saber no sea olvidado.'
-                },
-                estudiantes: {
-                    id: 'estudiantes',
-                    text: ['Estudiantes'],
-                    type: 'interaction',
-                    x: 800,
-                    y: 380,
-                    w: 150,
-                    h: 50,
-                    desc: 'Los protagonistas activos del hecho educativo, responsables de reestructurar la información y asimilar el conocimiento de manera reflexiva.',
-                    impact: 'Su involucramiento e interactividad son la condición sine qua non para que las estrategias didácticas rindan fruto.'
-                },
-                condiciones_socioafectivas: {
-                    id: 'condiciones_socioafectivas',
-                    text: ['Condiciones', 'Socioafectivas'],
-                    type: 'interaction',
-                    x: 820,
-                    y: 500,
-                    w: 150,
-                    h: 50,
-                    desc: 'El clima socio-emocional de confianza, motivación, empatía y seguridad psicológica donde el alumno se siente libre para expresarse.',
-                    impact: 'Bajo condiciones afectivas estresantes u hostiles, el cerebro bloquea la capacidad de asimilar nuevos conocimientos.'
-                },
-                docentes_i: {
-                    id: 'docentes_i',
-                    text: ['Docentes'],
-                    type: 'interaction',
-                    x: 920,
-                    y: 500,
-                    w: 110,
-                    h: 40,
-                    desc: 'El rol facilitador y mediador directo del maestro que acompaña, aclara dudas y retroalimenta asertivamente al estudiante en tiempo real.',
-                    impact: 'Es el soporte formativo continuo que ayuda a sortear las zonas de desarrollo próximo en el aprendizaje.'
-                },
-                companeros: {
-                    id: 'companeros',
-                    text: ['Compañeros'],
-                    type: 'interaction',
-                    x: 1020,
-                    y: 500,
-                    w: 110,
-                    h: 40,
-                    desc: 'Los pares educativos del aula que posibilitan dinámicas de coevaluación, diálogo crítico y estructuración de proyectos conjuntos.',
-                    impact: 'Permiten consolidar el aprendizaje social al contrastar puntos de vista y colaborar horizontalmente.'
-                },
-                contenidos: {
-                    id: 'contenidos',
-                    text: ['Contenidos'],
-                    type: 'interaction',
-                    x: 1120,
-                    y: 500,
-                    w: 110,
-                    h: 40,
-                    desc: 'Las temáticas conceptuales, lecturas, problemas y recursos estructurados didácticamente que el estudiante debe procesar.',
-                    impact: 'Son la materia prima informativa y científica del saber que sustenta el perfil de egreso.'
-                },
+            // ESPACIOS FISICOS BRANCH
+            espacios_fisicos: {
+                id: 'espacios_fisicos',
+                text: ['Espacios Físicos'],
+                type: 'physical',
+                x: 350,
+                y: 160,
+                w: 160,
+                h: 50,
+                desc: 'Los entornos de carácter material, presencial e institucional que configuran el escenario clásico de aprendizaje, los cuales requieren condiciones de infraestructura para el bienestar de la comunidad.',
+                impact: 'Afecta la comodidad y la disposición psicológica del alumno. Un espacio descuidado o incómodo limita gravemente los periodos de atención.'
+            },
+            elementos: {
+                id: 'elementos',
+                text: ['Elementos'],
+                type: 'physical',
+                x: 180,
+                y: 270,
+                w: 140,
+                h: 50,
+                desc: 'Componentes físicos y de infraestructura tangibles e intangibles que componen el aula física de aprendizaje e inciden de forma directa en el confort de los estudiantes.',
+                impact: 'Constituyen el piso de habitabilidad. Sin elementos físicos regulados, se obstaculizan las capacidades cognitivas del cerebro del aprendiz.'
+            },
+            como: {
+                id: 'como',
+                text: ['como'],
+                type: 'connector-physical',
+                x: 230,
+                y: 325,
+                w: 50,
+                h: 22,
+                desc: '',
+                impact: ''
+            },
+            mobiliario: {
+                id: 'mobiliario',
+                text: ['Mobiliario'],
+                type: 'physical',
+                x: 50,
+                y: 380,
+                w: 110,
+                h: 40,
+                desc: 'El equipamiento ergonómico y físico (sillas, mesas ajustables, tableros) adaptado al desarrollo motriz y a las necesidades específicas de la sesión de clase.',
+                impact: 'La ergonomía previene la fatiga postural y fomenta la disposición al trabajo en equipo en el aula física.'
+            },
+            ventilacion: {
+                id: 'ventilacion',
+                text: ['Ventilación'],
+                type: 'physical',
+                x: 170,
+                y: 380,
+                w: 110,
+                h: 40,
+                desc: 'Regulación del flujo de aire y temperatura idóneos dentro del aula, evitando el sobrecalentamiento y la saturación de dióxido de carbono.',
+                impact: 'Una ventilación deficiente incrementa la somnolencia y reduce notablemente las habilidades de razonamiento lógico y concentración.'
+            },
+            iluminacion: {
+                id: 'iluminacion',
+                text: ['Iluminación'],
+                type: 'physical',
+                x: 290,
+                y: 380,
+                w: 110,
+                h: 40,
+                desc: 'Aseguramiento de luz visual idónea (priorizando la luz natural) para realizar lecturas y actividades sin provocar sobreesfuerzo visual.',
+                impact: 'Evita la fatiga visual y promueve la vitalidad y el estado de alerta saludable en los alumnos.'
+            },
+            decoracion_adecuada: {
+                id: 'decoracion_adecuada',
+                text: ['Decoración', 'adecuada'],
+                type: 'physical',
+                x: 410,
+                y: 380,
+                w: 110,
+                h: 46,
+                desc: 'Diseño estético y balance cromático de las paredes y elementos visuales del aula que inspiren y aporten armonía sin saturar.',
+                impact: 'Una decoración equilibrada canaliza el enfoque cognitivo del alumno hacia los objetivos de aprendizaje.'
+            },
+            docentes_f: {
+                id: 'docentes_f',
+                text: ['Docentes'],
+                type: 'physical',
+                x: 450,
+                y: 270,
+                w: 140,
+                h: 50,
+                desc: 'Los educadores que en el plano de la presencialidad configuran, ordenan y guían las experiencias didácticas directas en los espacios físicos.',
+                impact: 'El docente físico actúa como el dinamizador social primario y organizador del contexto físico del aula.'
+            },
+            que_tengan: {
+                id: 'que_tengan',
+                text: ['que tengan'],
+                type: 'connector-physical',
+                x: 520,
+                y: 385,
+                w: 75,
+                h: 22,
+                desc: '',
+                impact: ''
+            },
+            coherencia: {
+                id: 'coherencia',
+                text: ['Coherencia'],
+                type: 'physical',
+                x: 350,
+                y: 500,
+                w: 130,
+                h: 50,
+                desc: 'La correspondencia transparente y honesta que debe existir entre los principios verbalizados del docente y sus acciones prácticas en clase.',
+                impact: 'Es el pilar fundamental que genera confianza y legitimidad pedagógica ante el grupo de estudiantes.'
+            },
+            capacidad: {
+                id: 'capacidad',
+                text: ['Capacidad'],
+                type: 'physical',
+                x: 500,
+                y: 500,
+                w: 130,
+                h: 50,
+                desc: 'La habilidad técnica y actitud reflexiva constante del profesorado para autoanalizar su práctica docente y renovarse didácticamente.',
+                impact: 'Permite salir de la rutina transmisiva tradicional para adoptar enfoques acordes con las necesidades formativas reales.'
+            },
+            discurso: {
+                id: 'discurso',
+                text: ['Discurso'],
+                type: 'physical',
+                x: 220,
+                y: 630,
+                w: 120,
+                h: 40,
+                desc: 'El andamiaje conceptual teórico, explicaciones y valores educativos verbalizados por el educador en su sesión pedagógica.',
+                impact: 'Estructura conceptualmente los marcos de pensamiento lógico de los alumnos en la etapa informativa.'
+            },
+            actuaciones: {
+                id: 'actuaciones',
+                text: ['Actuaciones'],
+                type: 'physical',
+                x: 350,
+                y: 630,
+                w: 130,
+                h: 40,
+                desc: 'Las conductas reales, métodos instruccionales aplicados y dinámicas directas del docente durante el ejercicio de la clase.',
+                impact: 'Modelan mediante el ejemplo real el rigor del proceso educativo y construyen un precedente práctico.'
+            },
+            practicas_pedagogicas: {
+                id: 'practicas_pedagogicas',
+                text: ['Prácticas', 'Pedagógicas'],
+                type: 'physical',
+                x: 320,
+                y: 760,
+                w: 150,
+                h: 50,
+                desc: 'El conjunto articulado de actividades de enseñanza, interacción áulica y dinámicas formativas que dan vida real al currículum.',
+                impact: 'Es la instancia definitiva donde convergen la teoría y la acción para consolidar aprendizajes significativos.'
+            },
+            reflexionar: {
+                id: 'reflexionar',
+                text: ['Reflexionar'],
+                type: 'physical',
+                x: 500,
+                y: 690,
+                w: 130,
+                h: 40,
+                desc: 'El ejercicio metacognitivo continuo mediante el cual el profesorado examina críticamente el éxito o fracaso de sus sesiones didácticas.',
+                impact: 'Es la herramienta transformadora esencial que evita el estancamiento profesional del docente.'
+            },
 
-                // ESPACIOS VIRTUALES BRANCH (YELLOW)
-                espacios_virtuales: {
-                    id: 'espacios_virtuales',
-                    text: ['Espacios', 'Virtuales'],
-                    type: 'virtual',
-                    x: 1280,
-                    y: 160,
-                    w: 160,
-                    h: 52,
-                    desc: 'Los ambientes y ecosistemas pedagógicos mediados tecnológicamente que permiten procesos sincrónicos y asincrónicos de formación ubicua.',
-                    impact: 'Rompen las barreras espacio-temporales y posibilitan una diversificación de herramientas sin precedentes para la enseñanza.'
-                },
-                aprendizajes: {
-                    id: 'aprendizajes',
-                    text: ['Aprendizajes'],
-                    type: 'virtual',
-                    x: 1100,
-                    y: 270,
-                    w: 130,
-                    h: 50,
-                    desc: 'Habilidades instruccionales y destrezas formativas consolidadas bajo la mediación de plataformas virtuales de aprendizaje.',
-                    impact: 'Permite una autonomía formativa robusta en el desarrollo individual del estudiante en la sociedad digital.'
-                },
-                instrumentos_mediacion: {
-                    id: 'instrumentos_mediacion',
-                    text: ['Instrumentos', 'de mediación'],
-                    type: 'virtual',
-                    x: 1280,
-                    y: 270,
-                    w: 150,
-                    h: 52,
-                    desc: 'Las herramientas informáticas, aulas virtuales, chats, foros y plataformas LMS (Moodle, Teams) que canalizan y estructuran el diálogo formativo.',
-                    impact: 'Actúan como las vías de comunicación que organizan la ruta cognitiva, guiando al alumno ordenadamente.'
-                },
-                aprendizaje_autonomo: {
-                    id: 'aprendizaje_autonomo',
-                    text: ['Aprendizaje', 'autónomo y', 'cooperativo'],
-                    type: 'virtual',
-                    x: 1460,
-                    y: 270,
-                    w: 150,
-                    h: 64,
-                    desc: 'El esquema donde el alumno asume el control estratégico de sus tiempos y tareas (autonomía) apalancado con debates grupales en línea (cooperativo).',
-                    impact: 'Fomenta la autorregulación cognitiva indispensable para la formación permanente en la vida profesional.'
-                },
-                recursos_infovirtuales: {
-                    id: 'recursos_infovirtuales',
-                    text: ['Recursos', 'Infovirtuales'],
-                    type: 'virtual',
-                    x: 1350,
-                    y: 380,
-                    w: 150,
-                    h: 52,
-                    desc: 'Materiales interactivos digitales (PDFs hipertextuales, simuladores, laboratorios en la nube) que sirven de insumo formativo e información.',
-                    impact: 'Constituyen el soporte y fuente de información dinámica del estudiante en entornos mediados por tecnología.'
-                },
-                optimos: {
-                    id: 'optimos',
-                    text: ['Óptimos'],
-                    type: 'virtual',
-                    x: 1250,
-                    y: 480,
-                    w: 110,
-                    h: 40,
-                    desc: 'Materiales educativos que demuestran rapidez, eficiencia, excelente velocidad de carga y total usabilidad técnica y pedagógica.',
-                    impact: 'Evitan la frustración por problemas técnicos y garantizan una navegación fluida por el material didáctico.'
-                },
-                atractivos: {
-                    id: 'atractivos',
-                    text: ['Atractivos'],
-                    type: 'virtual',
-                    x: 1250,
-                    y: 540,
-                    w: 110,
-                    h: 40,
-                    desc: 'Recursos digitales diseñados con criterios de estética moderna, balance de colores agradable e interfaces interactivas intuitivas.',
-                    impact: 'Estimulan visualmente al estudiante, favoreciendo la retención voluntaria y el agrado por la materia.'
-                },
-                motivadores: {
-                    id: 'motivadores',
-                    text: ['Motivadores'],
-                    type: 'virtual',
-                    x: 1250,
-                    y: 600,
-                    w: 110,
-                    h: 40,
-                    desc: 'Contenidos diseñados bajo dinámicas lúdicas, desafíos aplicables a la reality u objetos interactivos que despiertan el interés genuino.',
-                    impact: 'Impulsan la persistencia en el estudio y fomentan la curiosidad intelectual autónoma.'
-                },
-                comprensibles: {
-                    id: 'comprensibles',
-                    text: ['Comprensibles'],
-                    type: 'virtual',
-                    x: 1250,
-                    y: 660,
-                    w: 110,
-                    h: 40,
-                    desc: 'Contenidos redactados de forma clara, con explicaciones concisas, glosarios y estructurados con una jerarquía de información coherente.',
-                    impact: 'Aseguran que los conceptos difíciles se asimilen correctamente de forma autónoma sin intermediación continua.'
-                },
-                sujetos: {
-                    id: 'sujetos',
-                    text: ['Los sujetos'],
-                    type: 'virtual',
-                    x: 1450,
-                    y: 480,
-                    w: 130,
-                    h: 50,
-                    desc: 'Los actores humanos virtuales (estudiantes, docentes, colaboradores globales) que participan en la comunidad web.',
-                    impact: 'Son los agentes interactivos conscientes que dinamizan y dan sentido social a las plataformas tecnológicas de aprendizaje.'
-                },
-                el_conocimiento: {
-                    id: 'el_conocimiento',
-                    text: ['El Conocimiento'],
-                    type: 'virtual',
-                    x: 1220,
-                    y: 780,
-                    w: 130,
-                    h: 40,
-                    desc: 'El corpus de saberes, teorías, descubrimientos y conceptos críticos asimilados activamente por el estudiante virtual.',
-                    impact: 'Permite al sujeto ampliar su frontera conceptual y asimilar la ciencia y la cultura a través de canales digitales.'
-                },
-                el_hombre: {
-                    id: 'el_hombre',
-                    text: ['El hombre'],
-                    type: 'virtual',
-                    x: 1340,
-                    y: 780,
-                    w: 100,
-                    h: 40,
-                    desc: 'La interacción social humanizada y empática, reconociendo al otro a pesar de la distancia virtual.',
-                    impact: 'Garantiza que la formación en línea mantenga un profundo sentido ético, humanista y de valores.'
-                },
-                el_mundo: {
-                    id: 'el_mundo',
-                    text: ['El mundo'],
-                    type: 'virtual',
-                    x: 1460,
-                    y: 780,
-                    w: 90,
-                    h: 40,
-                    desc: 'El acceso ubicuo a la realidad global, investigaciones científicas, bases de datos y acontecimientos del exterior.',
-                    impact: 'Abre la visión del estudiante hacia el plano global y le permite contextualizar su aprendizaje con redes reales.'
-                },
-                consigo_mismo: {
-                    id: 'consigo_mismo',
-                    text: ['Consigo', 'mismo'],
-                    type: 'virtual',
-                    x: 1580,
-                    y: 780,
-                    w: 95,
-                    h: 46,
-                    desc: 'La capacidad reflexiva y de autoevaluación donde el sujeto examina su propio crecimiento intelectual de forma independiente.',
-                    impact: 'Consolida la autodisciplina y la autoeficacia esenciales para el empoderamiento del educando virtual.'
+            // INTERACTIONS BRANCH (GREEN)
+            interacciones: {
+                id: 'interacciones',
+                text: ['Interacciones'],
+                type: 'interaction',
+                x: 800,
+                y: 270,
+                w: 160,
+                h: 50,
+                desc: 'Las redes recíprocas de comunicación, intercambio social y relaciones dinámicas de diálogo que se establecen en el entorno de aprendizaje.',
+                impact: 'Son el verdadero motor constructivista del aprendizaje; sin interacción profunda no se genera un proceso cognitivo duradero.'
+            },
+            acciones: {
+                id: 'acciones',
+                text: ['Acciones'],
+                type: 'physical', // styled physical in pdf
+                x: 640,
+                y: 380,
+                w: 130,
+                h: 50,
+                desc: 'Las actividades prácticas, ejercicios, dinámicas y tareas movilizadas de manera activa por el estudiante en su proceso de asimilación.',
+                impact: 'Traducen la teoría abstracta en comportamientos concretos y comprobables de aprendizaje activo.'
+            },
+            que_generan: {
+                id: 'que_generan',
+                text: ['que generan'],
+                type: 'connector-physical',
+                x: 685,
+                y: 440,
+                w: 75,
+                h: 22,
+                desc: '',
+                impact: ''
+            },
+            experiencias: {
+                id: 'experiencias',
+                text: ['Experiencias'],
+                type: 'physical', // styled physical in pdf
+                x: 630,
+                y: 500,
+                w: 130,
+                h: 50,
+                desc: 'Sucesos planificados sistemáticamente en el entorno educativo diseñados para provocar descubrimientos de gran valor cognitivo.',
+                impact: 'Permiten interiorizar de forma activa y coherente los conocimientos complejos a través de la vivencia directa.'
+            },
+            vivencias: {
+                id: 'vivencias',
+                text: ['Vivencias'],
+                type: 'physical', // styled physical in pdf
+                x: 760,
+                y: 500,
+                w: 130,
+                h: 50,
+                desc: 'La dimensión subjetiva, emocional e íntima que asume el alumno respecto a lo que experimenta y aprende en el espacio de clase.',
+                impact: 'Dotan al aprendizaje de sentido vital y trascendencia personal, garantizando que el saber no sea olvidado.'
+            },
+            estudiantes: {
+                id: 'estudiantes',
+                text: ['Estudiantes'],
+                type: 'interaction',
+                x: 820,
+                y: 380,
+                w: 150,
+                h: 50,
+                desc: 'Los protagonistas activos del hecho educativo, responsables de reestructurar la información y asimilar el conocimiento de manera reflexiva.',
+                impact: 'Su involucramiento e interactividad son la condición sine qua non para que las estrategias didácticas rindan fruto.'
+            },
+            con: {
+                id: 'con',
+                text: ['con'],
+                type: 'connector-interaction',
+                x: 990,
+                y: 440,
+                w: 40,
+                h: 22,
+                desc: '',
+                impact: ''
+            },
+            condiciones_socioafectivas: {
+                id: 'condiciones_socioafectivas',
+                text: ['Condiciones', 'Socioafectivas'],
+                type: 'interaction',
+                x: 900,
+                y: 500,
+                w: 150,
+                h: 50,
+                desc: 'El clima socio-emocional de confianza, motivación, empatía y seguridad psicológica donde el alumno se siente libre para expresarse.',
+                impact: 'Bajo condiciones afectivas estresantes u hostiles, el cerebro bloquea la capacidad de asimilar nuevos conocimientos.'
+            },
+            docentes_i: {
+                id: 'docentes_i',
+                text: ['Docentes'],
+                type: 'interaction',
+                x: 1030,
+                y: 500,
+                w: 110,
+                h: 40,
+                desc: 'El rol facilitador y mediador directo del maestro que acompaña, aclara dudas y retroalimenta asertivamente al estudiante en tiempo real.',
+                impact: 'Es el soporte formativo continuo que ayuda a sortear las zonas de desarrollo próximo en el aprendizaje.'
+            },
+            companeros: {
+                id: 'companeros',
+                text: ['Compañeros'],
+                type: 'interaction',
+                x: 1140,
+                y: 500,
+                w: 110,
+                h: 40,
+                desc: 'Los pares educativos del aula que posibilitan dinámicas de coevaluación, diálogo crítico y estructuración de proyectos conjuntos.',
+                impact: 'Permiten consolidar el aprendizaje social al contrastar puntos de vista y colaborar horizontalmente.'
+            },
+            contenidos: {
+                id: 'contenidos',
+                text: ['Contenidos'],
+                type: 'interaction',
+                x: 1250,
+                y: 500,
+                w: 110,
+                h: 40,
+                desc: 'Las temáticas conceptuales, lecturas, problemas y recursos estructurados didácticamente que el estudiante debe procesar.',
+                impact: 'Son la materia prima informativa y científica del saber que sustenta el perfil de egreso.'
+            },
+
+            // ESPACIOS VIRTUALES BRANCH (YELLOW)
+            espacios_virtuales: {
+                id: 'espacios_virtuales',
+                text: ['Espacios', 'Virtuales'],
+                type: 'virtual',
+                x: 1350,
+                y: 160,
+                w: 160,
+                h: 52,
+                desc: 'Los ambientes y ecosistemas pedagógicos mediados tecnológicamente que permiten procesos sincrónicos y asincrónicos de formación ubicua.',
+                impact: 'Rompen las barreras espacio-temporales y posibilitan una diversificación de herramientas sin precedentes para la enseñanza.'
+            },
+            aprendizajes: {
+                id: 'aprendizajes',
+                text: ['Aprendizajes'],
+                type: 'virtual',
+                x: 1180,
+                y: 270,
+                w: 130,
+                h: 50,
+                desc: 'Habilidades instruccionales y destrezas formativas consolidadas bajo la mediación de plataformas virtuales de aprendizaje.',
+                impact: 'Permite una autonomía formativa robusta en el desarrollo individual del estudiante en la sociedad digital.'
+            },
+            instrumentos_mediacion: {
+                id: 'instrumentos_mediacion',
+                text: ['Instrumentos', 'de mediación'],
+                type: 'virtual',
+                x: 1350,
+                y: 270,
+                w: 150,
+                h: 52,
+                desc: 'Las herramientas informáticas, aulas virtuales, chats, foros y plataformas LMS (Moodle, Teams) que canalizan y estructuran el diálogo formativo.',
+                impact: 'Actúan como las vías de comunicación que organizan la ruta cognitiva, guiando al alumno ordenadamente.'
+            },
+            aprendizaje_autonomo: {
+                id: 'aprendizaje_autonomo',
+                text: ['Aprendizaje', 'autónomo y', 'cooperativo'],
+                type: 'virtual',
+                x: 1550,
+                y: 270,
+                w: 150,
+                h: 64,
+                desc: 'El esquema donde el alumno asume el control estratégico de sus tiempos y tareas (autonomía) apalancado con debates grupales en línea (cooperativo).',
+                impact: 'Fomenta la autorregulación cognitiva indispensable para la formación permanente en la vida profesional.'
+            },
+            recursos_infovirtuales: {
+                id: 'recursos_infovirtuales',
+                text: ['Recursos', 'Infovirtuales'],
+                type: 'virtual',
+                x: 1440,
+                y: 380,
+                w: 150,
+                h: 52,
+                desc: 'Materiales interactivos digitales (PDFs hipertextuales, simuladores, laboratorios en la nube) que sirven de insumo formativo e información.',
+                impact: 'Constituyen el soporte y fuente de información dinámica del estudiante en entornos mediados por tecnología.'
+            },
+            que_son: {
+                id: 'que_son',
+                text: ['que son'],
+                type: 'connector-virtual',
+                x: 1400,
+                y: 430,
+                w: 60,
+                h: 22,
+                desc: '',
+                impact: ''
+            },
+            optimos: {
+                id: 'optimos',
+                text: ['Óptimos'],
+                type: 'virtual',
+                x: 1370,
+                y: 480,
+                w: 110,
+                h: 40,
+                desc: 'Materiales educativos que demuestran rapidez, eficiencia, excelente velocidad de carga y total usabilidad técnica y pedagógica.',
+                impact: 'Evitan la frustración por problemas técnicos y garantizan una navegación fluida por el material didáctico.'
+            },
+            atractivos: {
+                id: 'atractivos',
+                text: ['Atractivos'],
+                type: 'virtual',
+                x: 1370,
+                y: 540,
+                w: 110,
+                h: 40,
+                desc: 'Recursos digitales diseñados con criterios de estética moderna, balance de colores agradable e interfaces interactivas intuitivas.',
+                impact: 'Estimulan visualmente al estudiante, favoreciendo la retención voluntaria y el agrado por la materia.'
+            },
+            motivadores: {
+                id: 'motivadores',
+                text: ['Motivadores'],
+                type: 'virtual',
+                x: 1370,
+                y: 600,
+                w: 110,
+                h: 40,
+                desc: 'Contenidos diseñados bajo dinámicas lúdicas, desafíos aplicables a la reality u objetos interactivos que despiertan el interés genuino.',
+                impact: 'Impulsan la persistencia en el estudio y fomentan la curiosidad intelectual autónoma.'
+            },
+            comprensibles: {
+                id: 'comprensibles',
+                text: ['Comprensibles'],
+                type: 'virtual',
+                x: 1370,
+                y: 660,
+                w: 110,
+                h: 40,
+                desc: 'Contenidos redactados de forma clara, con explicaciones concisas, glosarios y estructurados con una jerarquía de información coherente.',
+                impact: 'Aseguran que los conceptos difíciles se asimilen correctamente de forma autónoma sin intermediación continua.'
+            },
+            sujetos: {
+                id: 'sujetos',
+                text: ['Los sujetos'],
+                type: 'virtual',
+                x: 1550,
+                y: 480,
+                w: 130,
+                h: 50,
+                desc: 'Los actores humanos virtuales (estudiantes, docentes, colaboradores globales) que participan en la comunidad web.',
+                impact: 'Son los agentes interactivos conscientes que dinamizan y dan sentido social a las plataformas tecnológicas de aprendizaje.'
+            },
+            relacionarse_con: {
+                id: 'relacionarse_con',
+                text: ['relacionarse con'],
+                type: 'connector-virtual',
+                x: 1490,
+                y: 630,
+                w: 110,
+                h: 22,
+                desc: '',
+                impact: ''
+            },
+            el_conocimiento: {
+                id: 'el_conocimiento',
+                text: ['El Conocimiento'],
+                type: 'virtual',
+                x: 1320,
+                y: 780,
+                w: 130,
+                h: 40,
+                desc: 'El corpus de saberes, teorías, descubrimientos y conceptos críticos asimilados activamente por el estudiante virtual.',
+                impact: 'Permite al sujeto ampliar su frontera conceptual y asimilar la ciencia y la cultura a través de canales digitales.'
+            },
+            el_hombre: {
+                id: 'el_hombre',
+                text: ['El hombre'],
+                type: 'virtual',
+                x: 1440,
+                y: 780,
+                w: 100,
+                h: 40,
+                desc: 'La interacción social humanizada y empática, reconociendo al otro a pesar de la distancia virtual.',
+                impact: 'Garantiza que la formación en línea mantenga un profundo sentido ético, humanista y de valores.'
+            },
+            el_mundo: {
+                id: 'el_mundo',
+                text: ['El mundo'],
+                type: 'virtual',
+                x: 1560,
+                y: 780,
+                w: 90,
+                h: 40,
+                desc: 'El acceso ubicuo a la realidad global, investigaciones científicas, bases de datos y acontecimientos del exterior.',
+                impact: 'Abre la visión del estudiante hacia el plano global y le permite contextualizar su aprendizaje con redes reales.'
+            },
+            consigo_mismo: {
+                id: 'consigo_mismo',
+                text: ['Consigo', 'mismo'],
+                type: 'virtual',
+                x: 1660,
+                y: 780,
+                w: 95,
+                h: 46,
+                desc: 'La capacidad reflexiva y de autoevaluación donde el sujeto examina su propio crecimiento intelectual de forma independiente.',
+                impact: 'Consolida la autodisciplina y la autoeficacia esenciales para el empoderamiento del educando virtual.'
+            }
+        };
+
+        const links = [
+            // root -> branch roots
+            { from: 'root', to: 'espacios_fisicos', label: 'pueden ser' },
+            { from: 'root', to: 'espacios_virtuales', label: 'pueden ser' },
+
+            // espacios fisicos
+            { from: 'espacios_fisicos', to: 'elementos', label: 'requieren' },
+            { from: 'espacios_fisicos', to: 'docentes_f', label: '' },
+            { from: 'espacios_fisicos', to: 'interacciones', label: 'diseñados para promover' },
+
+            // elementos -> subelementos (usando un conector intermedio 'como')
+            { from: 'elementos', to: 'como', label: '' },
+            { from: 'como', to: 'mobiliario', label: '' },
+            { from: 'como', to: 'ventilacion', label: '' },
+            { from: 'como', to: 'iluminacion', label: '' },
+            { from: 'como', to: 'decoracion_adecuada', label: '' },
+
+            // docentes f (usando un conector intermedio 'que tengan')
+            { from: 'docentes_f', to: 'que_tengan', label: '' },
+            { from: 'que_tengan', to: 'coherencia', label: '' },
+            { from: 'que_tengan', to: 'capacidad', label: '' },
+
+            // coherencia
+            { from: 'coherencia', to: 'discurso', label: 'entre su' },
+            { from: 'coherencia', to: 'actuaciones', label: 'y sus' },
+
+            // actuaciones -> practicas
+            { from: 'actuaciones', to: 'practicas_pedagogicas', label: 'en las' },
+            { from: 'discurso', to: 'practicas_pedagogicas', label: 'en las' },
+
+            // capacidad
+            { from: 'capacidad', to: 'reflexionar', label: 'para' },
+            { from: 'reflexionar', to: 'actuaciones', label: 'sobre sus' },
+
+            // interacciones (green)
+            { from: 'interacciones', to: 'acciones', label: 'involucran' },
+            { from: 'interacciones', to: 'estudiantes', label: 'entre' },
+            { from: 'interacciones', to: 'aprendizajes', label: 'a través de' }, // connects green to yellow
+
+            // acciones
+            { from: 'acciones', to: 'que_generan', label: '' },
+            { from: 'que_generan', to: 'experiencias', label: '' },
+            { from: 'que_generan', to: 'vivencias', label: '' },
+
+            // estudiantes
+            { from: 'estudiantes', to: 'condiciones_socioafectivas', label: 'en diferentes' },
+            { from: 'estudiantes', to: 'con', label: '' },
+            { from: 'con', to: 'docentes_i', label: '' },
+            { from: 'con', to: 'companeros', label: '' },
+            { from: 'con', to: 'contenidos', label: '' },
+            { from: 'estudiantes', to: 'recursos_infovirtuales', label: 'usando' }, // green to yellow
+
+            // espacios virtuales
+            { from: 'espacios_virtuales', to: 'interacciones', label: 'diseñados para promover' },
+            { from: 'espacios_virtuales', to: 'aprendizajes', label: 'posibilitan' },
+            { from: 'espacios_virtuales', to: 'instrumentos_mediacion', label: 'son' },
+            { from: 'espacios_virtuales', to: 'aprendizaje_autonomo', label: 'promueven un' },
+
+            // aprendizaje autonomo -> recursos
+            { from: 'aprendizaje_autonomo', to: 'recursos_infovirtuales', label: 'usando' },
+            { from: 'instrumentos_mediacion', to: 'recursos_infovirtuales', label: '' },
+
+            // recursos -> subrecursos (usando un conector intermedio 'que son')
+            { from: 'recursos_infovirtuales', to: 'que_son', label: '' },
+            { from: 'que_son', to: 'optimos', label: '' },
+            { from: 'que_son', to: 'atractivos', label: '' },
+            { from: 'que_son', to: 'motivadores', label: '' },
+            { from: 'que_son', to: 'comprensibles', label: '' },
+
+            // recursos -> sujetos
+            { from: 'recursos_infovirtuales', to: 'sujetos', label: 'permiten a los' },
+
+            // sujetos -> relacionarse (usando un conector intermedio 'relacionarse con')
+            { from: 'sujetos', to: 'relacionarse_con', label: '' },
+            { from: 'relacionarse_con', to: 'el_conocimiento', label: '' },
+            { from: 'relacionarse_con', to: 'el_hombre', label: '' },
+            { from: 'relacionarse_con', to: 'el_mundo', label: '' },
+            { from: 'relacionarse_con', to: 'consigo_mismo', label: '' },
+        ];
+
+
+
+        /* ==========================================
+           VARIABLES GLOBALES DEL LIENZO
+           ========================================== */
+        let scale = 1.0;
+        let transformX = 0;
+        let transformY = 0;
+        let isDragging = false;
+        let startX, startY;
+        let selectedNodeId = null;
+
+        // Elementos de la interfaz recuperados de forma encapsulada
+        const container = document.getElementById('canvas-container');
+        const svg = document.getElementById('interactive-svg');
+        const viewportG = document.getElementById('viewport-g');
+        const nodesGroup = document.getElementById('nodes-group');
+        const connectorsGroup = document.getElementById('connectors-group');
+        const searchInput = document.getElementById('node-search');
+
+        // Panel de detalles
+        const panel = document.getElementById('details-panel');
+        const panelPlaceholder = document.getElementById('panel-placeholder');
+        const panelContent = document.getElementById('panel-details-content');
+        const nodeTypeBadge = document.getElementById('detail-node-type');
+        const nodeTitle = document.getElementById('detail-node-title');
+        const nodeDesc = document.getElementById('detail-node-desc');
+        const nodeImpactBox = document.getElementById('detail-node-impact-box');
+        const nodeImpact = document.getElementById('detail-node-impact');
+        const nodeConnections = document.getElementById('detail-node-connections');
+        const panelCloseBtn = document.getElementById('panel-close');
+
+        // Controles de Vista
+        const resetBtn = document.getElementById('reset-view-btn');
+        const zoomInBtn = document.getElementById('zoom-in');
+        const zoomOutBtn = document.getElementById('zoom-out');
+
+
+
+        /* ==========================================
+           1. DIBUJADO DE CONECTORES Y NODOS DINÁMICOS
+           ========================================== */
+        function drawMap() {
+            // Limpiar grupos
+            connectorsGroup.innerHTML = '';
+            nodesGroup.innerHTML = '';
+
+            // Dibujar conexiones primero (para que queden de fondo)
+            links.forEach((link, idx) => {
+                const fromNode = nodes[link.from];
+                const toNode = nodes[link.to];
+                if (!fromNode || !toNode) return;
+
+                // Creamos el grupo del link para interactividad conjunta
+                const linkG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+                const targetClass = toNode.type.startsWith('connector-') ? toNode.type.split('-')[1] : toNode.type;
+                linkG.setAttribute("class", `link-group ${targetClass}`);
+                linkG.setAttribute("id", `link-${link.from}-${link.to}`);
+
+                // Calcular puntos de anclaje (centros exactos)
+                const x1 = fromNode.x;
+                const y1 = fromNode.y;
+                const x2 = toNode.x;
+                const y2 = toNode.y;
+
+                // Dibujar una curva suave cúbica de Bezier entre los nodos
+                const dx = Math.abs(x2 - x1);
+                const dy = Math.abs(y2 - y1);
+
+                let pathD = '';
+                if (dy > dx || fromNode.type.startsWith('connector-') || toNode.type.startsWith('connector-')) {
+                    // Flujo vertical prioritario para conectores
+                    const ctrlY = y1 + (y2 - y1) * 0.45;
+                    pathD = `M ${x1} ${y1} C ${x1} ${ctrlY}, ${x2} ${ctrlY}, ${x2} ${y2}`;
+                } else {
+                    // Flujo horizontal prioritario
+                    const ctrlX = x1 + (x2 - x1) * 0.45;
+                    pathD = `M ${x1} ${y1} C ${ctrlX} ${y1}, ${ctrlX} ${y2}, ${x2} ${y2}`;
                 }
-            };
 
-            const links = [
-                // root -> branch roots
-                { from: 'root', to: 'espacios_fisicos', label: 'pueden ser' },
-                { from: 'root', to: 'espacios_virtuales', label: 'pueden ser' },
+                // Determinar color de flecha en el marker
+                let markerColor = 'arrow-gray';
+                if (targetClass === 'physical' || toNode.id === 'acciones' || toNode.id === 'experiencias' || toNode.id === 'vivencias') {
+                    markerColor = 'arrow-cyan';
+                } else if (targetClass === 'interaction') {
+                    markerColor = 'arrow-green';
+                } else if (targetClass === 'virtual') {
+                    markerColor = 'arrow-yellow';
+                }
 
-                // espacios fisicos
-                { from: 'espacios_fisicos', to: 'elementos', label: 'requieren' },
-                { from: 'espacios_fisicos', to: 'docentes_f', label: '' },
-                { from: 'espacios_fisicos', to: 'interacciones', label: 'diseñados para promover' },
-
-                // elementos -> subelementos
-                { from: 'elementos', to: 'mobiliario', label: 'como' },
-                { from: 'elementos', to: 'ventilacion', label: 'como' },
-                { from: 'elementos', to: 'iluminacion', label: 'como' },
-                { from: 'elementos', to: 'decoracion_adecuada', label: 'como' },
-
-                // docentes f
-                { from: 'docentes_f', to: 'coherencia', label: 'que tengan' },
-                { from: 'docentes_f', to: 'capacidad', label: 'que tengan' },
-
-                // coherencia
-                { from: 'coherencia', to: 'discurso', label: 'entre su' },
-                { from: 'coherencia', to: 'actuaciones', label: 'y sus' },
-                
-                // actuaciones -> practicas
-                { from: 'actuaciones', to: 'practicas_pedagogicas', label: 'en las' },
-                { from: 'discurso', to: 'practicas_pedagogicas', label: 'en las' },
-
-                // capacidad
-                { from: 'capacidad', to: 'reflexionar', label: 'para' },
-                { from: 'reflexionar', to: 'actuaciones', label: 'sobre sus' },
-
-                // interacciones (green)
-                { from: 'interacciones', to: 'acciones', label: 'involucran' },
-                { from: 'interacciones', to: 'estudiantes', label: 'entre' },
-                { from: 'interacciones', to: 'aprendizajes', label: 'a través de' }, // connects green to yellow
-
-                // acciones
-                { from: 'acciones', to: 'experiencias', label: 'que generan' },
-                { from: 'acciones', to: 'vivencias', label: 'que generan' },
-
-                // estudiantes
-                { from: 'estudiantes', to: 'condiciones_socioafectivas', label: 'en diferentes' },
-                { from: 'estudiantes', to: 'docentes_i', label: 'con' },
-                { from: 'estudiantes', to: 'companeros', label: 'con' },
-                { from: 'estudiantes', to: 'contenidos', label: 'con' },
-                { from: 'estudiantes', to: 'recursos_infovirtuales', label: 'usando' }, // green to yellow
-
-                // espacios virtuales
-                { from: 'espacios_virtuales', to: 'interacciones', label: 'diseñados para promover' },
-                { from: 'espacios_virtuales', to: 'aprendizajes', label: 'posibilitan' },
-                { from: 'espacios_virtuales', to: 'instrumentos_mediacion', label: 'son' },
-                { from: 'espacios_virtuales', to: 'aprendizaje_autonomo', label: 'promueven un' },
-
-                // aprendizaje autonomo -> recursos
-                { from: 'aprendizaje_autonomo', to: 'recursos_infovirtuales', label: 'usando' },
-                { from: 'instrumentos_mediacion', to: 'recursos_infovirtuales', label: '' },
-
-                // recursos -> subrecursos
-                { from: 'recursos_infovirtuales', to: 'optimos', label: 'que son' },
-                { from: 'recursos_infovirtuales', to: 'atractivos', label: 'que son' },
-                { from: 'recursos_infovirtuales', to: 'motivadores', label: 'que son' },
-                { from: 'recursos_infovirtuales', to: 'comprensibles', label: 'que son' },
-
-                // recursos -> sujetos
-                { from: 'recursos_infovirtuales', to: 'sujetos', label: 'permiten a los' },
-
-                // sujetos -> relacionarse
-                { from: 'sujetos', to: 'el_conocimiento', label: 'relacionarse con' },
-                { from: 'sujetos', to: 'el_hombre', label: 'relacionarse con' },
-                { from: 'sujetos', to: 'el_mundo', label: 'relacionarse con' },
-                { from: 'sujetos', to: 'consigo_mismo', label: 'relacionarse con' }
-            ];
-
-
-
-            /* ==========================================
-               VARIABLES GLOBALES DEL LIENZO
-               ========================================== */
-            let scale = 1.0;
-            let transformX = 0;
-            let transformY = 0;
-            let isDragging = false;
-            let startX, startY;
-            let selectedNodeId = null;
-
-            // Elementos de la interfaz recuperados de forma encapsulada
-            const container = document.getElementById('canvas-container');
-            const svg = document.getElementById('interactive-svg');
-            const viewportG = document.getElementById('viewport-g');
-            const nodesGroup = document.getElementById('nodes-group');
-            const connectorsGroup = document.getElementById('connectors-group');
-            const searchInput = document.getElementById('node-search');
-            
-            // Panel de detalles
-            const panel = document.getElementById('details-panel');
-            const panelPlaceholder = document.getElementById('panel-placeholder');
-            const panelContent = document.getElementById('panel-details-content');
-            const nodeTypeBadge = document.getElementById('detail-node-type');
-            const nodeTitle = document.getElementById('detail-node-title');
-            const nodeDesc = document.getElementById('detail-node-desc');
-            const nodeImpactBox = document.getElementById('detail-node-impact-box');
-            const nodeImpact = document.getElementById('detail-node-impact');
-            const nodeConnections = document.getElementById('detail-node-connections');
-            const panelCloseBtn = document.getElementById('panel-close');
-            
-            // Controles de Vista
-            const resetBtn = document.getElementById('reset-view-btn');
-            const zoomInBtn = document.getElementById('zoom-in');
-            const zoomOutBtn = document.getElementById('zoom-out');
-            
-
-
-            /* ==========================================
-               1. DIBUJADO DE CONECTORES Y NODOS DINÁMICOS
-               ========================================== */
-            function drawMap() {
-                // Limpiar grupos
-                connectorsGroup.innerHTML = '';
-                nodesGroup.innerHTML = '';
-
-                // Dibujar conexiones primero (para que queden de fondo)
-                links.forEach((link, idx) => {
-                    const fromNode = nodes[link.from];
-                    const toNode = nodes[link.to];
-                    if (!fromNode || !toNode) return;
-
-                    // Creamos el grupo del link para interactividad conjunta
-                    const linkG = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                    linkG.setAttribute("class", `link-group ${toNode.type}`);
-                    linkG.setAttribute("id", `link-${link.from}-${link.to}`);
-
-                    // Calcular puntos de anclaje (centros exactos)
-                    const x1 = fromNode.x;
-                    const y1 = fromNode.y;
-                    const x2 = toNode.x;
-                    const y2 = toNode.y;
-
-                    // Dibujar una curva suave cúbica de Bezier entre los nodos
-                    const dx = Math.abs(x2 - x1);
-                    const dy = Math.abs(y2 - y1);
-                    
-                    let pathD = '';
-                    if (dy > dx) {
-                        // Flujo vertical prioritario
-                        const ctrlY = y1 + (y2 - y1) * 0.45;
-                        pathD = `M ${x1} ${y1} C ${x1} ${ctrlY}, ${x2} ${ctrlY}, ${x2} ${y2}`;
-                    } else {
-                        // Flujo horizontal prioritario
-                        const ctrlX = x1 + (x2 - x1) * 0.45;
-                        pathD = `M ${x1} ${y1} C ${ctrlX} ${y1}, ${ctrlX} ${y2}, ${x2} ${y2}`;
-                    }
-
-                    // Determinar color de flecha en el marker
-                    let markerColor = 'arrow-gray';
-                    if (toNode.type === 'physical' || toNode.id === 'acciones' || toNode.id === 'experiencias' || toNode.id === 'vivencias') {
-                        markerColor = 'arrow-cyan';
-                    } else if (toNode.type === 'interaction') {
-                        markerColor = 'arrow-green';
-                    } else if (toNode.type === 'virtual') {
-                        markerColor = 'arrow-yellow';
-                    }
-
-                    // Línea principal
-                    const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                    path.setAttribute("d", pathD);
-                    path.setAttribute("class", "connector-path");
+                // Línea principal
+                const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                path.setAttribute("d", pathD);
+                path.setAttribute("class", "connector-path");
+                if (!toNode.type.startsWith('connector-')) {
                     path.setAttribute("marker-end", `url(#${markerColor})`);
+                }
 
-                    // Línea de brillo neón de fondo
-                    const pathGlow = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                    pathGlow.setAttribute("d", pathD);
-                    pathGlow.setAttribute("class", "connector-glow");
-                    
-                    // Línea de flujo animada
-                    const pathFlow = document.createElementNS("http://www.w3.org/2000/svg", "path");
-                    pathFlow.setAttribute("d", pathD);
-                    pathFlow.setAttribute("class", "connector-flow");
+                // Línea de brillo neón de fondo
+                const pathGlow = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                pathGlow.setAttribute("d", pathD);
+                pathGlow.setAttribute("class", "connector-glow");
 
-                    linkG.appendChild(pathGlow);
-                    linkG.appendChild(path);
-                    linkG.appendChild(pathFlow);
+                // Línea de flujo animada
+                const pathFlow = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                pathFlow.setAttribute("d", pathD);
+                pathFlow.setAttribute("class", "connector-flow");
 
-                    // Si hay una etiqueta intermedia en la línea, la dibujamos en el punto medio de la curva
-                    if (link.label) {
-                        // Calcular punto medio de la curva
-                        const midX = x1 + (x2 - x1) * 0.5;
-                        const midY = y1 + (y2 - y1) * 0.5;
+                linkG.appendChild(pathGlow);
+                linkG.appendChild(path);
+                linkG.appendChild(pathFlow);
 
-                        const labelG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+                // Si hay una etiqueta intermedia en la línea, la dibujamos en el punto medio de la curva
+                if (link.label) {
+                    // Calcular punto medio de la curva
+                    const midX = x1 + (x2 - x1) * 0.5;
+                    const midY = y1 + (y2 - y1) * 0.5;
 
-                        // Fondo de la etiqueta
-                        const labelRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                        const labelText = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        
-                        labelText.setAttribute("x", midX);
-                        labelText.setAttribute("y", midY);
-                        labelText.setAttribute("class", "link-label-text");
-                        labelText.textContent = link.label;
-                        
-                        labelG.appendChild(labelText);
-                        
-                        // Añadimos al grupo
-                        linkG.appendChild(labelG);
-                        
-                        // Una vez inyectado, calculamos su caja para dimensionar el rect de fondo
-                        setTimeout(() => {
-                            try {
-                                const bbox = labelText.getBBox();
-                                labelRect.setAttribute("x", bbox.x - 5);
-                                labelRect.setAttribute("y", bbox.y - 3);
-                                labelRect.setAttribute("width", bbox.width + 10);
-                                labelRect.setAttribute("height", bbox.height + 6);
-                                labelRect.setAttribute("class", "link-label-box");
-                                labelG.insertBefore(labelRect, labelText);
-                            } catch(e) {}
-                        }, 50);
-                    }
+                    const labelG = document.createElementNS("http://www.w3.org/2000/svg", "g");
 
-                    connectorsGroup.appendChild(linkG);
+                    // Fondo de la etiqueta
+                    const labelRect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                    const labelText = document.createElementNS("http://www.w3.org/2000/svg", "text");
+
+                    labelText.setAttribute("x", midX);
+                    labelText.setAttribute("y", midY);
+                    labelText.setAttribute("class", "link-label-text");
+                    labelText.textContent = link.label;
+
+                    labelG.appendChild(labelText);
+
+                    // Añadimos al grupo
+                    linkG.appendChild(labelG);
+
+                    // Una vez inyectado, calculamos su caja para dimensionar el rect de fondo
+                    setTimeout(() => {
+                        try {
+                            const bbox = labelText.getBBox();
+                            labelRect.setAttribute("x", bbox.x - 5);
+                            labelRect.setAttribute("y", bbox.y - 3);
+                            labelRect.setAttribute("width", bbox.width + 10);
+                            labelRect.setAttribute("height", bbox.height + 6);
+                            labelRect.setAttribute("class", "link-label-box");
+                            labelG.insertBefore(labelRect, labelText);
+                        } catch (e) { }
+                    }, 50);
+                }
+
+                connectorsGroup.appendChild(linkG);
+            });
+
+            // Dibujar nodos
+            Object.values(nodes).forEach(node => {
+                const nodeG = document.createElementNS("http://www.w3.org/2000/svg", "g");
+                nodeG.setAttribute("class", `node-g ${node.type}`);
+                nodeG.setAttribute("id", `node-${node.id}`);
+                nodeG.setAttribute("transform", `translate(${node.x}, ${node.y})`);
+
+                // Rectángulo
+                const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
+                rect.setAttribute("x", -node.w / 2);
+                rect.setAttribute("y", -node.h / 2);
+                rect.setAttribute("width", node.w);
+                rect.setAttribute("height", node.h);
+                rect.setAttribute("rx", node.type.startsWith('connector-') ? 4 : 10);
+                nodeG.appendChild(rect);
+
+                // Textos multilínea centrados
+                node.text.forEach((line, i) => {
+                    const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
+                    // Ajustamos la separación vertical según el total de líneas
+                    const totalLines = node.text.length;
+                    const lineSpacing = 15;
+                    const offset = (i - (totalLines - 1) / 2) * lineSpacing;
+
+                    text.setAttribute("x", 0);
+                    text.setAttribute("y", offset);
+                    text.textContent = line;
+                    nodeG.appendChild(text);
                 });
 
-                // Dibujar nodos
-                Object.values(nodes).forEach(node => {
-                    const nodeG = document.createElementNS("http://www.w3.org/2000/svg", "g");
-                    nodeG.setAttribute("class", `node-g ${node.type}`);
-                    nodeG.setAttribute("id", `node-${node.id}`);
-                    nodeG.setAttribute("transform", `translate(${node.x}, ${node.y})`);
-
-                    // Rectángulo
-                    const rect = document.createElementNS("http://www.w3.org/2000/svg", "rect");
-                    rect.setAttribute("x", -node.w / 2);
-                    rect.setAttribute("y", -node.h / 2);
-                    rect.setAttribute("width", node.w);
-                    rect.setAttribute("height", node.h);
-                    rect.setAttribute("rx", 10);
-                    nodeG.appendChild(rect);
-
-                    // Textos multilínea centrados
-                    node.text.forEach((line, i) => {
-                        const text = document.createElementNS("http://www.w3.org/2000/svg", "text");
-                        // Ajustamos la separación vertical según el total de líneas
-                        const totalLines = node.text.length;
-                        const lineSpacing = 15;
-                        const offset = (i - (totalLines - 1) / 2) * lineSpacing;
-                        
-                        text.setAttribute("x", 0);
-                        text.setAttribute("y", offset);
-                        text.textContent = line;
-                        nodeG.appendChild(text);
-                    });
-
-                    // Eventos Interactivos
+                // Eventos Interactivos (se omiten para conectores no interactivos)
+                if (!node.type.startsWith('connector-')) {
                     nodeG.addEventListener('click', (e) => {
                         e.stopPropagation();
                         selectNode(node.id);
@@ -1820,370 +2043,469 @@
                     nodeG.addEventListener('mouseleave', () => {
                         clearConnectionHighlights();
                     });
-
-                    nodesGroup.appendChild(nodeG);
-                });
-            }
-
-            /* ==========================================
-               2. SELECCIÓN DE NODOS Y RELLENO DEL PANEL
-               ========================================== */
-            function selectNode(id) {
-                // Remover clase activa previa
-                if (selectedNodeId) {
-                    const prevNode = document.getElementById(`node-${selectedNodeId}`);
-                    if (prevNode) prevNode.classList.remove('highlighted');
                 }
 
-                selectedNodeId = id;
-                const node = nodes[id];
+                nodesGroup.appendChild(nodeG);
+            });
+        }
 
-                // Agregar clase activa
-                const nodeEl = document.getElementById(`node-${id}`);
-                if (nodeEl) nodeEl.classList.add('highlighted');
+        /* ==========================================
+           2. SELECCIÓN DE NODOS Y RELLENO DEL PANEL
+           ========================================== */
+        function selectNode(id) {
+            // Remover clase activa previa
+            if (selectedNodeId) {
+                const prevNode = document.getElementById(`node-${selectedNodeId}`);
+                if (prevNode) prevNode.classList.remove('highlighted');
+            }
 
-                // Llenar panel lateral
-                panelPlaceholder.style.display = 'none';
-                panelContent.classList.add('active');
+            selectedNodeId = id;
+            const node = nodes[id];
 
-                // Ajustar Badge de Tipo
-                nodeTypeBadge.className = `details-badge ${node.type}`;
-                if (node.type === 'root') nodeTypeBadge.textContent = 'Concepto Raíz';
-                else if (node.type === 'physical') nodeTypeBadge.textContent = 'Rama Entorno Físico';
-                else if (node.type === 'interaction') nodeTypeBadge.textContent = 'Eje de Interacción';
-                else if (node.type === 'virtual') nodeTypeBadge.textContent = 'Rama Entorno Virtual';
+            // Agregar clase activa
+            const nodeEl = document.getElementById(`node-${id}`);
+            if (nodeEl) nodeEl.classList.add('highlighted');
 
-                nodeTitle.textContent = node.text.join(' ');
-                nodeDesc.textContent = node.desc;
-                
-                // Impacto Pedagógico
-                nodeImpactBox.className = `details-impact-box ${node.type}`;
-                nodeImpact.textContent = node.impact;
+            // Llenar panel lateral
+            panelPlaceholder.style.display = 'none';
+            panelContent.classList.add('active');
 
-                // Conexiones Relacionadas
-                nodeConnections.innerHTML = '';
-                
-                // Encontrar relaciones en las que participa este nodo
-                const relevantLinks = links.filter(l => l.from === id || l.to === id);
-                
-                relevantLinks.forEach(link => {
-                    const isFromMe = link.from === id;
-                    const partnerId = isFromMe ? link.to : link.from;
-                    const partnerNode = nodes[partnerId];
+            // Ajustar Badge de Tipo
+            nodeTypeBadge.className = `details-badge ${node.type}`;
+            if (node.type === 'root') nodeTypeBadge.textContent = 'Concepto Raíz';
+            else if (node.type === 'physical') nodeTypeBadge.textContent = 'Rama Entorno Físico';
+            else if (node.type === 'interaction') nodeTypeBadge.textContent = 'Eje de Interacción';
+            else if (node.type === 'virtual') nodeTypeBadge.textContent = 'Rama Entorno Virtual';
 
-                    if (partnerNode) {
-                        const chip = document.createElement('div');
-                        chip.className = 'connection-chip';
-                        
-                        let relationLabel = isFromMe ? 'Apunta a' : 'Viene de';
-                        if (link.label) relationLabel = `${relationLabel} (${link.label})`;
+            nodeTitle.textContent = node.text.join(' ');
+            nodeDesc.textContent = node.desc;
 
-                        chip.innerHTML = `
+            // Impacto Pedagógico
+            nodeImpactBox.className = `details-impact-box ${node.type}`;
+            nodeImpact.textContent = node.impact;
+
+            // Conexiones Relacionadas
+            nodeConnections.innerHTML = '';
+
+            // Encontrar relaciones en las que participa este nodo (resolviendo a través de conectores)
+            const processedConnections = [];
+            links.forEach(link => {
+                if (link.from === id) {
+                    const toNode = nodes[link.to];
+                    if (toNode) {
+                        if (toNode.type.startsWith('connector-')) {
+                            // Encontrar a dónde continúa este conector
+                            links.forEach(subLink => {
+                                if (subLink.from === link.to) {
+                                    processedConnections.push({
+                                        partnerId: subLink.to,
+                                        isFromMe: true,
+                                        label: toNode.text.join(' ')
+                                    });
+                                }
+                            });
+                        } else {
+                            processedConnections.push({
+                                partnerId: link.to,
+                                isFromMe: true,
+                                label: link.label
+                            });
+                        }
+                    }
+                } else if (link.to === id) {
+                    const fromNode = nodes[link.from];
+                    if (fromNode) {
+                        if (fromNode.type.startsWith('connector-')) {
+                            // Encontrar de dónde viene este conector
+                            links.forEach(subLink => {
+                                if (subLink.to === link.from) {
+                                    processedConnections.push({
+                                        partnerId: subLink.from,
+                                        isFromMe: false,
+                                        label: fromNode.text.join(' ')
+                                    });
+                                }
+                            });
+                        } else {
+                            processedConnections.push({
+                                partnerId: link.from,
+                                isFromMe: false,
+                                label: link.label
+                            });
+                        }
+                    }
+                }
+            });
+
+            processedConnections.forEach(conn => {
+                const partnerNode = nodes[conn.partnerId];
+
+                if (partnerNode) {
+                    const chip = document.createElement('div');
+                    chip.className = 'connection-chip';
+
+                    let relationLabel = conn.isFromMe ? 'Apunta a' : 'Viene de';
+                    if (conn.label) relationLabel = `${relationLabel} (${conn.label})`;
+
+                    chip.innerHTML = `
                             <div>
                                 <span class="chip-name">${partnerNode.text.join(' ')}</span>
                             </div>
                             <span class="chip-relation">${relationLabel}</span>
                         `;
 
-                        chip.addEventListener('click', () => {
-                            selectNode(partnerId);
-                            focusOnNode(partnerId);
-                        });
+                    chip.addEventListener('click', () => {
+                        selectNode(conn.partnerId);
+                        focusOnNode(conn.partnerId);
+                    });
 
-                        nodeConnections.appendChild(chip);
-                    }
-                });
-
-                // En pantallas medianas/móviles abrir automáticamente el panel deslizando
-                if (window.matchMedia('(max-width: 991px)').matches) {
-                    panelCloseBtn.style.display = 'block';
-                    panel.style.display = 'flex';
+                    nodeConnections.appendChild(chip);
                 }
-            }
+            });
 
-            // Destacar caminos de flujo del nodo actual al posar el mouse
-            function highlightConnectionPaths(id) {
-                clearConnectionHighlights();
-                
-                // Ilumina todos los links que entran o salen de este nodo
-                links.forEach(link => {
-                    if (link.from === id || link.to === id) {
-                        const linkEl = document.getElementById(`link-${link.from}-${link.to}`);
-                        if (linkEl) {
-                            linkEl.classList.add('active');
-                        }
+            // En pantallas medianas/móviles abrir automáticamente el panel deslizando
+            if (window.matchMedia('(max-width: 991px)').matches) {
+                panelCloseBtn.style.display = 'block';
+                panel.style.display = 'flex';
+            }
+        }
+
+        // Destacar caminos de flujo del nodo actual al posar el mouse
+        function highlightConnectionPaths(id) {
+            clearConnectionHighlights();
+
+            // Ilumina todos los links que entran o salen de este nodo (resolviendo a través de conectores)
+            links.forEach(link => {
+                if (link.from === id) {
+                    const linkEl = document.getElementById(`link-${link.from}-${link.to}`);
+                    if (linkEl) linkEl.classList.add('active');
+
+                    // Si se conecta a un conector, iluminar también la salida de ese conector
+                    const targetNode = nodes[link.to];
+                    if (targetNode && targetNode.type.startsWith('connector-')) {
+                        links.forEach(subLink => {
+                            if (subLink.from === link.to) {
+                                const subLinkEl = document.getElementById(`link-${subLink.from}-${subLink.to}`);
+                                if (subLinkEl) subLinkEl.classList.add('active');
+                            }
+                        });
                     }
-                });
-            }
+                } else if (link.to === id) {
+                    const linkEl = document.getElementById(`link-${link.from}-${link.to}`);
+                    if (linkEl) linkEl.classList.add('active');
 
-            function clearConnectionHighlights() {
-                const activeLinks = connectorsGroup.querySelectorAll('.link-group.active');
-                activeLinks.forEach(l => l.classList.remove('active'));
-            }
-
-            function updateTransform() {
-                viewportG.setAttribute('transform', `translate(${transformX}, ${transformY}) scale(${scale})`);
-            }
-
-            function zoom(factor) {
-                const oldScale = scale;
-                scale = Math.max(0.4, Math.min(3.0, scale * factor));
-                
-                // Mantener el foco relativo al centro del canvas SVG de 1700x850
-                const cx = 1700 / 2;
-                const cy = 850 / 2;
-                transformX = cx - (cx - transformX) * (scale / oldScale);
-                transformY = cy - (cy - transformY) * (scale / oldScale);
-                
-                updateTransform();
-            }
-
-            function focusOnNode(id) {
-                const node = nodes[id];
-                if (!node) return;
-
-                // Centrar matemáticamente en el espacio del viewBox de 1700x850
-                // Sin depender de las dimensiones físicas de la ventana del navegador
-                scale = 1.45; // Escala ideal de acercamiento del nodo seleccionado
-                transformX = 1700 / 2 - node.x * scale;
-                transformY = 850 / 2 - node.y * scale;
-
-                updateTransform();
-
-                // Atenuar los demás nodos para centrar la atención en el activo
-                Object.keys(nodes).forEach(key => {
-                    const nodeEl = document.getElementById(`node-${key}`);
-                    if (nodeEl) {
-                        if (key === id) {
-                            nodeEl.classList.remove('dimmed');
-                        } else {
-                            nodeEl.classList.add('dimmed');
-                        }
+                    // Si viene de un conector, iluminar también la entrada a ese conector
+                    const sourceNode = nodes[link.from];
+                    if (sourceNode && sourceNode.type.startsWith('connector-')) {
+                        links.forEach(subLink => {
+                            if (subLink.to === link.from) {
+                                const subLinkEl = document.getElementById(`link-${subLink.from}-${subLink.to}`);
+                                if (subLinkEl) subLinkEl.classList.add('active');
+                            }
+                        });
                     }
-                });
+                }
+            });
+        }
 
-                // Atenuar también los conectores
-                const allLinks = connectorsGroup.querySelectorAll('.link-group');
-                allLinks.forEach(l => l.classList.add('dimmed'));
+        function clearConnectionHighlights() {
+            const activeLinks = connectorsGroup.querySelectorAll('.link-group.active');
+            activeLinks.forEach(l => l.classList.remove('active'));
+        }
 
-                // Pero iluminar los conectores conectados directamente al nodo
-                links.forEach(l => {
-                    if (l.from === id || l.to === id) {
-                        const linkEl = document.getElementById(`link-${l.from}-${l.to}`);
-                        if (linkEl) linkEl.classList.remove('dimmed');
+        function updateTransform() {
+            viewportG.setAttribute('transform', `translate(${transformX}, ${transformY}) scale(${scale})`);
+        }
+
+        function zoom(factor) {
+            const oldScale = scale;
+            scale = Math.max(0.4, Math.min(3.0, scale * factor));
+
+            // Mantener el foco relativo al centro del canvas SVG de 1700x850
+            const cx = 1700 / 2;
+            const cy = 850 / 2;
+            transformX = cx - (cx - transformX) * (scale / oldScale);
+            transformY = cy - (cy - transformY) * (scale / oldScale);
+
+            updateTransform();
+        }
+
+        function focusOnNode(id) {
+            const node = nodes[id];
+            if (!node) return;
+
+            // Centrar matemáticamente en el espacio del viewBox de 1700x850
+            // Sin depender de las dimensiones físicas de la ventana del navegador
+            scale = 1.45; // Escala ideal de acercamiento del nodo seleccionado
+            transformX = 1700 / 2 - node.x * scale;
+            transformY = 850 / 2 - node.y * scale;
+
+            updateTransform();
+
+            // Atenuar los demás nodos para centrar la atención en el activo
+            Object.keys(nodes).forEach(key => {
+                const nodeEl = document.getElementById(`node-${key}`);
+                if (nodeEl) {
+                    // Si es el nodo activo, o si es un conector intermedio entre el nodo activo y otro, no atenuar
+                    let isRelatedConnector = false;
+                    if (nodes[key].type.startsWith('connector-')) {
+                        isRelatedConnector = links.some(l =>
+                            (l.from === id && l.to === key) || (l.to === id && l.from === key)
+                        );
                     }
-                });
-            }
 
-            function resetView() {
-                scale = 1.0;
-                transformX = 0;
-                transformY = 0;
-                updateTransform();
-                clearSelectionAndHighlights();
-            }
-
-            function clearSelectionAndHighlights() {
-                // Quitar atenuaciones
-                Object.keys(nodes).forEach(key => {
-                    const nodeEl = document.getElementById(`node-${key}`);
-                    if (nodeEl) {
+                    if (key === id || isRelatedConnector) {
                         nodeEl.classList.remove('dimmed');
-                        nodeEl.classList.remove('highlighted');
+                    } else {
+                        nodeEl.classList.add('dimmed');
                     }
-                });
+                }
+            });
 
-                const allLinks = connectorsGroup.querySelectorAll('.link-group');
-                allLinks.forEach(l => l.classList.remove('dimmed'));
+            // Atenuar también los conectores
+            const allLinks = connectorsGroup.querySelectorAll('.link-group');
+            allLinks.forEach(l => l.classList.add('dimmed'));
 
-                selectedNodeId = null;
-                panelPlaceholder.style.display = 'flex';
-                panelContent.classList.remove('active');
-            }
+            // Pero iluminar los conectores conectados directamente al nodo (incluyendo segundas ramas a través de conectores)
+            links.forEach(l => {
+                if (l.from === id || l.to === id) {
+                    const linkEl = document.getElementById(`link-${l.from}-${l.to}`);
+                    if (linkEl) linkEl.classList.remove('dimmed');
 
-            // Implementar arrastre suave (Drag / Pan) adaptado a la escala de la pantalla del portátil
-            container.addEventListener('mousedown', (e) => {
-                if (e.target.closest('.node-g') || e.target.closest('.canvas-zoom-controls') || e.target.closest('.map-legend')) return;
+                    // Si se conecta a un conector, iluminar también la salida de ese conector
+                    const targetNode = nodes[l.to];
+                    if (targetNode && targetNode.type.startsWith('connector-')) {
+                        links.forEach(subLink => {
+                            if (subLink.from === l.to) {
+                                const subLinkEl = document.getElementById(`link-${subLink.from}-${subLink.to}`);
+                                if (subLinkEl) subLinkEl.classList.remove('dimmed');
+                            }
+                        });
+                    }
+
+                    // Si viene de un conector, iluminar también la entrada a ese conector
+                    const sourceNode = nodes[l.from];
+                    if (sourceNode && sourceNode.type.startsWith('connector-')) {
+                        links.forEach(subLink => {
+                            if (subLink.to === l.from) {
+                                const subLinkEl = document.getElementById(`link-${subLink.from}-${subLink.to}`);
+                                if (subLinkEl) subLinkEl.classList.remove('dimmed');
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
+        function resetView() {
+            scale = 1.0;
+            transformX = 0;
+            transformY = 0;
+            updateTransform();
+            clearSelectionAndHighlights();
+        }
+
+        function clearSelectionAndHighlights() {
+            // Quitar atenuaciones
+            Object.keys(nodes).forEach(key => {
+                const nodeEl = document.getElementById(`node-${key}`);
+                if (nodeEl) {
+                    nodeEl.classList.remove('dimmed');
+                    nodeEl.classList.remove('highlighted');
+                }
+            });
+
+            const allLinks = connectorsGroup.querySelectorAll('.link-group');
+            allLinks.forEach(l => l.classList.remove('dimmed'));
+
+            selectedNodeId = null;
+            panelPlaceholder.style.display = 'flex';
+            panelContent.classList.remove('active');
+        }
+
+        // Implementar arrastre suave (Drag / Pan) adaptado a la escala de la pantalla del portátil
+        container.addEventListener('mousedown', (e) => {
+            if (e.target.closest('.node-g') || e.target.closest('.canvas-zoom-controls') || e.target.closest('.map-legend')) return;
+            isDragging = true;
+
+            const rect = svg.getBoundingClientRect();
+            const nativeScaleX = rect.width / 1700;
+            const nativeScaleY = rect.height / 850;
+
+            startX = e.clientX - transformX * nativeScaleX;
+            startY = e.clientY - transformY * nativeScaleY;
+            container.style.cursor = 'grabbing';
+        });
+
+        window.addEventListener('mousemove', (e) => {
+            if (!isDragging) return;
+
+            const rect = svg.getBoundingClientRect();
+            const nativeScaleX = rect.width / 1700;
+            const nativeScaleY = rect.height / 850;
+
+            transformX = (e.clientX - startX) / nativeScaleX;
+            transformY = (e.clientY - startY) / nativeScaleY;
+            updateTransform();
+        });
+
+        window.addEventListener('mouseup', () => {
+            isDragging = false;
+            container.style.cursor = 'grab';
+        });
+
+        // Arrastre en dispositivos táctiles
+        container.addEventListener('touchstart', (e) => {
+            if (e.touches.length === 1) {
                 isDragging = true;
-                
                 const rect = svg.getBoundingClientRect();
                 const nativeScaleX = rect.width / 1700;
                 const nativeScaleY = rect.height / 850;
-                
-                startX = e.clientX - transformX * nativeScaleX;
-                startY = e.clientY - transformY * nativeScaleY;
-                container.style.cursor = 'grabbing';
-            });
+                startX = e.touches[0].clientX - transformX * nativeScaleX;
+                startY = e.touches[0].clientY - transformY * nativeScaleY;
+            }
+        });
 
-            window.addEventListener('mousemove', (e) => {
-                if (!isDragging) return;
-                
-                const rect = svg.getBoundingClientRect();
-                const nativeScaleX = rect.width / 1700;
-                const nativeScaleY = rect.height / 850;
-                
-                transformX = (e.clientX - startX) / nativeScaleX;
-                transformY = (e.clientY - startY) / nativeScaleY;
-                updateTransform();
-            });
-
-            window.addEventListener('mouseup', () => {
-                isDragging = false;
-                container.style.cursor = 'grab';
-            });
-
-            // Arrastre en dispositivos táctiles
-            container.addEventListener('touchstart', (e) => {
+        container.addEventListener('touchmove', (e) => {
+            if (isDragging) {
                 if (e.touches.length === 1) {
-                    isDragging = true;
                     const rect = svg.getBoundingClientRect();
                     const nativeScaleX = rect.width / 1700;
                     const nativeScaleY = rect.height / 850;
-                    startX = e.touches[0].clientX - transformX * nativeScaleX;
-                    startY = e.touches[0].clientY - transformY * nativeScaleY;
+                    transformX = (e.touches[0].clientX - startX) / nativeScaleX;
+                    transformY = (e.touches[0].clientY - startY) / nativeScaleY;
+                    updateTransform();
                 }
-            });
+            }
+        });
 
-            container.addEventListener('touchmove', (e) => {
-                if (isDragging) {
-                    if (e.touches.length === 1) {
-                        const rect = svg.getBoundingClientRect();
-                        const nativeScaleX = rect.width / 1700;
-                        const nativeScaleY = rect.height / 850;
-                        transformX = (e.touches[0].clientX - startX) / nativeScaleX;
-                        transformY = (e.touches[0].clientY - startY) / nativeScaleY;
-                        updateTransform();
+        container.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        // Zoom por rueda del ratón
+        container.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const zoomFactor = 1.05;
+            if (Math.sign(e.deltaY) === -1) {
+                zoom(zoomFactor);
+            } else {
+                zoom(1 / zoomFactor);
+            }
+        }, { passive: false });
+
+        // Vincular botones flotantes
+        zoomInBtn.addEventListener('click', () => zoom(1.2));
+        zoomOutBtn.addEventListener('click', () => zoom(1 / 1.2));
+        resetBtn.addEventListener('click', resetView);
+        document.getElementById('svg-bg-click').addEventListener('click', clearSelectionAndHighlights);
+
+        /* ==========================================
+           4. MOTOR DE BÚSQUEDA / FILTRO
+           ========================================== */
+        searchInput.addEventListener('input', (e) => {
+            const term = e.target.value.toLowerCase().trim();
+
+            if (term === '') {
+                clearSelectionAndHighlights();
+                return;
+            }
+
+            // Filtrar nodos
+            Object.values(nodes).forEach(node => {
+                const nodeEl = document.getElementById(`node-${node.id}`);
+                const matches = node.text.join(' ').toLowerCase().includes(term) || node.desc.toLowerCase().includes(term);
+
+                if (nodeEl) {
+                    if (matches) {
+                        nodeEl.classList.remove('dimmed');
+                        nodeEl.classList.add('highlighted');
+                    } else {
+                        nodeEl.classList.add('dimmed');
+                        nodeEl.classList.remove('highlighted');
                     }
                 }
             });
 
-            container.addEventListener('touchend', () => {
-                isDragging = false;
-            });
-
-            // Zoom por rueda del ratón
-            container.addEventListener('wheel', (e) => {
-                e.preventDefault();
-                const zoomFactor = 1.05;
-                if (Math.sign(e.deltaY) === -1) {
-                    zoom(zoomFactor);
-                } else {
-                    zoom(1 / zoomFactor);
-                }
-            }, { passive: false });
-
-            // Vincular botones flotantes
-            zoomInBtn.addEventListener('click', () => zoom(1.2));
-            zoomOutBtn.addEventListener('click', () => zoom(1 / 1.2));
-            resetBtn.addEventListener('click', resetView);
-            document.getElementById('svg-bg-click').addEventListener('click', clearSelectionAndHighlights);
-
-            /* ==========================================
-               4. MOTOR DE BÚSQUEDA / FILTRO
-               ========================================== */
-            searchInput.addEventListener('input', (e) => {
-                const term = e.target.value.toLowerCase().trim();
-                
-                if (term === '') {
-                    clearSelectionAndHighlights();
-                    return;
-                }
-
-                // Filtrar nodos
-                Object.values(nodes).forEach(node => {
-                    const nodeEl = document.getElementById(`node-${node.id}`);
-                    const matches = node.text.join(' ').toLowerCase().includes(term) || node.desc.toLowerCase().includes(term);
-
-                    if (nodeEl) {
-                        if (matches) {
-                            nodeEl.classList.remove('dimmed');
-                            nodeEl.classList.add('highlighted');
-                        } else {
-                            nodeEl.classList.add('dimmed');
-                            nodeEl.classList.remove('highlighted');
-                        }
-                    }
-                });
-
-                // Atenuar conectores durante la búsqueda
-                const allLinks = connectorsGroup.querySelectorAll('.link-group');
-                allLinks.forEach(l => l.classList.add('dimmed'));
-            });
+            // Atenuar conectores durante la búsqueda
+            const allLinks = connectorsGroup.querySelectorAll('.link-group');
+            allLinks.forEach(l => l.classList.add('dimmed'));
+        });
 
 
 
-            /* ==========================================
-               6. RENDERIZADO ESTRUCTURADO EN MÓVILES
-               ========================================== */
-            function buildMobileView() {
-                const listPhysical = document.getElementById('mobile-list-physical');
-                const listInteraction = document.getElementById('mobile-list-interaction');
-                const listVirtual = document.getElementById('mobile-list-virtual');
+        /* ==========================================
+           6. RENDERIZADO ESTRUCTURADO EN MÓVILES
+           ========================================== */
+        function buildMobileView() {
+            const listPhysical = document.getElementById('mobile-list-physical');
+            const listInteraction = document.getElementById('mobile-list-interaction');
+            const listVirtual = document.getElementById('mobile-list-virtual');
 
-                listPhysical.innerHTML = '';
-                listInteraction.innerHTML = '';
-                listVirtual.innerHTML = '';
+            listPhysical.innerHTML = '';
+            listInteraction.innerHTML = '';
+            listVirtual.innerHTML = '';
 
-                Object.values(nodes).forEach(node => {
-                    if (node.type === 'root') return; // Se muestra en cabecera
+            Object.values(nodes).forEach(node => {
+                if (node.type === 'root') return; // Se muestra en cabecera
 
-                    const card = document.createElement('div');
-                    card.className = 'concept-mobile-card';
-                    card.innerHTML = `
+                const card = document.createElement('div');
+                card.className = 'concept-mobile-card';
+                card.innerHTML = `
                         <h4>${node.text.join(' ')}</h4>
                         <p>${node.desc}</p>
                     `;
 
-                    if (node.type === 'physical' || node.id === 'acciones' || node.id === 'experiencias' || node.id === 'vivencias') {
-                        listPhysical.appendChild(card);
-                    } else if (node.type === 'interaction') {
-                        listInteraction.appendChild(card);
-                    } else if (node.type === 'virtual') {
-                        listVirtual.appendChild(card);
-                    }
-                });
-            }
-
-            // Exponer botón de cierre de panel en vista móvil
-            panelCloseBtn.addEventListener('click', () => {
-                panel.style.display = 'none';
-                clearSelectionAndHighlights();
-            });
-
-            /* ==========================================
-               7. INICIALIZACIÓN
-               ========================================== */
-            window.addEventListener('resize', () => {
-                if (window.matchMedia('(min-width: 651px)').matches) {
-                    // Si vuelve a escritorio asegurarse de reajustar lienzo
-                    setTimeout(resetView, 100);
+                if (node.type === 'physical' || node.id === 'acciones' || node.id === 'experiencias' || node.id === 'vivencias') {
+                    listPhysical.appendChild(card);
+                } else if (node.type === 'interaction') {
+                    listInteraction.appendChild(card);
+                } else if (node.type === 'virtual') {
+                    listVirtual.appendChild(card);
                 }
             });
-
-            // Ejecución primaria
-            drawMap();
-            buildMobileView();
-            
-            // Retardo inicial para dar tiempo al contenedor a tomar sus dimensiones reales y centrar el SVG
-            setTimeout(resetView, 150);
-
-        })();
-
-        // Función global para acordeones en móviles
-        function toggleAccordion(header) {
-            const item = header.parentElement;
-            const isOpen = item.classList.contains('open');
-            
-            // Cerrar otros acordeones
-            const allItems = document.querySelectorAll('.accordion-item');
-            allItems.forEach(i => i.classList.remove('open'));
-
-            if (!isOpen) {
-                item.classList.add('open');
-            }
         }
-        /*]]>*/
-    </script>
+
+        // Exponer botón de cierre de panel en vista móvil
+        panelCloseBtn.addEventListener('click', () => {
+            panel.style.display = 'none';
+            clearSelectionAndHighlights();
+        });
+
+        /* ==========================================
+           7. INICIALIZACIÓN
+           ========================================== */
+        window.addEventListener('resize', () => {
+            if (window.matchMedia('(min-width: 651px)').matches) {
+                // Si vuelve a escritorio asegurarse de reajustar lienzo
+                setTimeout(resetView, 100);
+            }
+        });
+
+        // Ejecución primaria
+        drawMap();
+        buildMobileView();
+
+        // Retardo inicial para dar tiempo al contenedor a tomar sus dimensiones reales y centrar el SVG
+        setTimeout(resetView, 150);
+
+    })();
+
+    // Función global para acordeones en móviles
+    function toggleAccordion(header) {
+        const item = header.parentElement;
+        const isOpen = item.classList.contains('open');
+
+        // Cerrar otros acordeones
+        const allItems = document.querySelectorAll('.accordion-item');
+        allItems.forEach(i => i.classList.remove('open'));
+
+        if (!isOpen) {
+            item.classList.add('open');
+        }
+    }
+    /*]]>*/
+</script>
 
 
             <p>El mapa se divide en tres áreas principales que organizan esta conceptualización de forma de ecosistema:</p>
