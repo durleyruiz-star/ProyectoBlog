@@ -562,6 +562,11 @@
         color: #94a3b8 !important;
     }
 
+    /* Ocultar placeholder cuando hay nodo activo */
+    .details-placeholder.hidden {
+        display: none !important;
+    }
+
     .placeholder-icon {
         width: 48px !important;
         height: 48px !important;
@@ -604,6 +609,35 @@
     .details-content.active {
         display: flex !important;
         animation: panelFadeIn 0.3s ease forwards !important;
+    }
+
+    /* Cuando hay nodo activo: ocultar columna izquierda (badge + título) y expandir las demás */
+    .details-content.active .details-col-left {
+        display: none !important;
+    }
+
+    .details-content.active .details-col-mid {
+        width: 42% !important;
+    }
+
+    /* Cabecera inline badge+título: oculta por defecto, visible al seleccionar nodo */
+    .panel-inline-header {
+        display: none !important;
+        align-items: center !important;
+        gap: 10px !important;
+        margin-bottom: 10px !important;
+        flex-wrap: wrap !important;
+    }
+
+    .details-content.active .panel-inline-header {
+        display: flex !important;
+    }
+
+    .panel-inline-title {
+        font-size: 1.1rem !important;
+        font-weight: 800 !important;
+        color: #ffffff !important;
+        line-height: 1.2 !important;
     }
 
     @keyframes panelFadeIn {
@@ -1111,16 +1145,21 @@
                 </p>
             </div>
 
-            <!-- Contenedor de Información Activo (3 Columnas) -->
+            <!-- Contenedor de Información Activo (2+1 Columnas) -->
             <div class="details-content" id="panel-details-content">
-                <!-- Columna Izquierda: Título y Categoría -->
+                <!-- Columna Izquierda: Título y Categoría (oculta cuando hay nodo activo) -->
                 <div class="details-col-left">
                     <div class="details-badge" id="detail-node-type">Rama Físicos</div>
                     <h3 class="details-title" id="detail-node-title">Espacios Físicos</h3>
                 </div>
 
-                <!-- Columna Central: Definición -->
+                <!-- Columna Central: Categoría + Nombre + Definición -->
                 <div class="details-col-mid">
+                    <!-- Cabecera compacta: badge + título, visible cuando col-left está oculta -->
+                    <div class="panel-inline-header">
+                        <div class="details-badge" id="detail-node-type-inline">Rama Físicos</div>
+                        <span class="panel-inline-title" id="detail-node-title-inline">Espacios Físicos</span>
+                    </div>
                     <div class="details-section-title">Definición</div>
                     <p class="details-desc" id="detail-node-desc">Cargando...</p>
                 </div>
@@ -2010,8 +2049,8 @@
             const nodeEl = document.getElementById(`node-${id}`);
             if (nodeEl) nodeEl.classList.add('highlighted');
 
-            // Llenar panel lateral
-            panelPlaceholder.style.display = 'none';
+            // Llenar panel lateral: ocultar placeholder con clase (para respetar !important del CSS)
+            panelPlaceholder.classList.add('hidden');
             panelContent.classList.add('active');
 
             // Ajustar Badge de Tipo
@@ -2020,6 +2059,15 @@
             else if (node.type === 'physical') nodeTypeBadge.textContent = 'Rama Entorno Físico';
             else if (node.type === 'interaction') nodeTypeBadge.textContent = 'Eje de Interacción';
             else if (node.type === 'virtual') nodeTypeBadge.textContent = 'Rama Entorno Virtual';
+
+            // Sincronizar cabecera inline (visible cuando col-left está oculta)
+            const nodeTypeBadgeInline = document.getElementById('detail-node-type-inline');
+            const nodeTitleInline = document.getElementById('detail-node-title-inline');
+            if (nodeTypeBadgeInline) {
+                nodeTypeBadgeInline.className = `details-badge ${node.type}`;
+                nodeTypeBadgeInline.textContent = nodeTypeBadge.textContent;
+            }
+            if (nodeTitleInline) nodeTitleInline.textContent = node.text.join(' ');
 
             nodeTitle.textContent = node.text.join(' ');
             nodeDesc.textContent = node.desc;
@@ -2263,7 +2311,7 @@
             allLinks.forEach(l => l.classList.remove('dimmed'));
 
             selectedNodeId = null;
-            panelPlaceholder.style.display = 'flex';
+            panelPlaceholder.classList.remove('hidden');
             panelContent.classList.remove('active');
         }
 
